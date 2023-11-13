@@ -1,12 +1,12 @@
 .active {
-  background-color: #2b53c0;
+  background-color: #111727;
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: darkblue;
+    background-color: #dc3b35;
 }
 
 nav .title {
@@ -34,5 +34,5 @@ nav ul li a {
 }
 
 nav ul li a:not(.active):hover {
-  background-color: #242f52;
+  background-color: #6d1e1c;
 }

@@ -1,0 +1,42 @@
+.main-footer {
+  color: white;
+  background-color: #dc3b35;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 50px 0;
+}
+
+.col {
+  line-height: 2;
+}
+
+.col-sm {
+  padding: 10px;
+}
+
+.list-unstyled {
+  list-style: none;
+}
+
+.hr-divider {
+  margin: 0 auto;
+  max-width: 80%;
+  border: 0;
+  border-top: 1px solid white;
+}
