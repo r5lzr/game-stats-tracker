@@ -1,0 +1,38 @@
+.active {
+  background-color: #2b53c0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: darkblue;
+}
+
+nav .title {
+    font-size: 1.5rem;
+    margin: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  list-style: none;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  margin: 0 10px;
+  border-radius: 0.5rem;
+}
+
+nav ul li a:not(.active):hover {
+  background-color: #242f52;
+}
