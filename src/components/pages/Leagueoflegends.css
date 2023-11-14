@@ -31,10 +31,63 @@ input {
   width: 100%;
   font-size: 2.5rem;
   margin-left: 5px;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   letter-spacing: 1px;
+  font-weight: bold;
+}
+
+input::placeholder {
+  color: rgb(73, 73, 73);
 }
 
 input:focus {
   outline: none;
+}
+
+.dropdown {
+  width: 300px;
+  position: relative;
+  user-select: none;
+}
+
+.dropdown-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  cursor: pointer;
+  height: 80px;
+  border-radius: 0 10px 10px 0;
+  padding-left: 10px;
+  border-left: 2px solid rgb(73, 73, 73);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: rgb(73, 73, 73);
+  font-weight: bold;
+}
+
+.dropdown-icon {
+  font-size: 1.5rem;
+  color: #dc3b35;
+  margin-right: 10px;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 103%;
+  left: 0;
+  padding: 10px;
+  background-color: white;
+  width: 95%;
+  margin-left: 2px;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #e6e6e6;
 }
