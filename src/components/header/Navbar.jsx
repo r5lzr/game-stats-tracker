@@ -17,6 +17,8 @@ export const Navbar = () => {
           <NavLink to="/counter-strike">Counter Strike</NavLink>
         </li>
       </ul>
+      <div className='nav-divider'></div>
+      <Link to="/login" className='login-btn'>Log in</Link>
     </nav>
   );
 }

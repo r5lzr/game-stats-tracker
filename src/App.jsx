@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css"
 import { Navbar } from "./components/header/Navbar";
-import { Home, Leagueoflegends, Rocketleague, Counterstrike } from "./components/pages";
+import { Home, Leagueoflegends, Rocketleague, Counterstrike, Login } from "./components/pages";
 import { Footer } from "./components/footer/footer";
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
           <Route path="/league-of-legends" element={<Leagueoflegends />}/>
           <Route path="/rocket-league" element={<Rocketleague />}/>
           <Route path="/counter-strike" element={<Counterstrike />}/>
+          <Route path="/login" element={<Login />}/>
         </Routes>
       </div>
 
