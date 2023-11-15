@@ -1,0 +1,29 @@
+.active {
+  background-color: rgb(73, 73, 73);
+}
+
+.title {
+  font-size: 1.5rem;
+  margin: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  flex: 1;
+}
+
+.login-btn {
+  margin-right: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 10px;
+  letter-spacing: 1px;
+  margin-left: 20px;
+  background-color: rgb(73, 73, 73);
+}
+
+.nav-divider {
+  border-left: 1px solid white;
+  height: 40px;
+}
