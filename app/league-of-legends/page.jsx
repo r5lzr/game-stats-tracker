@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import styles from "./page.module.css"
-import "./page.css"
 
 export default function Leagueoflegends() {
   const [isActive, setIsActive] = useState(false)
@@ -16,7 +15,7 @@ export default function Leagueoflegends() {
       </div>
 
       <div className={styles['search-container']}>
-        <input placeholder="Enter username..."/>
+        <input className={styles['input-field']} placeholder="Enter username..."/>
         <div className={styles['dropdown']}>
           <div className={styles['dropdown-btn']} onClick={() => setIsActive(!isActive)}>
             {selected}

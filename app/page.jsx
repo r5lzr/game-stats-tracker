@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <div className='body-container'>homepage</div>
+    <div className='body-container'>homespage</div>
   )
 }

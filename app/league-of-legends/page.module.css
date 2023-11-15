@@ -17,6 +17,25 @@
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
 }
 
+.input-field {
+  border: none;
+  height: 100%;
+  width: 100%;
+  font-size: 2.5rem;
+  margin-left: 5px;
+  border-radius: 10px 0 0 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.input-field::placeholder {
+  color: rgb(73, 73, 73);
+}
+
+.input-field:focus {
+  outline: none;
+}
+
 
 .dropdown {
   width: 300px;
