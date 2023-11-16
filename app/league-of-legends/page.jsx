@@ -24,7 +24,7 @@ export default function Leagueoflegends() {
           {isActive && (
           <div className={styles['dropdown-content']}>
             {options.map((option) => (
-            <div onClick={() => {setSelected(option); setIsActive(false);}} className={styles['dropdown-item']}>
+            <div key={option} onClick={() => {setSelected(option); setIsActive(false);}} className={styles['dropdown-item']}>
               {option}
             </div>
             ))}
