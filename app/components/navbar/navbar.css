@@ -2,7 +2,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #dc3b35;
+  background-color: var(--red-accent);
   border-bottom: 1px solid #611816;
 }
 

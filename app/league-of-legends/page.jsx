@@ -9,7 +9,7 @@ export default function Leagueoflegends() {
   const options = ["EUW", "NA"]
 
   return (
-    <div className='body-container'>
+    <>
       <div className={styles['game-title']}>
         <h1>League of Legends</h1>
       </div>
@@ -32,6 +32,6 @@ export default function Leagueoflegends() {
           )}
         </div>
       </div>
-    </div>
+    </>
   )
 }

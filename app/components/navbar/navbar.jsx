@@ -1,20 +1,30 @@
-"use client"
+"use client";
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import "./navbar.css"
-import styles from "./navbar.module.css"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import "./navbar.css";
+import styles from "./navbar.module.css";
 
 const NavLink = ({ href, children, ...props }) => {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
-  return <Link href={href} className={pathname === href ? styles.active : ''} {...props}>{children}</Link>
-}
+  return (
+    <Link
+      href={href}
+      className={pathname === href ? styles.active : ""}
+      {...props}
+    >
+      {children}
+    </Link>
+  );
+};
 
 export const Navbar = () => {
   return (
     <nav>
-      <Link href="/" className={styles.title}>Tracker Website</Link>
+      <Link href="/" className={styles.title}>
+        METRICS.GG
+      </Link>
       <ul>
         <li>
           <NavLink href="/league-of-legends">League of Legends</NavLink>
@@ -27,7 +37,9 @@ export const Navbar = () => {
         </li>
       </ul>
       <div className={styles["nav-divider"]}></div>
-      <Link href="/login" className={styles["login-btn"]}>Log in</Link>
+      <Link href="/login" className={styles["login-btn"]}>
+        Log in
+      </Link>
     </nav>
   );
-}
+};
