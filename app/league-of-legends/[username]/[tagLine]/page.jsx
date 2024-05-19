@@ -3149,8 +3149,45 @@ function Match({ match, params }) {
 }
 
 export default function Page({ params }) {
+  const [isActive, setIsActive] = useState(false);
+  const [selected, setSelected] = useState("Region");
+  const options = ["EUW", "NA"];
+
   return (
     <>
+      <div className={styles["search-nav"]}>
+        <div className={styles["search-container"]}>
+          <input
+            className={styles["input-field"]}
+            placeholder="Enter username..."
+          />
+          <div className={styles["dropdown"]}>
+            <div
+              className={styles["dropdown-btn"]}
+              onClick={() => setIsActive(!isActive)}
+            >
+              {selected}
+              <span className={styles["dropdown-icon"]}>&#9660;</span>
+            </div>
+            {isActive && (
+              <div className={styles["dropdown-content"]}>
+                {options.map((option) => (
+                  <div
+                    key={option}
+                    onClick={() => {
+                      setSelected(option);
+                      setIsActive(false);
+                    }}
+                    className={styles["dropdown-item"]}
+                  >
+                    {option}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
       <div className={styles["username-container"]}>
         <div className={styles["profile-container"]}></div>
         <h1 className={styles["username-title"]}>{params.username}</h1>
