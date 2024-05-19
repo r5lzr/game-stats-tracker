@@ -3141,7 +3141,11 @@ function Match({ match, params }) {
     return `${kills}/${deaths}/${assists}`;
   };
 
-  return <div className={styles["match-container"]}></div>;
+  return (
+    <div className={styles["match-container"]}>
+      <div>{getKda()}</div>
+    </div>
+  );
 }
 
 export default function Page({ params }) {

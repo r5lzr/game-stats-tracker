@@ -29,7 +29,7 @@
 }
 
 .input-field::placeholder {
-  color: rgb(73, 73, 73);
+  color: var(--grey-background);
 }
 
 .input-field:focus {
@@ -52,16 +52,16 @@
   height: 80px;
   border-radius: 0 10px 10px 0;
   padding-left: 10px;
-  border-left: 2px solid rgb(73, 73, 73);
+  border-left: 2px solid var(--grey-background);
   font-size: 1.5rem;
   letter-spacing: 1px;
-  color: rgb(73, 73, 73);
+  color: var(--grey-background);
   font-weight: bold;
 }
 
 .dropdown-icon {
   font-size: 1.5rem;
-  color: #dc3b35;
+  color: var(--gold-accent);
   margin-right: 10px;
 }
 

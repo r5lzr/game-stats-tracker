@@ -5,7 +5,9 @@
 }
 
 :root {
-  --red-accent: #dc3b35;
+  --grey-background: #303030;
+  --gold-accent: #C79B3B;
+  --grey-color1: #1F1E21;
 }
 
 html,
@@ -15,7 +17,7 @@ body {
 }
 
 body {
-  background-color: rgb(73, 73, 73);
+  background-color: var(--grey-background);
 }
 
 a {
@@ -35,7 +37,6 @@ a {
   justify-content: center;
   align-items: center;
   height: 83vh;
-  background-color: rgb(73, 73, 73);
 }
 
 /* width */
