@@ -3192,15 +3192,28 @@ export default function Page({ params }) {
           </div>
         </div>
       </div>
-      <div className={styles["username-container"]}>
-        <div className={styles["profile-container"]}></div>
-        <h1 className={styles["username-title"]}>{params.username}</h1>
+      <div className={styles["inside-background"]}>
+        <div className={styles["username-container"]}>
+          <div className={styles["profile-container"]}></div>
+          <h1 className={styles["username-title"]}>{params.username}</h1>
+        </div>
+        <div className={styles["main-container"]}>
+          <div className={styles["side-container"]}>
+            <div className={styles["ranked-container"]}>
+              <div className={styles["ranked-title"]}>Current rank</div>
+              <div className={styles["ranked-solo"]}></div>
+              <div className={styles["ranked-flex"]}></div>
+            </div>
+            <div className={styles["performance-container"]}></div>
+          </div>
+          <div className={styles["primary-container"]}></div>
+        </div>
       </div>
-      <div className={styles["history-container"]}>
+      {/* <div className={styles["history-container"]}>
         {matches.map((match) => (
           <Match match={match} params={params} />
         ))}
-      </div>
+      </div> */}
     </>
   );
 }

@@ -1,3 +1,8 @@
+.inside-background {
+  height: 100%;
+  width: 70%;
+}
+
 .search-header {
   display: flex;
   background-color: var(--grey-color1);
@@ -96,10 +101,13 @@
 
 .username-container {
   display: flex;
-  margin-top: 20px;
-  width: 70%;
-  height: 10%;
+  width: 100%;
+  height: 250px;
+  border-radius: 0px 0px 5px 5px;
   align-items: center;
+  border: 1px solid black;
+  border-top: 0;
+  margin-bottom: 10px;
   background-color: white;
 }
 
@@ -113,6 +121,56 @@
 .username-title {
   margin-left: 20px;
   font-size: 4rem;
+}
+
+.main-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.side-container {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 650px;
+}
+
+.ranked-container {
+  background-color: var(--grey-color1);
+  width: 100%;
+  height: 240px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.ranked-title {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  background-color: var(--gold-accent);
+  color: var(--grey-color1);
+  width: 100%;
+  height: 35px;
+  border: 1px solid black;
+  border-radius: 5px 5px 0px 0px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.performance-container {
+  background-color: var(--grey-color1);
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.primary-container {
+  background-color: blue;
+  margin-left: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 .history-container {
