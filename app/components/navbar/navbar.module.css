@@ -18,7 +18,7 @@
 }
 
 .login-btn {
-  align-content: center;
+  display: flex;
   font-weight: bold;
   font-size: 1.5rem;
   text-decoration: none;
@@ -27,4 +27,9 @@
   letter-spacing: 1px;
   background-color: var(--grey-color1);
   height: 60px;
+}
+
+.login-icon {
+  color: var(--gold-accent);
+  margin-left: 5px;
 }

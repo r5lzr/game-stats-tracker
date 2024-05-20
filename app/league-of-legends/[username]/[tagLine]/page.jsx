@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import "./page.css";
 import styles from "./page.module.css";
+import { IoSearch } from "react-icons/io5";
 
 const matches = [
   {
@@ -3155,11 +3156,14 @@ export default function Page({ params }) {
 
   return (
     <>
-      <div className={styles["search-nav"]}>
+      <div className={styles["search-header"]}>
         <div className={styles["search-container"]}>
+          <div className={styles["search-icon"]}>
+            <IoSearch size={30} />
+          </div>
           <input
             className={styles["input-field"]}
-            placeholder="Enter username..."
+            placeholder="Search Riot ID, PLAYER#EUW1"
           />
           <div className={styles["dropdown"]}>
             <div
