@@ -3149,6 +3149,10 @@ function Match({ match, params }) {
   );
 }
 
+const GameMode = ({ label }) => {
+  return <button className={styles["gamemode-tab"]}>{label}</button>;
+};
+
 export default function Page({ params }) {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState("Region");
@@ -3201,19 +3205,53 @@ export default function Page({ params }) {
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
               <div className={styles["ranked-title"]}>Current rank</div>
-              <div className={styles["ranked-solo"]}></div>
-              <div className={styles["ranked-flex"]}></div>
+              <div className={styles["ranked-solo"]}>
+                <span className={styles["ranked-label"]}>Ranked Solo</span>
+                <div className={styles["ranked-outcome"]}>
+                  <div className={styles["ranked-icon-container"]}></div>
+                </div>
+              </div>
+              <div className={styles["ranked-flex"]}>
+                <span className={styles["ranked-label"]}>Ranked Flex</span>
+                <div className={styles["ranked-outcome"]}>
+                  <div className={styles["ranked-icon-container"]}></div>
+                </div>
+              </div>
             </div>
             <div className={styles["performance-container"]}></div>
           </div>
-          <div className={styles["primary-container"]}></div>
+          <div className={styles["primary-container"]}>
+            <div className={styles["gamemode-container"]}>
+              <GameMode label="All" />
+              <GameMode label="Ranked Solo" />
+              <GameMode label="Ranked Flex" />
+              <GameMode label="Draft Pick" />
+              <GameMode label="Quick Play" />
+              <GameMode label="Queue Type" />
+            </div>
+            <div className={styles["matchsum-container"]}>
+              <div className={styles["recent-container"]}>
+                <span className={styles["recent-label"]}>Recent Matches</span>
+                <div className={styles["matchsearch-container"]}>
+                  <div className={styles["matchsearch-icon"]}>
+                    <IoSearch size={30} />
+                  </div>
+                  <input
+                    className={styles["matchinput-field"]}
+                    placeholder="Search Champion..."
+                  />
+                </div>
+              </div>
+              <div className={styles["stats-container"]}></div>
+            </div>
+            <div className={styles["history-container"]}>
+              {matches.map((match) => (
+                <Match match={match} params={params} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-      {/* <div className={styles["history-container"]}>
-        {matches.map((match) => (
-          <Match match={match} params={params} />
-        ))}
-      </div> */}
     </>
   );
 }

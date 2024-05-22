@@ -35,7 +35,6 @@
   height: 100%;
   width: 100%;
   font-size: 1.2rem;
-  letter-spacing: 1px;
   font-weight: bold;
   padding-left: 5px;
   background-color: #D9D9D9;
@@ -108,7 +107,7 @@
   border: 1px solid black;
   border-top: 0;
   margin-bottom: 10px;
-  background-color: white;
+  background-color: var(--grey-color1);
 }
 
 .profile-container {
@@ -137,9 +136,11 @@
 }
 
 .ranked-container {
+  display: flex;
+  flex-direction: column;
   background-color: var(--grey-color1);
   width: 100%;
-  height: 240px;
+  height: 330px;
   border-radius: 5px;
   margin-bottom: 10px;
 }
@@ -158,6 +159,49 @@
   font-weight: bold;
 }
 
+.ranked-label {
+  padding-left: 10px;
+  color: white;
+}
+
+.ranked-solo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: var(--grey-color1);
+  border: 1px solid black;
+  border-top: 0;
+  border-bottom: 0;
+  padding-top: 5px;
+}
+
+.ranked-outcome {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-left: 10px;
+  margin-top: 5px;
+}
+
+.ranked-icon-container {
+  width: 50px;
+  height: 50px;
+  background-color: var(--grey-background);
+  border-radius: 5px;
+  border: 1px solid black;
+
+}
+
+.ranked-flex {
+  width: 100%;
+  height: 100%;
+  background-color: var(--grey-color1);
+  border: 1px solid black;
+  border-radius: 0px 0px 5px 5px;
+  padding-top: 5px;
+}
+
 .performance-container {
   background-color: var(--grey-color1);
   width: 100%;
@@ -167,19 +211,112 @@
 }
 
 .primary-container {
+  display: flex;
+  flex-direction: column;
   background-color: blue;
   margin-left: 10px;
   width: 100%;
   height: 100%;
 }
 
+.gamemode-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 40px;
+  background-color: var(--grey-color1);
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.gamemode-tab {
+  width: 16%;
+  height: 95%;
+  background-color: var(--grey-color1);
+  border-radius: 5px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.matchsum-container {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background-color: var(--grey-color1);
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-top: 10px;
+}
+
+.recent-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  width: 60%;
+  border-radius: 5px 0px 0px 5px;
+  border-right: 1px solid black;
+  background-color: var(--grey-color1);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.recent-label {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.matchsearch-container {
+  display: flex;
+  background-color: black;
+  width: 250px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid var(--gold-accent);
+}
+
+.matchsearch-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 10%;
+  color: var(--gold-accent);
+  margin-left: 5px;
+}
+
+.matchinput-field {
+  display: flex;
+  border: none;
+  height: 100%;
+  width: 100%;
+  font-size: 1.2rem;
+  padding-left: 5px;
+  background-color: black;
+  color: white;
+  border-radius: 0px 5px 5px 0px;
+  padding-right: 5px;
+}
+
+.matchinput-field::placeholder {
+  color: white;
+}
+
+.matchinput-field:focus {
+  outline: none;
+}
+
 .history-container {
   display: flex;
-  margin-top: 10px;
-  width: 70%;
-  height: 85%;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
   background-color: white;
+  margin-top: 10px;
 }
 
 .match-container {
