@@ -353,16 +353,35 @@
 .sum-container1 {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   width: 160px;
   height: 100%;
-  background-color: red;
+  background-color: var(--grey-color1);
 }
 
 .gamemode-label {
-  display: flex;
-  align-items: center;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
 
+.days-label {
+  color: #B8B8B8;
+  font-size: 0.9375rem;
+  margin-top: 1px;
+}
+
+.gametime-label {
+  color: #B8B8B8;
+  font-size: 0.9375rem;
+  margin-bottom: 3px;
+}
+
+.outcome-label {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
 .sum-container2 {
