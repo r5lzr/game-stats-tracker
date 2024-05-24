@@ -3178,20 +3178,37 @@ function Match({ match, params }) {
 
   return (
     <div className={styles["match-container"]}>
-      <div className={styles["match-deco"]}></div>
-      <div className={styles["match-content"]}>
+      <div
+        className={`${styles["match-deco"]} ${
+          getOutcome() === "VICTORY"
+            ? styles["victory-deco"]
+            : styles["defeat-deco"]
+        }`}
+      ></div>
+      <div
+        className={`${styles["match-content"]} ${
+          getOutcome() === "VICTORY"
+            ? styles["victory-content"]
+            : styles["defeat-content"]
+        }`}
+      >
         <div className={styles["sum-container1"]}>
           <div className={styles["gamemode-label"]}>
             {queueInfo.description}
           </div>
           <div className={styles["days-label"]}>{getRelativeTime()}</div>
           <div className={styles["gametime-label"]}>{getGameDuration()}</div>
-          <div className={styles["outcome-label"]}>{getOutcome()}</div>
+          <div
+            className={`${styles["outcome-label"]} ${
+              getOutcome() === "VICTORY" ? styles["victory"] : styles["defeat"]
+            }`}
+          >
+            {getOutcome()}
+          </div>
         </div>
         <div className={styles["match-divider"]}></div>
         <div className={styles["sum-container2"]}>
-          <div>{getKda()}</div>
-          <div>{getKda()}</div>
+          <div className={styles["icon-container"]}></div>
         </div>
         <div className={styles["match-divider"]}></div>
         <div className={styles["sum-container3"]}></div>

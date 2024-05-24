@@ -340,6 +340,7 @@
   background-color: var(--grey-color1);
   margin-left: 3px;
   border: 2px solid var(--grey-color2);
+  border-radius: 0px 5px 5px 0px;
 }
 
 .match-divider {
@@ -357,7 +358,6 @@
   flex-direction: column;
   width: 160px;
   height: 100%;
-  background-color: var(--grey-color1);
 }
 
 .gamemode-label {
@@ -382,6 +382,32 @@
   color: white;
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+.victory {
+  color: var(--blue-color1);
+}
+
+.victory-deco {
+  background-color: var(--blue-color1);
+}
+
+.victory-content {
+  border: 2px solid var(--blue-color1);
+  background-color: #21252C;
+}
+
+.defeat {
+  color: var(--red-color1);
+}
+
+.defeat-deco {
+  background-color: var(--red-color1);
+}
+
+.defeat-content {
+  border: 2px solid var(--red-color1);
+  background-color: #2A2023;
 }
 
 .sum-container2 {
