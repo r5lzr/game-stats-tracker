@@ -269,6 +269,7 @@
 .recent-label {
   color: white;
   font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .matchsearch-container {
@@ -315,17 +316,75 @@
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: white;
-  margin-top: 10px;
+  background-color: green;
 }
 
 .match-container {
   display: flex;
-  width: 97%;
-  height: 14%;
-  margin-top: 20px;
-  border-radius: 10px;
-  background-color: #b8d0ff;
+  width: 100%;
+  height: 105px;
+  margin-top: 10px;
+}
+
+.match-deco {
+  width: 25px;
+  height: 100%;
+  background-color: var(--grey-color2);
+  border-radius: 5px 0px 0px 5px;
+}
+
+.match-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: var(--grey-color1);
+  margin-left: 3px;
+  border: 2px solid var(--grey-color2);
+}
+
+.match-divider {
+  display: flex;
+  align-self: center;
+  width: 2px;
+  height: 80%;
+  background-color: var(--grey-color2);
+}
+
+.sum-container1 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 160px;
+  height: 100%;
+  background-color: red;
+}
+
+.gamemode-label {
+  display: flex;
+  align-items: center;
+
+}
+
+.sum-container2 {
+  display: flex;
+  width: 480px;
+  height: 100%;
+  background-color: red;
+}
+
+.sum-container3 {
+  display: flex;
+  width: 340px;
+  height: 100%;
+  background-color: red;
+}
+
+.expand-tab {
+  display: flex;
+  width: 4%;
+  height: 100%;
+  background-color: var(--grey-color1);
+  border-left: 1px solid black;
 }
 
 .left-border {

@@ -3058,24 +3058,6 @@ const matches = [
   },
 ];
 
-function getRelativeTime(timestamp) {
-  const diff = new Date(timestamp) - new Date();
-  const formatter = new Intl.RelativeTimeFormat("en");
-
-  if (diff < 2.68e9) {
-    return formatter.format(Math.ceil(diff / 8.64e7), "day");
-  } else if (diff < 3.156e10) {
-    return formatter.format(Math.ceil(diff / 2.6298e9), "month");
-  } else return formatter.format(Math.ceil(diff / 3.15576e10), "year");
-}
-
-function getGameDuration(gameDuration) {
-  const minutes = Math.floor(gameDuration / 60);
-  const seconds = gameDuration % 60;
-
-  return `${minutes}m ${seconds}s`;
-}
-
 let queues;
 async function getQueueInfo(queueId) {
   if (!queues) {
@@ -3088,7 +3070,33 @@ async function getQueueInfo(queueId) {
     queues = await res.json();
   }
 
-  return queues.find((queue) => queue.queueId === queueId);
+  let queueOutcome = queues.find((queue) => queue.queueId === queueId);
+
+  if (queueOutcome.queueId === 420) {
+    queueOutcome.description = "Ranked Solo";
+  } else if (queueOutcome.queueId === 440) {
+    queueOutcome.description = "Ranked Flex";
+  } else if (queueOutcome.queueId === 490) {
+    queueOutcome.description = "Quick Play";
+  } else if (queueOutcome.queueId === 400) {
+    queueOutcome.description = "Draft Pick";
+  } else if (queueOutcome.queueId === 830) {
+    queueOutcome.description = "AI Intro";
+  } else if (queueOutcome.queueId === 840) {
+    queueOutcome.description = "AI Beginner";
+  } else if (queueOutcome.queueId === 850) {
+    queueOutcome.description = "AI Intermediate";
+  } else if ((queueOutcome.queueId = 450)) {
+    queueOutcome.description = "ARAM";
+  } else if ((queueOutcome.queueId = 700)) {
+    queueOutcome.description = "Clash";
+  } else if ((queueOutcome.queueId = 720)) {
+    queueOutcome.description = "ARAM Clash";
+  } else if ((queueOutcome.queueId = 1710)) {
+    queueOutcome.description = "Arena";
+  }
+
+  return queueOutcome;
 }
 
 function Match({ match, params }) {
@@ -3110,6 +3118,32 @@ function Match({ match, params }) {
     });
 
     return foundName;
+  };
+
+  const getRelativeTime = () => {
+    let endTime = match.info.gameEndTimestamp;
+
+    const diff = new Date(endTime) - new Date();
+    const formatter = new Intl.RelativeTimeFormat("en");
+
+    if (diff < 2.68e9) {
+      return formatter.format(Math.ceil(diff / 8.64e7), "day");
+    } else if (diff < 3.156e10) {
+      return formatter.format(Math.ceil(diff / 2.6298e9), "month");
+    } else {
+      return formatter.format(Math.ceil(diff / 3.15576e10), "year");
+    }
+  };
+
+  const getGameDuration = () => {
+    let gameTime = null;
+
+    const minutes = Math.floor(match.info.gameDuration / 60);
+    const seconds = match.info.gameDuration % 60;
+
+    gameTime = `${minutes}m ${seconds}s`;
+
+    return gameTime;
   };
 
   const getOutcome = () => {
@@ -3144,7 +3178,25 @@ function Match({ match, params }) {
 
   return (
     <div className={styles["match-container"]}>
-      <div>{getKda()}</div>
+      <div className={styles["match-deco"]}></div>
+      <div className={styles["match-content"]}>
+        <div className={styles["sum-container1"]}>
+          <div className={styles["gamemode-label"]}>
+            {queueInfo.description}
+          </div>
+          <div className={styles["days-label"]}>{getRelativeTime()}</div>
+          <div className={styles["gametime-label"]}>{getGameDuration()}</div>
+          <div className={styles["outcome-label"]}>{getOutcome()}</div>
+        </div>
+        <div className={styles["match-divider"]}></div>
+        <div className={styles["sum-container2"]}>
+          <div>{getKda()}</div>
+          <div>{getKda()}</div>
+        </div>
+        <div className={styles["match-divider"]}></div>
+        <div className={styles["sum-container3"]}></div>
+        <div className={styles["expand-tab"]}></div>
+      </div>
     </div>
   );
 }
