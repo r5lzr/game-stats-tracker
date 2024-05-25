@@ -3208,7 +3208,20 @@ function Match({ match, params }) {
         </div>
         <div className={styles["match-divider"]}></div>
         <div className={styles["sum-container2"]}>
-          <div className={styles["icon-container"]}></div>
+          <div className={styles["icon-container1"]}>
+            <div className={styles["champsums-container"]}>
+              <div className={styles["champ-container"]}></div>
+              <div className={styles["summoners-container"]}>
+                <div className={styles["spell-container"]}></div>
+                <div className={styles["spell-container"]}></div>
+              </div>
+            </div>
+            <div className={styles["runepage-container"]}>
+              <div className={styles["rune-container"]}></div>
+              <div className={styles["rune-container"]}></div>
+            </div>
+          </div>
+          <div className={styles["icon-container2"]}></div>
         </div>
         <div className={styles["match-divider"]}></div>
         <div className={styles["sum-container3"]}></div>
