@@ -3099,6 +3099,86 @@ async function getQueueInfo(queueId) {
   return queueOutcome;
 }
 
+const GameMode = ({ label }) => {
+  return <button className={styles["gamemode-tab"]}>{label}</button>;
+};
+
+const Item = ({ match, params }) => {
+  function getItem(item) {
+    const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.10.1/img/item/${item}.png`;
+
+    return riotURL;
+  }
+
+  const items = {};
+
+  match.info.participants.forEach((item) => {
+    if (item.summonerName === params.username) {
+      items.item0 = getItem(item.item0);
+      items.item1 = getItem(item.item1);
+      items.item2 = getItem(item.item2);
+      items.item3 = getItem(item.item3);
+      items.item4 = getItem(item.item4);
+      items.item5 = getItem(item.item5);
+      items.item6 = getItem(item.item6);
+    }
+  });
+
+  return (
+    <div className={styles["items-container"]}>
+      <Image
+        src={items.item0}
+        width={24}
+        height={24}
+        alt="Item 0"
+        className={styles["item-style"]}
+      />
+      <Image
+        src={items.item1}
+        width={24}
+        height={24}
+        alt="Item 1"
+        className={styles["item-style"]}
+      />
+      <Image
+        src={items.item2}
+        width={24}
+        height={24}
+        alt="Item 2"
+        className={styles["item-style"]}
+      />
+      <Image
+        src={items.item3}
+        width={24}
+        height={24}
+        alt="Item 3"
+        className={styles["item-style"]}
+      />
+      <Image
+        src={items.item4}
+        width={24}
+        height={24}
+        className={styles["item-style"]}
+        alt="Item 4"
+      />
+      <Image
+        src={items.item5}
+        width={24}
+        height={24}
+        className={styles["item-style"]}
+        alt="Item 5"
+      />
+      <Image
+        src={items.item6}
+        width={24}
+        height={24}
+        alt="Item 6"
+        className={styles["item-style"]}
+      />
+    </div>
+  );
+};
+
 function Match({ match, params }) {
   const [queueInfo, setQueueInfo] = useState({});
 
@@ -3106,7 +3186,7 @@ function Match({ match, params }) {
     (async () => {
       setQueueInfo(await getQueueInfo(match.info.queueId));
     })();
-  }, []);
+  }, [match.info.queueId]);
 
   const findSummonerName = () => {
     let foundName = null;
@@ -3117,7 +3197,7 @@ function Match({ match, params }) {
       }
     });
 
-    return foundName;
+    return foundName; //need to change for riot id and tagline
   };
 
   const getRelativeTime = () => {
@@ -3173,7 +3253,64 @@ function Match({ match, params }) {
       }
     });
 
-    return `${kills}/${deaths}/${assists}`;
+    return (
+      <div className={styles["kda-num"]}>
+        {kills}
+        <span className={styles["kda-slash"]}> / </span>
+        <span className={styles["kda-death"]}>{deaths}</span>
+        <span className={styles["kda-slash"]}> / </span>
+        {assists}
+      </div>
+    );
+  };
+
+  const getGCC = () => {
+    let gold = null;
+    let creepScore = null;
+    let controlWards = null;
+
+    match.info.participants.forEach((item) => {
+      if (item.summonerName === params.username) {
+        gold = item.goldEarned;
+        creepScore = item.totalMinionsKilled;
+        controlWards = item.challenges.controlWardsPlaced;
+      }
+    });
+
+    return (
+      <div className={styles["gcc-container"]}>
+        <div className={styles["gold-income"]}>
+          <Image
+            src={`/images/emoney.png`}
+            width={16}
+            height={16}
+            className={styles["gold-styling"]}
+            alt="gold"
+          />
+          {gold}
+        </div>
+        <div className={styles["creep-score"]}>
+          <Image
+            src={`/images/minion.png`}
+            width={16}
+            height={16}
+            className={styles["cs-styling"]}
+            alt="creep score"
+          />
+          {creepScore}
+        </div>
+        <div className={styles["control-wards"]}>
+          <Image
+            src={`/images/controlward2.png`}
+            width={16}
+            height={16}
+            className={styles["cw-styling"]}
+            alt="control ward"
+          />
+          {controlWards}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -3221,7 +3358,17 @@ function Match({ match, params }) {
               <div className={styles["rune-container"]}></div>
             </div>
           </div>
-          <div className={styles["icon-container2"]}></div>
+          <div className={styles["icon-container2"]}>
+            <div className={styles["matchstats-container"]}>
+              <div className={styles["kda-container"]}>
+                {getKda()}
+                <div className={styles["kda-ratio"]}>2.33 KDA</div>
+                <div className={styles["kp-ratio"]}>15% KP</div>
+              </div>
+              {getGCC()}
+            </div>
+            <Item match={match} params={params} />
+          </div>
         </div>
         <div className={styles["match-divider"]}></div>
         <div className={styles["sum-container3"]}></div>
@@ -3230,10 +3377,6 @@ function Match({ match, params }) {
     </div>
   );
 }
-
-const GameMode = ({ label }) => {
-  return <button className={styles["gamemode-tab"]}>{label}</button>;
-};
 
 export default function Page({ params }) {
   const [isActive, setIsActive] = useState(false);
@@ -3328,7 +3471,11 @@ export default function Page({ params }) {
             </div>
             <div className={styles["history-container"]}>
               {matches.map((match) => (
-                <Match match={match} params={params} />
+                <Match
+                  match={match}
+                  params={params}
+                  key={match.metadata.matchId}
+                />
               ))}
             </div>
           </div>

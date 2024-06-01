@@ -420,7 +420,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 130px;
+  width: 150px;
   height: 100%;
 }
 
@@ -472,7 +472,82 @@
   border: 1px solid black;
 }
 
+.icon-container2 {
+  display: flex;
+  flex-direction: column;
+  width: 186px;
+  height: 100%;
+}
 
+.matchstats-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.kda-container {
+  display: flex;
+  flex-direction: column;
+  width: 110px;
+  height: 100%;
+  padding-top: 5px;
+}
+
+.kda-num {
+  font-size: 1.25rem;
+  color: white;
+  font-weight: bold;
+}
+
+.kda-death {
+  color: var(--red-color1);
+}
+
+.kda-slash {
+  color: #8D8D8D;
+}
+
+.kda-ratio {
+  font-size: 0.75rem;
+  color: white;
+}
+
+.kp-ratio {
+  font-size: 0.75rem;
+  color: var(--red-color1);
+}
+
+.gcc-container {
+  display: flex;
+  flex-direction: column;
+  width: 77px;
+  height: 100%;
+  padding-top: 7px;
+}
+
+.gold-income, .creep-score, .control-wards {
+  display: flex;
+  font-size: 0.75rem;
+  padding-bottom: 3px;
+  color: white;
+}
+
+.gold-styling, .cs-styling, .cw-styling {
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.items-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 57px;
+}
+
+.item-style {
+  border-radius: 5px;
+  border: 1px solid black;
+}
 
 .sum-container3 {
   display: flex;
