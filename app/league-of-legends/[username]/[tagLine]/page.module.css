@@ -213,7 +213,6 @@
 .primary-container {
   display: flex;
   flex-direction: column;
-  background-color: blue;
   margin-left: 10px;
   width: 100%;
   height: 100%;
@@ -412,7 +411,7 @@
 
 .sum-container2 {
   display: flex;
-  width: 480px;
+  width: 490px;
   height: 100%;
 }
 
@@ -420,7 +419,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
+  width: 30%;
   height: 100%;
 }
 
@@ -475,7 +474,7 @@
 .icon-container2 {
   display: flex;
   flex-direction: column;
-  width: 186px;
+  width: 45%;
   height: 100%;
 }
 
@@ -522,7 +521,7 @@
   flex-direction: column;
   width: 77px;
   height: 100%;
-  padding-top: 7px;
+  padding-top: 6px;
 }
 
 .gold-income, .creep-score, .control-wards {
@@ -549,11 +548,46 @@
   border: 1px solid black;
 }
 
+.icon-container3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  height: 100%;
+  background-color: blue;
+}
+
 .sum-container3 {
   display: flex;
-  width: 340px;
+  width: 335px;
   height: 100%;
-  background-color: red;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.team-container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-top: 1px;
+}
+
+.player-container {
+  display: flex;
+  align-items: center;
+  width: 150px;
+  gap: 3px;
+}
+
+.player-styling {
+  color: #AAAAAA;
+  font-size: 0.75rem;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .expand-tab {

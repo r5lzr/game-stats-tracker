@@ -3099,6 +3099,17 @@ async function getQueueInfo(queueId) {
   return queueOutcome;
 }
 
+const checkNameAndTag = ({ match, params }) => {
+  match.info.participants.forEach((item) => {
+    if (
+      item.riotIdGameName === params.username &&
+      item.riotIdTagline === params.tagLine
+    ) {
+      return true;
+    }
+  });
+};
+
 const GameMode = ({ label }) => {
   return <button className={styles["gamemode-tab"]}>{label}</button>;
 };
@@ -3113,7 +3124,7 @@ const Item = ({ match, params }) => {
   const items = {};
 
   match.info.participants.forEach((item) => {
-    if (item.summonerName === params.username) {
+    if (item.riotIdGameName === params.username) {
       items.item0 = getItem(item.item0);
       items.item1 = getItem(item.item1);
       items.item2 = getItem(item.item2);
@@ -3179,6 +3190,65 @@ const Item = ({ match, params }) => {
   );
 };
 
+const Team = ({ team }) => {
+  function getChampion(champ) {
+    if (champ === "FiddleSticks") {
+      champ = "Fiddlesticks";
+    }
+
+    const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.11.1/img/champion/${champ}.png`;
+
+    return riotURL;
+  }
+
+  let players = {};
+
+  let playerNames = team.map((participant) => participant.riotIdGameName);
+  let playerTagLine = team.map((participant) => participant.riotIdTagline);
+  let championNames = team.map((participant) => participant.championName);
+
+  players.champ1 = getChampion(championNames[0]);
+  players.champ2 = getChampion(championNames[1]);
+  players.champ3 = getChampion(championNames[2]);
+  players.champ4 = getChampion(championNames[3]);
+  players.champ5 = getChampion(championNames[4]);
+
+  return (
+    <div className={styles["team-container"]}>
+      <div className={styles["player-container"]}>
+        <Image src={players.champ1} width={20} height={20} alt="Icon 1" />
+        <span className={styles["player-styling"]}>
+          {playerNames[0]}#{playerTagLine[0]}
+        </span>
+      </div>
+      <div className={styles["player-container"]}>
+        <Image src={players.champ2} width={20} height={20} alt="Icon 1" />
+        <span className={styles["player-styling"]}>
+          {playerNames[1]}#{playerTagLine[1]}
+        </span>
+      </div>
+      <div className={styles["player-container"]}>
+        <Image src={players.champ3} width={20} height={20} alt="Icon 1" />
+        <span className={styles["player-styling"]}>
+          {playerNames[2]}#{playerTagLine[2]}
+        </span>
+      </div>
+      <div className={styles["player-container"]}>
+        <Image src={players.champ4} width={20} height={20} alt="Icon 1" />
+        <span className={styles["player-styling"]}>
+          {playerNames[3]}#{playerTagLine[3]}
+        </span>
+      </div>
+      <div className={styles["player-container"]}>
+        <Image src={players.champ5} width={20} height={20} alt="Icon 1" />
+        <span className={styles["player-styling"]}>
+          {playerNames[4]}#{playerTagLine[4]}
+        </span>
+      </div>
+    </div>
+  );
+};
+
 function Match({ match, params }) {
   const [queueInfo, setQueueInfo] = useState({});
 
@@ -3192,8 +3262,11 @@ function Match({ match, params }) {
     let foundName = null;
 
     match.info.participants.forEach((item) => {
-      if (item.summonerName === params.username) {
-        foundName = item.summonerName;
+      if (
+        item.riotIdGameName === params.username &&
+        item.riotIdTagline === params.tagLine
+      ) {
+        foundName = item.riotIdGameName;
       }
     });
 
@@ -3230,9 +3303,12 @@ function Match({ match, params }) {
     let victoryOutcome = null;
 
     match.info.participants.forEach((item) => {
-      if (item.summonerName === params.username && item.win === true) {
+      if (item.riotIdGameName === params.username && item.win === true) {
         victoryOutcome = "VICTORY";
-      } else if (item.summonerName === params.username && item.win === false) {
+      } else if (
+        item.riotIdGameName === params.username &&
+        item.win === false
+      ) {
         victoryOutcome = "DEFEAT";
       }
     });
@@ -3244,22 +3320,32 @@ function Match({ match, params }) {
     let kills = null;
     let deaths = null;
     let assists = null;
+    let kdaRatio = null;
+    let kpRatio = null;
 
     match.info.participants.forEach((item) => {
-      if (item.summonerName === params.username) {
+      if (item.riotIdGameName === params.username) {
         kills = item.kills;
         deaths = item.deaths;
         assists = item.assists;
+
+        kdaRatio = item.challenges.kda.toFixed(2);
+
+        kpRatio = (item.challenges.killParticipation * 100).toFixed();
       }
     });
 
     return (
-      <div className={styles["kda-num"]}>
-        {kills}
-        <span className={styles["kda-slash"]}> / </span>
-        <span className={styles["kda-death"]}>{deaths}</span>
-        <span className={styles["kda-slash"]}> / </span>
-        {assists}
+      <div className={styles["kda-container"]}>
+        <div className={styles["kda-num"]}>
+          {kills}
+          <span className={styles["kda-slash"]}> / </span>
+          <span className={styles["kda-death"]}>{deaths}</span>
+          <span className={styles["kda-slash"]}> / </span>
+          {assists}
+        </div>
+        <div className={styles["kda-ratio"]}>{kdaRatio} KDA</div>
+        <div className={styles["kp-ratio"]}>{kpRatio}% KP</div>
       </div>
     );
   };
@@ -3267,12 +3353,20 @@ function Match({ match, params }) {
   const getGCC = () => {
     let gold = null;
     let creepScore = null;
+    let creepScorePerMinute = null;
     let controlWards = null;
 
     match.info.participants.forEach((item) => {
-      if (item.summonerName === params.username) {
+      if (item.riotIdGameName === params.username) {
         gold = item.goldEarned;
+
         creepScore = item.totalMinionsKilled;
+        const minutes = Math.floor(match.info.gameDuration / 60);
+        const seconds = match.info.gameDuration % 60;
+        creepScorePerMinute = (creepScore / (minutes + seconds / 60)).toFixed(
+          1
+        );
+
         controlWards = item.challenges.controlWardsPlaced;
       }
     });
@@ -3297,11 +3391,11 @@ function Match({ match, params }) {
             className={styles["cs-styling"]}
             alt="creep score"
           />
-          {creepScore}
+          {creepScore} ({creepScorePerMinute})
         </div>
         <div className={styles["control-wards"]}>
           <Image
-            src={`/images/controlward2.png`}
+            src={`/images/controlward.png`}
             width={16}
             height={16}
             className={styles["cw-styling"]}
@@ -3310,6 +3404,23 @@ function Match({ match, params }) {
           {controlWards}
         </div>
       </div>
+    );
+  };
+
+  const getTeams = () => {
+    const blueTeam = match.info.participants.filter(
+      (participant) => participant.teamId === 100
+    );
+
+    const redTeam = match.info.participants.filter(
+      (participant) => participant.teamId === 200
+    );
+
+    return (
+      <>
+        <Team team={blueTeam} />
+        <Team team={redTeam} />
+      </>
     );
   };
 
@@ -3360,18 +3471,19 @@ function Match({ match, params }) {
           </div>
           <div className={styles["icon-container2"]}>
             <div className={styles["matchstats-container"]}>
-              <div className={styles["kda-container"]}>
-                {getKda()}
-                <div className={styles["kda-ratio"]}>2.33 KDA</div>
-                <div className={styles["kp-ratio"]}>15% KP</div>
-              </div>
+              {getKda()}
               {getGCC()}
             </div>
             <Item match={match} params={params} />
           </div>
+          <div className={styles["icon-container3"]}>
+            <div className={styles["matchrank-container"]}></div>
+            <div className={styles["analysis-container"]}></div>
+            <div className={styles["killcount-container"]}></div>
+          </div>
         </div>
         <div className={styles["match-divider"]}></div>
-        <div className={styles["sum-container3"]}></div>
+        <div className={styles["sum-container3"]}>{getTeams()}</div>
         <div className={styles["expand-tab"]}></div>
       </div>
     </div>
