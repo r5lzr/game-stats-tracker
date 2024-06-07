@@ -3072,28 +3072,43 @@ async function getQueueInfo(queueId) {
 
   let queueOutcome = queues.find((queue) => queue.queueId === queueId);
 
-  if (queueOutcome.queueId === 420) {
-    queueOutcome.description = "Ranked Solo";
-  } else if (queueOutcome.queueId === 440) {
-    queueOutcome.description = "Ranked Flex";
-  } else if (queueOutcome.queueId === 490) {
-    queueOutcome.description = "Quick Play";
-  } else if (queueOutcome.queueId === 400) {
-    queueOutcome.description = "Draft Pick";
-  } else if (queueOutcome.queueId === 830) {
-    queueOutcome.description = "AI Intro";
-  } else if (queueOutcome.queueId === 840) {
-    queueOutcome.description = "AI Beginner";
-  } else if (queueOutcome.queueId === 850) {
-    queueOutcome.description = "AI Intermediate";
-  } else if ((queueOutcome.queueId = 450)) {
-    queueOutcome.description = "ARAM";
-  } else if ((queueOutcome.queueId = 700)) {
-    queueOutcome.description = "Clash";
-  } else if ((queueOutcome.queueId = 720)) {
-    queueOutcome.description = "ARAM Clash";
-  } else if ((queueOutcome.queueId = 1710)) {
-    queueOutcome.description = "Arena";
+  switch (queueOutcome.queueId) {
+    case 420:
+      queueOutcome.description = "Ranked Solo";
+      break;
+    case 440:
+      queueOutcome.description = "Ranked Flex";
+      break;
+    case 490:
+      queueOutcome.description = "Quick Play";
+      break;
+    case 400:
+      queueOutcome.description = "Draft Pick";
+      break;
+    case 830:
+      queueOutcome.description = "AI Intro";
+      break;
+    case 840:
+      queueOutcome.description = "AI Beginner";
+      break;
+    case 850:
+      queueOutcome.description = "AI Intermediate";
+      break;
+    case 450:
+      queueOutcome.description = "ARAM";
+      break;
+    case 700:
+      queueOutcome.description = "Clash";
+      break;
+    case 720:
+      queueOutcome.description = "ARAM Clash";
+      break;
+    case 1710:
+      queueOutcome.description = "Arena";
+      break;
+    default:
+      queueOutcome.description = "Unknown";
+      break;
   }
 
   return queueOutcome;
@@ -3222,25 +3237,25 @@ const Team = ({ team }) => {
         </span>
       </div>
       <div className={styles["player-container"]}>
-        <Image src={players.champ2} width={20} height={20} alt="Icon 1" />
+        <Image src={players.champ2} width={20} height={20} alt="Icon 2" />
         <span className={styles["player-styling"]}>
           {playerNames[1]}#{playerTagLine[1]}
         </span>
       </div>
       <div className={styles["player-container"]}>
-        <Image src={players.champ3} width={20} height={20} alt="Icon 1" />
+        <Image src={players.champ3} width={20} height={20} alt="Icon 3" />
         <span className={styles["player-styling"]}>
           {playerNames[2]}#{playerTagLine[2]}
         </span>
       </div>
       <div className={styles["player-container"]}>
-        <Image src={players.champ4} width={20} height={20} alt="Icon 1" />
+        <Image src={players.champ4} width={20} height={20} alt="Icon 4" />
         <span className={styles["player-styling"]}>
           {playerNames[3]}#{playerTagLine[3]}
         </span>
       </div>
       <div className={styles["player-container"]}>
-        <Image src={players.champ5} width={20} height={20} alt="Icon 1" />
+        <Image src={players.champ5} width={20} height={20} alt="Icon 5" />
         <span className={styles["player-styling"]}>
           {playerNames[4]}#{playerTagLine[4]}
         </span>
@@ -3314,6 +3329,42 @@ function Match({ match, params }) {
     });
 
     return victoryOutcome;
+  };
+
+  const getChampIconInfo = () => {
+    let champIcon = null;
+    let champLevel = null;
+
+    function getChampion(champ) {
+      if (champ === "FiddleSticks") {
+        champ = "Fiddlesticks";
+      }
+
+      const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.11.1/img/champion/${champ}.png`;
+
+      return riotURL;
+    }
+
+    match.info.participants.forEach((player) => {
+      if (player.riotIdGameName === params.username) {
+        champIcon = getChampion(player.championName);
+        champLevel = player.champLevel;
+      }
+    });
+
+    return (
+      <div className={styles["champ-container"]}>
+        <Image
+          src={champIcon}
+          fill
+          alt="Icon 1"
+          style={{ borderRadius: "5px" }}
+        />
+        <div className={styles["level-container"]}>
+          <span className={styles["level"]}>{champLevel}</span>
+        </div>
+      </div>
+    );
   };
 
   const getKda = () => {
@@ -3458,7 +3509,7 @@ function Match({ match, params }) {
         <div className={styles["sum-container2"]}>
           <div className={styles["icon-container1"]}>
             <div className={styles["champsums-container"]}>
-              <div className={styles["champ-container"]}></div>
+              {getChampIconInfo()}
               <div className={styles["summoners-container"]}>
                 <div className={styles["spell-container"]}></div>
                 <div className={styles["spell-container"]}></div>
