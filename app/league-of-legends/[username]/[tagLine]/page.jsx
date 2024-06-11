@@ -5,6 +5,111 @@ import "./page.css";
 import styles from "./page.module.css";
 import { IoSearch } from "react-icons/io5";
 
+async function getMatches(username, tagLine) {
+  const res = await fetch(
+    `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`
+  );
+
+  if (!res.ok) throw new Error("Failed to fetch match data");
+
+  return await res.json();
+}
+
+async function getRankedInfo(summonerId) {
+  const res = await fetch(
+    `/api/league-of-legends/ranked?summonerId=${summonerId}`
+  );
+
+  if (!res.ok) throw new Error("Failed to fetch ranked data");
+
+  return await res.json();
+}
+
+const rankBaseline = {
+  "Iron-IV": 0,
+  "Iron-III": 100,
+  "Iron-II": 200,
+  "Iron-I": 300,
+  "Bronze-IV": 400,
+  "Bronze-III": 500,
+  "Bronze-II": 600,
+  "Bronze-I": 700,
+  "Silver-IV": 800,
+  "Silver-III": 900,
+  "Silver-II": 1000,
+  "Silver-I": 1100,
+  "Gold-IV": 1200,
+  "Gold-III": 1300,
+  "Gold-II": 1400,
+  "Gold-I": 1500,
+  "Platinum-IV": 1600,
+  "Platinum-III": 1700,
+  "Platinum-II": 1800,
+  "Platinum-I": 1900,
+  "Emerald-IV": 2000,
+  "Emerald-III": 2100,
+  "Emerald-II": 2200,
+  "Emerald-I": 2300,
+  "Diamond-IV": 2400,
+  "Diamond-III": 2500,
+  "Diamond-II": 2600,
+  "Diamond-I": 2700,
+  "Master-I": 2800,
+  "GrandMaster-I": 2900,
+  "Challenger-I": 3000,
+};
+
+async function averageRank(summonerIds) {
+  let rankNum = 0;
+
+  let counter = 0;
+  for (const summonerId of summonerIds) {
+    const soloRank = (await getRankedInfo(summonerId)).find(
+      (rankInfo) => rankInfo.queueType === "RANKED_SOLO_5x5"
+    );
+
+    if (soloRank) {
+      const { tier, rank, leaguePoints } = soloRank;
+
+      rankNum += rankBaseline[`${tier}-${rank}`] + leaguePoints;
+      counter += 1;
+    }
+  }
+
+  return rankNum / counter;
+}
+
+const ranked = [
+  {
+    leagueId: "0e56a6a6-04fb-49f1-8314-c4c8b943f049",
+    queueType: "RANKED_FLEX_SR",
+    tier: "PLATINUM",
+    rank: "II",
+    summonerId: "-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4",
+    leaguePoints: 22,
+    wins: 9,
+    losses: 5,
+    veteran: false,
+    inactive: false,
+    freshBlood: false,
+    hotStreak: false,
+  },
+  {
+    leagueId: "63812ea2-cfef-387b-9ca9-870b7ee60fa6",
+    queueType: "RANKED_SOLO_5x5",
+    tier: "MASTER",
+    rank: "I",
+    summonerId: "-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4",
+    leaguePoints: 308,
+    wins: 122,
+    losses: 115,
+    veteran: false,
+    inactive: false,
+    freshBlood: true,
+    hotStreak: false,
+  },
+];
+
 const matches = [
   {
     metadata: {
@@ -3065,7 +3170,7 @@ async function getQueueInfo(queueId) {
       "https://static.developer.riotgames.com/docs/lol/queues.json"
     );
 
-    if (!res.ok) throw new Error("Failed to fetch data");
+    if (!res.ok) throw new Error("Failed to fetch queue data");
 
     queues = await res.json();
   }
@@ -3114,6 +3219,26 @@ async function getQueueInfo(queueId) {
   return queueOutcome;
 }
 
+let spells;
+async function getSummonerInfo(spellNumberId) {
+  if (!spells) {
+    const res = await fetch(
+      "https://ddragon.leagueoflegends.com/cdn/14.11.1/data/en_US/summoner.json"
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch summoner data");
+
+    spells = await res.json();
+  }
+
+  for (const summonerSpell in spells.data) {
+    const spellKey = spells.data[summonerSpell].key;
+    if (spellKey === spellNumberId.toString()) {
+      return spells.data[summonerSpell].id;
+    }
+  }
+}
+
 const checkNameAndTag = ({ match, params }) => {
   match.info.participants.forEach((item) => {
     if (
@@ -3128,7 +3253,6 @@ const checkNameAndTag = ({ match, params }) => {
 const GameMode = ({ label }) => {
   return <button className={styles["gamemode-tab"]}>{label}</button>;
 };
-
 const Item = ({ match, params }) => {
   function getItem(item) {
     const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.10.1/img/item/${item}.png`;
@@ -3218,11 +3342,24 @@ const Team = ({ team }) => {
 
   let players = {};
 
+  // const stuff = team.map((participant) => ({
+  //   playerName: participant.riotIdGameName,
+  //   playerTagLine: participant.riotIdTagline,
+  //   championName: participant.championName,
+  // }));
+  // const stuff = team.map((participant) => {
+  //   return {
+  //     playerName: participant.riotIdGameName,
+  //     playerTagLine: participant.riotIdTagline,
+  //     championName: participant.championName,
+  //   };
+  // });
+
   let playerNames = team.map((participant) => participant.riotIdGameName);
   let playerTagLine = team.map((participant) => participant.riotIdTagline);
   let championNames = team.map((participant) => participant.championName);
 
-  players.champ1 = getChampion(championNames[0]);
+  players.champ1 = getChampion(championNames[0]); // stuff[0].championName
   players.champ2 = getChampion(championNames[1]);
   players.champ3 = getChampion(championNames[2]);
   players.champ4 = getChampion(championNames[3]);
@@ -3266,12 +3403,42 @@ const Team = ({ team }) => {
 
 function Match({ match, params }) {
   const [queueInfo, setQueueInfo] = useState({});
+  const [summonerInfo1, setSummonerInfo1] = useState({});
+  const [summonerInfo2, setSummonerInfo2] = useState({});
 
   useEffect(() => {
     (async () => {
       setQueueInfo(await getQueueInfo(match.info.queueId));
     })();
   }, [match.info.queueId]);
+
+  useEffect(() => {
+    (async () => {
+      setSummonerInfo1(await getSummonerInfo(getSummonerId1()));
+    })();
+  });
+
+  useEffect(() => {
+    (async () => {
+      setSummonerInfo2(await getSummonerInfo(getSummonerId2()));
+    })();
+  });
+
+  const getSummonerId1 = () => {
+    for (const item of match.info.participants) {
+      if (item.riotIdGameName === params.username) {
+        return item.summoner1Id;
+      }
+    }
+  };
+
+  const getSummonerId2 = () => {
+    for (const item of match.info.participants) {
+      if (item.riotIdGameName === params.username) {
+        return item.summoner2Id;
+      }
+    }
+  };
 
   const findSummonerName = () => {
     let foundName = null;
@@ -3335,7 +3502,7 @@ function Match({ match, params }) {
     let champIcon = null;
     let champLevel = null;
 
-    function getChampion(champ) {
+    const getChampion = (champ) => {
       if (champ === "FiddleSticks") {
         champ = "Fiddlesticks";
       }
@@ -3343,7 +3510,7 @@ function Match({ match, params }) {
       const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.11.1/img/champion/${champ}.png`;
 
       return riotURL;
-    }
+    };
 
     match.info.participants.forEach((player) => {
       if (player.riotIdGameName === params.username) {
@@ -3357,6 +3524,7 @@ function Match({ match, params }) {
         <Image
           src={champIcon}
           fill
+          sizes="50px"
           alt="Icon 1"
           style={{ borderRadius: "5px" }}
         />
@@ -3364,6 +3532,88 @@ function Match({ match, params }) {
           <span className={styles["level"]}>{champLevel}</span>
         </div>
       </div>
+    );
+  };
+
+  const getSummonerSpells = () => {
+    let champSpell1 = null;
+    let champSpell2 = null;
+
+    const getSpell = (spell) => {
+      const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.11.1/img/spell/${spell}.png`;
+
+      return riotURL;
+    };
+
+    match.info.participants.forEach((player) => {
+      if (player.riotIdGameName === params.username) {
+        champSpell1 = getSpell(summonerInfo1);
+        champSpell2 = getSpell(summonerInfo2);
+      }
+    });
+
+    return (
+      <>
+        <div className={styles["spell-container1"]}>
+          <Image
+            src={champSpell1}
+            fill
+            sizes="50px"
+            alt="spell1"
+            style={{ borderRadius: "5px" }}
+          />
+        </div>
+        <div className={styles["spell-container2"]}>
+          <Image
+            src={champSpell2}
+            fill
+            sizes="50px"
+            alt="spell2"
+            style={{ borderRadius: "5px" }}
+          />
+        </div>
+      </>
+    );
+  };
+
+  const getSummonerRunes = () => {
+    let champRune1 = null;
+    let champRune2 = null;
+
+    const getRune = (rune) => {
+      const riotURL = ``;
+
+      return riotURL;
+    };
+
+    match.info.participants.forEach((player) => {
+      if (player.riotIdGameName === params.username) {
+        champRune1 = getRune();
+        champRune2 = getRune();
+      }
+    });
+
+    return (
+      <>
+        <div className={styles["rune-container1"]}>
+          <Image
+            src={champRune1}
+            fill
+            sizes="50px"
+            alt="rune1"
+            style={{ borderRadius: "5px" }}
+          />
+        </div>
+        <div className={styles["rune-container2"]}>
+          <Image
+            src={champRune2}
+            fill
+            sizes="50px"
+            alt="rune2"
+            style={{ borderRadius: "5px" }}
+          />
+        </div>
+      </>
     );
   };
 
@@ -3511,13 +3761,11 @@ function Match({ match, params }) {
             <div className={styles["champsums-container"]}>
               {getChampIconInfo()}
               <div className={styles["summoners-container"]}>
-                <div className={styles["spell-container"]}></div>
-                <div className={styles["spell-container"]}></div>
+                {getSummonerSpells()}
               </div>
             </div>
             <div className={styles["runepage-container"]}>
-              <div className={styles["rune-container"]}></div>
-              <div className={styles["rune-container"]}></div>
+              {getSummonerRunes()}
             </div>
           </div>
           <div className={styles["icon-container2"]}>

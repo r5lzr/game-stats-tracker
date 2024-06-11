@@ -456,7 +456,6 @@
   font-size: 0.6rem;
   font-weight: bold;
   color: #FFAA46;
-  position: absolute;
 }
 
 .summoners-container {
@@ -466,12 +465,13 @@
   height: 100%;
 }
 
-.spell-container {
+.spell-container1, .spell-container2 {
   width: 24px;
   height: 100%;
   background-color: var(--grey-color1);
   border-radius: 5px;
   border: 1px solid black;
+  position: relative;
 }
 
 .runepage-container {
@@ -483,7 +483,7 @@
   margin-left: 2px;
 }
 
-.rune-container {
+.rune-container1, .rune-container2 {
   width: 100%;
   height: 37px;
   background-color: var(--grey-color1);
