@@ -575,10 +575,68 @@
   justify-content: center;
   width: 30%;
   height: 100%;
-  background-color: blue;
+
 }
 
+.matchrank-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 5px;
+  margin-top: 2px;
+  padding-right: 5px;
+}
 
+.matchrank-title {
+  color: white;
+  font-size: 0.8rem;
+}
+
+.analysis-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 25px;
+  background-color: black;
+  border-radius: 5px;
+  border: 1px solid var(--gold-accent);
+}
+
+.analysis-title {
+  color: white;
+  font-size: 0.8rem;
+}
+
+.multikill-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  /* background-color: red; */
+}
+
+.multikill-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 24px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: var(--red-color1);
+}
+
+.pentakill {
+  background-color: var(--gold-accent);
+}
+
+.multikill-title {
+  color: white;
+  font-size: 1rem;
+}
 
 .sum-container3 {
   display: flex;

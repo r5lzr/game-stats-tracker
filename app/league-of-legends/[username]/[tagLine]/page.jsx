@@ -3418,19 +3418,19 @@ function Match({ match, params }) {
     (async () => {
       setSummonerInfo1(await getSummonerInfo(getSummonerId1()));
     })();
-  });
+  }, []);
 
   useEffect(() => {
     (async () => {
       setSummonerInfo2(await getSummonerInfo(getSummonerId2()));
     })();
-  });
+  }, []);
 
   useEffect(() => {
     (async () => {
       setMatchAvg(await averageRank(getSummonerIds()));
     })();
-  });
+  }, []);
 
   const getSummonerId1 = () => {
     for (const item of match.info.participants) {
@@ -3694,7 +3694,7 @@ function Match({ match, params }) {
       <div className={styles["gcc-container"]}>
         <div className={styles["gold-income"]}>
           <Image
-            src={`/images/gcc/emoney.png`}
+            src={`/images/match/emoney.png`}
             width={16}
             height={16}
             className={styles["gold-styling"]}
@@ -3704,7 +3704,7 @@ function Match({ match, params }) {
         </div>
         <div className={styles["creep-score"]}>
           <Image
-            src={`/images/gcc/minion.png`}
+            src={`/images/match/minion.png`}
             width={16}
             height={16}
             className={styles["cs-styling"]}
@@ -3714,7 +3714,7 @@ function Match({ match, params }) {
         </div>
         <div className={styles["control-wards"]}>
           <Image
-            src={`/images/gcc/controlward.png`}
+            src={`/images/match/controlward.png`}
             width={16}
             height={16}
             className={styles["cw-styling"]}
@@ -3728,20 +3728,79 @@ function Match({ match, params }) {
 
   const getMatchRankAvg = () => {
     let avgRankTitle = null;
+    let rankEmblem = null;
 
     const matchAvgRounded = Math.ceil(matchAvg / 100) * 100;
 
     for (const rank in rankBaseline) {
       if (rankBaseline[rank] === matchAvgRounded) {
         avgRankTitle = rank;
+        rankEmblem = avgRankTitle.slice(0, avgRankTitle.indexOf("-"));
         break;
       }
     }
 
     return (
       <>
-        <Image />
+        <Image
+          src={`/images/ranked/${rankEmblem}.png`}
+          width={35}
+          height={35}
+          alt="rank-emblem"
+        />
         <span className={styles["matchrank-title"]}>{avgRankTitle}</span>
+      </>
+    );
+  };
+
+  const getMultiKill = () => {
+    let isMultiKill = false;
+    let multiKillType = null;
+    let multiKill = null;
+
+    const participant = match.info.participants.find(
+      (player) => player.riotIdGameName === params.username
+    );
+
+    if (participant) {
+      multiKillType =
+        participant.pentaKills ||
+        participant.quadraKills ||
+        participant.tripleKills ||
+        participant.doubleKills;
+
+      switch (multiKillType) {
+        case participant.pentaKills:
+          multiKill = "PENTAKILL";
+          break;
+        case participant.quadraKills:
+          multiKill = "Quadra kill";
+          break;
+        case participant.tripleKills:
+          multiKill = "Triple kill";
+          break;
+        case participant.doubleKills:
+          multiKill = "Double kill";
+          break;
+        default:
+          multiKill = "Unknown";
+          break;
+      }
+
+      isMultiKill = true;
+    }
+
+    return (
+      <>
+        {isMultiKill && (
+          <div
+            className={`${styles["multikill-container"]} ${
+              multiKill === "PENTAKILL" ? styles["pentakill"] : null
+            }`}
+          >
+            <span className={styles["multikill-title"]}>{multiKill}</span>
+          </div>
+        )}
       </>
     );
   };
@@ -3803,7 +3862,7 @@ function Match({ match, params }) {
               </div>
             </div>
             <div className={styles["runepage-container"]}>
-              {/* {getSummonerRunes()} */}
+              {getSummonerRunes()}
             </div>
           </div>
           <div className={styles["icon-container2"]}>
@@ -3817,8 +3876,19 @@ function Match({ match, params }) {
             <div className={styles["matchrank-container"]}>
               {getMatchRankAvg()}
             </div>
-            <div className={styles["analysis-container"]}></div>
-            <div className={styles["killcount-container"]}></div>
+            <div className={styles["analysis-container"]}>
+              <Image
+                src={`/images/match/heimer_analysis.png`}
+                width={24}
+                height={24}
+                className={styles["cw-styling"]}
+                alt="control ward"
+              />
+              <span className={styles["analysis-title"]}>Analysis</span>
+            </div>
+            <div className={styles["multikill-placeholder"]}>
+              {getMultiKill()}
+            </div>
           </div>
         </div>
         <div className={styles["match-divider"]}></div>
