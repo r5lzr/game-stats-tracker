@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "./page.css";
 import styles from "./page.module.css";
 import { IoSearch } from "react-icons/io5";
+import { RiArrowDownDoubleLine } from "react-icons/ri";
 
 const matches = [
   {
@@ -3189,38 +3190,8 @@ async function getQueueInfo(queueId) {
   return queueOutcome;
 }
 
-async function getRankedInfo(summonerId) {
-  const res = await fetch(
-    `/api/league-of-legends/ranked?summonerId=${summonerId}`
-  );
-
-  if (!res.ok) throw new Error("Failed to fetch ranked data");
-
-  return await res.json();
-}
-
-async function averageRank(summonerIds) {
-  let rankNum = 0;
-
-  let counter = 0;
-  for (const summonerId of summonerIds) {
-    const soloRank = (await getRankedInfo(summonerId)).find(
-      (rankInfo) => rankInfo.queueType === "RANKED_SOLO_5x5"
-    );
-
-    if (soloRank) {
-      const { tier, rank, leaguePoints } = soloRank;
-
-      rankNum += rankBaseline[`${tier}-${rank}`] + leaguePoints;
-      counter += 1;
-    }
-  }
-
-  return rankNum / counter;
-}
-
 let spells;
-async function getSummonerInfo(spellNumberId) {
+async function getSpellInfo(spellNumberId) {
   if (!spells) {
     const res = await fetch(
       "https://ddragon.leagueoflegends.com/cdn/14.11.1/data/en_US/summoner.json"
@@ -3237,6 +3208,90 @@ async function getSummonerInfo(spellNumberId) {
       return spells.data[summonerSpell].id;
     }
   }
+}
+
+let runes;
+async function getRuneInfo() {
+  if (!runes) {
+    const res = await fetch(
+      "https://ddragon.leagueoflegends.com/cdn/14.12.1/data/en_US/runesReforged.json"
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch runes data");
+
+    return (runes = await res.json());
+  }
+}
+
+async function getPrimaryInfo(runeId) {
+  const runeData = await getRuneInfo();
+
+  // for (const rune of runeData) {
+  //   rune.slots.find((slot) => {
+  //     for (const primaryRune of slot.runes) {
+  //       // console.log(primaryRune);
+  //       // console.log(runeId);
+  //       if (primaryRune.id === runeId) {
+  //         return primaryRune.icon;
+  //       }
+  //     }
+  //   });
+  // }
+
+  for (const runeTree of runeData) {
+    for (const slot of runeTree.slots) {
+      const primaryRune = slot.runes.find(
+        (primaryRune) => primaryRune.id === runeId
+      );
+
+      if (primaryRune) {
+        return primaryRune.icon;
+      }
+    }
+  }
+}
+
+async function getSecondaryInfo(runeId) {
+  const runeData = await getRuneInfo();
+
+  for (const rune of runeData) {
+    if (rune.id === runeId) {
+      return rune.icon;
+    }
+  }
+}
+
+async function getRankedInfo(summonerId) {
+  const res = await fetch(
+    `/api/league-of-legends/ranked?summonerId=${summonerId}`
+  );
+
+  if (!res.ok) throw new Error("Failed to fetch ranked data");
+
+  return await res.json();
+}
+
+async function averageRank(summonerIds) {
+  let rankNum = 0;
+
+  let counter = 0;
+
+  const allRankInfo = await Promise.all(
+    summonerIds.map((summonerId) => getRankedInfo(summonerId))
+  );
+  for (const rankInfo of allRankInfo) {
+    const soloRank = rankInfo.find(
+      (rankInfo) => rankInfo.queueType === "RANKED_SOLO_5x5"
+    );
+
+    if (soloRank) {
+      const { tier, rank, leaguePoints } = soloRank;
+      rankNum += rankBaseline[`${tier}-${rank}`] + leaguePoints;
+      counter += 1;
+    }
+  }
+
+  return rankNum / counter;
 }
 
 // const checkNameAndTag = ({ match, params }) => {
@@ -3404,8 +3459,10 @@ const Team = ({ team }) => {
 
 function Match({ match, params }) {
   const [queueInfo, setQueueInfo] = useState({});
-  const [summonerInfo1, setSummonerInfo1] = useState({});
-  const [summonerInfo2, setSummonerInfo2] = useState({});
+  const [spellInfo1, setspellInfo1] = useState({});
+  const [spellInfo2, setspellInfo2] = useState({});
+  const [runeInfo1, setRuneInfo1] = useState({});
+  const [runeInfo2, setRuneInfo2] = useState({});
   const [matchAvg, setMatchAvg] = useState({});
 
   useEffect(() => {
@@ -3415,24 +3472,25 @@ function Match({ match, params }) {
   }, [match.info.queueId]);
 
   useEffect(() => {
-    (async () => {
-      setSummonerInfo1(await getSummonerInfo(getSummonerId1()));
-    })();
+    // (async () => {
+    getSpellInfo(getSpellId1()).then((x) => setspellInfo1(x));
+    getSpellInfo(getSpellId2()).then((x) => setspellInfo2(x));
+    getPrimaryInfo(getRunePrimary()).then((x) => setRuneInfo1(x));
+    getSecondaryInfo(getRuneSecondary()).then((x) => setRuneInfo2(x));
+    averageRank(getSummonerIds()).then((x) => setMatchAvg(x));
+    // setspellInfo1(await getSummonerInfo(getSummrId1()));
+    // setspellInfo2(await getSummonerInfo(getSpellId2()));
+    // setMatchAvg(await averageRank(getSummonerIds()));
+    // })();
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      setSummonerInfo2(await getSummonerInfo(getSummonerId2()));
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     setMatchAvg(await averageRank(getSummonerIds()));
+  //   })();
+  // }, []);
 
-  useEffect(() => {
-    (async () => {
-      setMatchAvg(await averageRank(getSummonerIds()));
-    })();
-  }, []);
-
-  const getSummonerId1 = () => {
+  const getSpellId1 = () => {
     for (const item of match.info.participants) {
       if (item.riotIdGameName === params.username) {
         return item.summoner1Id;
@@ -3440,10 +3498,26 @@ function Match({ match, params }) {
     }
   };
 
-  const getSummonerId2 = () => {
+  const getSpellId2 = () => {
     for (const item of match.info.participants) {
       if (item.riotIdGameName === params.username) {
         return item.summoner2Id;
+      }
+    }
+  };
+
+  const getRunePrimary = () => {
+    for (const player of match.info.participants) {
+      if (player.riotIdGameName === params.username) {
+        return player.perks.styles[0].selections[0].perk;
+      }
+    }
+  };
+
+  const getRuneSecondary = () => {
+    for (const player of match.info.participants) {
+      if (player.riotIdGameName === params.username) {
+        return player.perks.styles[1].style;
       }
     }
   };
@@ -3565,8 +3639,8 @@ function Match({ match, params }) {
 
     match.info.participants.forEach((player) => {
       if (player.riotIdGameName === params.username) {
-        champSpell1 = getSpell(summonerInfo1);
-        champSpell2 = getSpell(summonerInfo2);
+        champSpell1 = getSpell(spellInfo1);
+        champSpell2 = getSpell(spellInfo2);
       }
     });
 
@@ -3599,17 +3673,19 @@ function Match({ match, params }) {
     let champRune2 = null;
 
     const getRune = (rune) => {
-      const riotURL = ``;
+      const riotURL = `https://ddragon.leagueoflegends.com/cdn/img/${rune}`;
 
       return riotURL;
     };
 
-    match.info.participants.forEach((player) => {
-      if (player.riotIdGameName === params.username) {
-        champRune1 = getRune();
-        champRune2 = getRune();
-      }
-    });
+    const participant = match.info.participants.find(
+      (player) => player.riotIdGameName === params.username
+    );
+
+    if (participant) {
+      champRune1 = getRune(runeInfo1);
+      champRune2 = getRune(runeInfo2);
+    }
 
     return (
       <>
@@ -3625,7 +3701,8 @@ function Match({ match, params }) {
         <div className={styles["rune-container2"]}>
           <Image
             src={champRune2}
-            fill
+            width={25}
+            height={25}
             sizes="50px"
             alt="rune2"
             style={{ borderRadius: "5px" }}
@@ -3742,12 +3819,14 @@ function Match({ match, params }) {
 
     return (
       <>
-        <Image
-          src={`/images/ranked/${rankEmblem}.png`}
-          width={35}
-          height={35}
-          alt="rank-emblem"
-        />
+        {rankEmblem && (
+          <Image
+            src={`/images/ranked/${rankEmblem}.png`}
+            width={35}
+            height={35}
+            alt="rank-emblem"
+          />
+        )}
         <span className={styles["matchrank-title"]}>{avgRankTitle}</span>
       </>
     );
@@ -3893,7 +3972,9 @@ function Match({ match, params }) {
         </div>
         <div className={styles["match-divider"]}></div>
         <div className={styles["sum-container3"]}>{getTeams()}</div>
-        <div className={styles["expand-tab"]}></div>
+        <div className={styles["expand-tab"]}>
+          <RiArrowDownDoubleLine className={styles["expand-styling"]} />
+        </div>
       </div>
     </div>
   );

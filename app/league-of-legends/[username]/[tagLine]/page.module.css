@@ -421,6 +421,7 @@
   justify-content: center;
   width: 30%;
   height: 100%;
+  margin-left: 2px;
 }
 
 .champsums-container {
@@ -484,16 +485,22 @@
 }
 
 .rune-container1, .rune-container2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 37px;
   background-color: var(--grey-color1);
   border-radius: 5px;
   border: 1px solid black;
+  position: relative;
 }
 
 .icon-container2 {
   display: flex;
   flex-direction: column;
+  padding-top: 4px;
+  margin-top: 4px;
   width: 45%;
   height: 100%;
 }
@@ -509,7 +516,6 @@
   flex-direction: column;
   width: 110px;
   height: 100%;
-  padding-top: 5px;
 }
 
 .kda-num {
@@ -541,7 +547,7 @@
   flex-direction: column;
   width: 77px;
   height: 100%;
-  padding-top: 6px;
+
 }
 
 .gold-income, .creep-score, .control-wards {
@@ -575,7 +581,7 @@
   justify-content: center;
   width: 30%;
   height: 100%;
-
+  margin-right: 8px;
 }
 
 .matchrank-container {
@@ -615,7 +621,6 @@
   justify-content: center;
   width: 100%;
   height: 40px;
-  /* background-color: red; */
 }
 
 .multikill-container {
@@ -672,10 +677,18 @@
 
 .expand-tab {
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 4%;
   height: 100%;
   background-color: var(--grey-color1);
   border-left: 1px solid black;
+}
+
+.expand-styling {
+  width: 100%;
+  height: 100%;
+  color: #FFAA46;
 }
 
 /* .first-section {
