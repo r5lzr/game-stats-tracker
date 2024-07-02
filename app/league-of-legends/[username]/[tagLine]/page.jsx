@@ -3226,18 +3226,6 @@ async function getRuneInfo() {
 async function getPrimaryInfo(runeId) {
   const runeData = await getRuneInfo();
 
-  // for (const rune of runeData) {
-  //   rune.slots.find((slot) => {
-  //     for (const primaryRune of slot.runes) {
-  //       // console.log(primaryRune);
-  //       // console.log(runeId);
-  //       if (primaryRune.id === runeId) {
-  //         return primaryRune.icon;
-  //       }
-  //     }
-  //   });
-  // }
-
   for (const runeTree of runeData) {
     for (const slot of runeTree.slots) {
       const primaryRune = slot.runes.find(
@@ -3269,6 +3257,29 @@ async function getRankedInfo(summonerId) {
   if (!res.ok) throw new Error("Failed to fetch ranked data");
 
   return await res.json();
+}
+
+async function getPlayerRankSolo(summonerId) {
+  let rankedSoloActivity = [];
+
+  const rankedData = await getRankedInfo(summonerId);
+
+  const checkActivity = rankedData.find(
+    (rankInfo) => rankInfo.queueType === "RANKED_SOLO_5x5"
+  );
+
+  if (checkActivity) {
+    const { tier, rank, leaguePoints, wins, losses } = checkActivity;
+    rankedSoloActivity[0] = tier;
+    rankedSoloActivity[1] = rank;
+    rankedSoloActivity[2] = `${leaguePoints} LP`;
+    rankedSoloActivity[3] = wins;
+    rankedSoloActivity[4] = losses;
+  } else {
+    rankedSoloActivity = false;
+  }
+
+  return rankedSoloActivity;
 }
 
 async function averageRank(summonerIds) {
@@ -3477,16 +3488,16 @@ function Match({ match, params }) {
     getSpellInfo(getSpellId2()).then((x) => setspellInfo2(x));
     getPrimaryInfo(getRunePrimary()).then((x) => setRuneInfo1(x));
     getSecondaryInfo(getRuneSecondary()).then((x) => setRuneInfo2(x));
-    averageRank(getSummonerIds()).then((x) => setMatchAvg(x));
+    averageRank(getMatchSummonerIds()).then((x) => setMatchAvg(x));
     // setspellInfo1(await getSummonerInfo(getSummrId1()));
     // setspellInfo2(await getSummonerInfo(getSpellId2()));
-    // setMatchAvg(await averageRank(getSummonerIds()));
+    // setMatchAvg(await averageRank(getMatchSummonerIds()));
     // })();
   }, []);
 
   // useEffect(() => {
   //   (async () => {
-  //     setMatchAvg(await averageRank(getSummonerIds()));
+  //     setMatchAvg(await averageRank(getMatchSummonerIds()));
   //   })();
   // }, []);
 
@@ -3522,7 +3533,7 @@ function Match({ match, params }) {
     }
   };
 
-  const getSummonerIds = () => {
+  const getMatchSummonerIds = () => {
     let summonerIds = [];
 
     match.info.participants.forEach((player) => {
@@ -3632,7 +3643,9 @@ function Match({ match, params }) {
     let champSpell2 = null;
 
     const getSpell = (spell) => {
-      const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.11.1/img/spell/${spell}.png`;
+      console.log(spellInfo1);
+      console.log(spellInfo2);
+      const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/spell/${spell}.png`;
 
       return riotURL;
     };
@@ -3984,6 +3997,90 @@ export default function Page({ params }) {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState("Region");
   const options = ["EUW", "NA"];
+  const [rankedSoloInfo, setRankedSoloInfo] = useState({});
+
+  useEffect(() => {
+    // (async () => {
+    getPlayerRankSolo("-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4").then(
+      (x) => setRankedSoloInfo(x)
+    );
+    // setspellInfo1(await getSummonerInfo(getSummrId1()));
+    // setspellInfo2(await getSummonerInfo(getSpellId2()));
+    // setMatchAvg(await averageRank(getMatchSummonerIds()));
+    // })();
+  }, []);
+
+  const getSummonerId = () => {
+    for (const player of matches[0].info.participants) {
+      if (player.riotIdGameName === params.username) {
+        return player.summonerId;
+      }
+    }
+  };
+
+  const getSoloRank = () => {
+    let rankedSoloTier = null;
+    let rankedSoloRank = null;
+    let rankedSoloLP = null;
+    let rankedSoloWins = null;
+    let rankedSoloLosses = null;
+    let rankedSoloRatio = null;
+
+    if (Array.isArray(rankedSoloInfo)) {
+      rankedSoloTier = rankedSoloInfo[0];
+      rankedSoloRank = rankedSoloInfo[1];
+      rankedSoloLP = rankedSoloInfo[2];
+      rankedSoloWins = rankedSoloInfo[3];
+      rankedSoloLosses = rankedSoloInfo[4];
+
+      rankedSoloRatio = Math.ceil(
+        (rankedSoloWins / (rankedSoloWins + rankedSoloLosses)) * 100
+      );
+    } else {
+      rankedSoloTier = "UNRANKED";
+    }
+
+    return (
+      <div className={styles["ranked-solo"]}>
+        <span className={styles["ranked-label"]}>Ranked Solo</span>
+        <div className={styles["ranked-outcome"]}>
+          <div className={styles["ranked-icon-container"]}>
+            {rankedSoloInfo && (
+              <Image
+                src={`/images/ranked/${rankedSoloTier}.png`}
+                fill
+                sizes="50px"
+                alt="rank-icon"
+              />
+            )}
+          </div>
+          <div className={styles["ranked-solo-container"]}>
+            <div className={styles["tier-rank-container"]}>
+              <div className={styles["tier-title"]}>{rankedSoloTier}</div>
+              <div className={styles["division-title"]}>{rankedSoloRank}</div>
+              <div className={styles["LP-title"]}>{rankedSoloLP}</div>
+            </div>
+            {rankedSoloInfo && (
+              <div className={styles["winloss-container"]}>
+                <div className={styles["win-title"]}>
+                  {rankedSoloWins}
+                  <span style={{ color: "var(--blue-color1" }}>W</span>
+                </div>
+                <span style={{ color: "white" }}>-</span>
+                <div className={styles["loss-title"]}>
+                  {rankedSoloLosses}
+                  <span style={{ color: "var(--red-color1" }}>L</span>
+                </div>
+                <div className={styles["ratio-title"]}>
+                  ({rankedSoloRatio}%)
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -4032,12 +4129,7 @@ export default function Page({ params }) {
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
               <div className={styles["ranked-title"]}>Current rank</div>
-              <div className={styles["ranked-solo"]}>
-                <span className={styles["ranked-label"]}>Ranked Solo</span>
-                <div className={styles["ranked-outcome"]}>
-                  <div className={styles["ranked-icon-container"]}></div>
-                </div>
-              </div>
+              {getSoloRank()}
               <div className={styles["ranked-flex"]}>
                 <span className={styles["ranked-label"]}>Ranked Flex</span>
                 <div className={styles["ranked-outcome"]}>
