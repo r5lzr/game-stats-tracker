@@ -3282,6 +3282,29 @@ async function getPlayerRankSolo(summonerId) {
   return rankedSoloActivity;
 }
 
+async function getPlayerRankFlex(summonerId) {
+  let rankedFlexActivity = [];
+
+  const rankedData = await getRankedInfo(summonerId);
+
+  const checkActivity = rankedData.find(
+    (rankInfo) => rankInfo.queueType === "RANKED_FLEX_SR"
+  );
+
+  if (checkActivity) {
+    const { tier, rank, leaguePoints, wins, losses } = checkActivity;
+    rankedFlexActivity[0] = tier;
+    rankedFlexActivity[1] = rank;
+    rankedFlexActivity[2] = `${leaguePoints} LP`;
+    rankedFlexActivity[3] = wins;
+    rankedFlexActivity[4] = losses;
+  } else {
+    rankedFlexActivity = false;
+  }
+
+  return rankedFlexActivity;
+}
+
 async function averageRank(summonerIds) {
   let rankNum = 0;
 
@@ -3998,11 +4021,15 @@ export default function Page({ params }) {
   const [selected, setSelected] = useState("Region");
   const options = ["EUW", "NA"];
   const [rankedSoloInfo, setRankedSoloInfo] = useState({});
+  const [rankedFlexInfo, setRankedFlexInfo] = useState({});
 
   useEffect(() => {
     // (async () => {
     getPlayerRankSolo("-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4").then(
       (x) => setRankedSoloInfo(x)
+    );
+    getPlayerRankFlex("-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4").then(
+      (x) => setRankedFlexInfo(x)
     );
     // setspellInfo1(await getSummonerInfo(getSummrId1()));
     // setspellInfo2(await getSummonerInfo(getSpellId2()));
@@ -4018,67 +4045,63 @@ export default function Page({ params }) {
     }
   };
 
-  const getSoloRank = () => {
-    let rankedSoloTier = null;
-    let rankedSoloRank = null;
-    let rankedSoloLP = null;
-    let rankedSoloWins = null;
-    let rankedSoloLosses = null;
-    let rankedSoloRatio = null;
+  const RankedQueue = ({ rankedInfo, label }) => {
+    let rankedTier = null;
+    let rankedRank = null;
+    let rankedLP = null;
+    let rankedWins = null;
+    let rankedLosses = null;
+    let rankedRatio = null;
 
-    if (Array.isArray(rankedSoloInfo)) {
-      rankedSoloTier = rankedSoloInfo[0];
-      rankedSoloRank = rankedSoloInfo[1];
-      rankedSoloLP = rankedSoloInfo[2];
-      rankedSoloWins = rankedSoloInfo[3];
-      rankedSoloLosses = rankedSoloInfo[4];
+    if (Array.isArray(rankedInfo)) {
+      rankedTier = rankedInfo[0];
+      rankedRank = rankedInfo[1];
+      rankedLP = rankedInfo[2];
+      rankedWins = rankedInfo[3];
+      rankedLosses = rankedInfo[4];
 
-      rankedSoloRatio = Math.ceil(
-        (rankedSoloWins / (rankedSoloWins + rankedSoloLosses)) * 100
-      );
+      rankedRatio = Math.ceil((rankedWins / (rankedWins + rankedLosses)) * 100);
     } else {
-      rankedSoloTier = "UNRANKED";
+      rankedTier = "UNRANKED";
     }
 
     return (
-      <div className={styles["ranked-solo"]}>
-        <span className={styles["ranked-label"]}>Ranked Solo</span>
+      <>
+        <span className={styles["ranked-label"]}>{label}</span>
         <div className={styles["ranked-outcome"]}>
           <div className={styles["ranked-icon-container"]}>
-            {rankedSoloInfo && (
+            {rankedInfo && (
               <Image
-                src={`/images/ranked/${rankedSoloTier}.png`}
+                src={`/images/ranked/${rankedTier}.png`}
                 fill
                 sizes="50px"
                 alt="rank-icon"
               />
             )}
           </div>
-          <div className={styles["ranked-solo-container"]}>
+          <div className={styles["ranked-type-container"]}>
             <div className={styles["tier-rank-container"]}>
-              <div className={styles["tier-title"]}>{rankedSoloTier}</div>
-              <div className={styles["division-title"]}>{rankedSoloRank}</div>
-              <div className={styles["LP-title"]}>{rankedSoloLP}</div>
+              <div className={styles["tier-title"]}>{rankedTier}</div>
+              <div className={styles["division-title"]}>{rankedRank}</div>
+              <div className={styles["LP-title"]}>{rankedLP}</div>
             </div>
-            {rankedSoloInfo && (
+            {rankedInfo && (
               <div className={styles["winloss-container"]}>
                 <div className={styles["win-title"]}>
-                  {rankedSoloWins}
+                  {rankedWins}
                   <span style={{ color: "var(--blue-color1" }}>W</span>
                 </div>
                 <span style={{ color: "white" }}>-</span>
                 <div className={styles["loss-title"]}>
-                  {rankedSoloLosses}
+                  {rankedLosses}
                   <span style={{ color: "var(--red-color1" }}>L</span>
                 </div>
-                <div className={styles["ratio-title"]}>
-                  ({rankedSoloRatio}%)
-                </div>
+                <div className={styles["ratio-title"]}>({rankedRatio}%)</div>
               </div>
             )}
           </div>
         </div>
-      </div>
+      </>
     );
   };
 
@@ -4129,12 +4152,11 @@ export default function Page({ params }) {
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
               <div className={styles["ranked-title"]}>Current rank</div>
-              {getSoloRank()}
+              <div className={styles["ranked-solo"]}>
+                <RankedQueue label="Ranked Solo" rankedInfo={rankedSoloInfo} />
+              </div>
               <div className={styles["ranked-flex"]}>
-                <span className={styles["ranked-label"]}>Ranked Flex</span>
-                <div className={styles["ranked-outcome"]}>
-                  <div className={styles["ranked-icon-container"]}></div>
-                </div>
+                <RankedQueue label="Ranked Flex" rankedInfo={rankedFlexInfo} />
               </div>
             </div>
             <div className={styles["performance-container"]}></div>

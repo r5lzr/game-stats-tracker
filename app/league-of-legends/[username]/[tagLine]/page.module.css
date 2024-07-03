@@ -197,11 +197,10 @@
   position: relative;
 }
 
-.ranked-solo-container {
+.ranked-type-container {
   display: flex;
   flex-direction: column;
   height: 50px;
-  align-items: center;
   justify-content: center;
 }
 
