@@ -3493,10 +3493,10 @@ const Team = ({ team }) => {
 
 function Match({ match, params }) {
   const [queueInfo, setQueueInfo] = useState({});
-  const [spellInfo1, setspellInfo1] = useState({});
-  const [spellInfo2, setspellInfo2] = useState({});
-  const [runeInfo1, setRuneInfo1] = useState({});
-  const [runeInfo2, setRuneInfo2] = useState({});
+  const [spellInfo1, setspellInfo1] = useState(null);
+  const [spellInfo2, setspellInfo2] = useState(null);
+  const [runeInfo1, setRuneInfo1] = useState(null);
+  const [runeInfo2, setRuneInfo2] = useState(null);
   const [matchAvg, setMatchAvg] = useState({});
 
   useEffect(() => {
@@ -3666,8 +3666,6 @@ function Match({ match, params }) {
     let champSpell2 = null;
 
     const getSpell = (spell) => {
-      console.log(spellInfo1);
-      console.log(spellInfo2);
       const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/spell/${spell}.png`;
 
       return riotURL;
@@ -4045,6 +4043,37 @@ export default function Page({ params }) {
     }
   };
 
+  const ProfileIcon = () => {
+    let profileIcon = null;
+    let profileLevel = null;
+
+    const getProfileIcon = (iconId) => {
+      const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/profileicon/${iconId}.png`;
+
+      return riotURL;
+    };
+
+    const participant = matches[0].info.participants.find(
+      (player) => player.riotIdGameName === params.username
+    );
+
+    if (participant) {
+      profileIcon = getProfileIcon(participant.profileIcon);
+      profileLevel = participant.summonerLevel;
+    }
+
+    return (
+      <div className={styles["profile-container"]}>
+        <div className={styles["profile-icon-container"]}>
+          <Image src={profileIcon} fill sizes="50px" alt="Icon 1" />
+        </div>
+        <div className={styles["profile-level-container"]}>
+          <span style={{ color: "white" }}>{profileLevel}</span>
+        </div>
+      </div>
+    );
+  };
+
   const RankedQueue = ({ rankedInfo, label }) => {
     let rankedTier = null;
     let rankedRank = null;
@@ -4145,8 +4174,11 @@ export default function Page({ params }) {
       </div>
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
-          <div className={styles["profile-container"]}></div>
-          <h1 className={styles["username-title"]}>{params.username}</h1>
+          <ProfileIcon label="Profile Icon" />
+          <span className={styles["username-title"]}>
+            {params.username}
+            <span className={styles["tagline-title"]}>#{params.tagLine}</span>
+          </span>
         </div>
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>

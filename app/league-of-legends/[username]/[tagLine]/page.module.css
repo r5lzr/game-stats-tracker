@@ -111,15 +111,40 @@
 }
 
 .profile-container {
-  background-color: red;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.profile-icon-container {
   width: 100px;
   height: 100px;
-  margin-left: 20px;
+  border: 1px solid black;
+  position: relative;
+}
+
+.profile-level-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 20px;
+  margin-top: 2px;
+  border: 1px solid black;
+  border-radius: 0px 0px 5px 5px;
+  font-weight: bold;
+  background-color: black;
 }
 
 .username-title {
   margin-left: 20px;
   font-size: 4rem;
+  color: white;
+}
+
+.tagline-title {
+  font-size: 4rem;
+  color: #777777;
 }
 
 .main-container {
@@ -315,7 +340,6 @@
 .recent-label {
   color: white;
   font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .matchsearch-container {
