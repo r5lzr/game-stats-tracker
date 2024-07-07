@@ -82,17 +82,29 @@ function getMatchSummonerIds(match) {
 export async function MatchRankAvg({ match }) {
   let avgRankTitle = null;
   let rankEmblem = null;
+  const highRanks = ["CHALLENGER", "GRANDMASTER", "MASTER"];
 
   const summonerIds = getMatchSummonerIds(match);
 
   const matchAvg = await averageRank(summonerIds);
 
-  const matchAvgRounded = Math.ceil(matchAvg / 100) * 100;
+  let matchAvgRounded = Math.ceil(matchAvg / 100) * 100;
+
+  console.log(matchAvg);
+
+  if (matchAvgRounded > 3000) {
+    matchAvgRounded = 3000;
+  }
 
   for (const rank in rankBaseline) {
     if (rankBaseline[rank] === matchAvgRounded) {
       avgRankTitle = rank;
       rankEmblem = avgRankTitle.slice(0, avgRankTitle.indexOf("-"));
+
+      if (highRanks.includes(rankEmblem)) {
+        avgRankTitle = rankEmblem;
+      }
+
       break;
     }
   }
