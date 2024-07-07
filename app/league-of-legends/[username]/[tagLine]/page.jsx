@@ -1,22 +1,24 @@
-"use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+// import Image from "next/image";
 import "./page.css";
 import styles from "./page.module.css";
 import { IoSearch } from "react-icons/io5";
-import { RiArrowDownDoubleLine } from "react-icons/ri";
-import { RankedQueue } from "./RankedQueue";
-import { ProfileIcon } from "./ProfileIcon";
+// import { RiArrowDownDoubleLine } from "react-icons/ri";
+// import { RankedQueue } from "./RankedQueue";
+// import { ProfileIcon } from "./ProfileIcon";
 import { GameMode } from "./GameMode";
-import { Teams } from "./Teams";
-import { MatchRankAvg } from "./MatchRankAvg";
-import { MatchKda } from "./MatchKda";
-import { MatchMultiKill } from "./MatchMultiKill";
-import { MatchGCC } from "./MatchGCC";
-import { MatchSumRunes } from "./MatchSumRunes";
-import { MatchSumSpells } from "./MatchSumSpells";
-import { MatchChampIcon } from "./MatchChampIcon";
-import { MatchItems } from "./MatchItems";
+// import { Teams } from "./Teams";
+// import { MatchRankAvg } from "./MatchRankAvg";
+// import { MatchKda } from "./MatchKda";
+// import { MatchMultiKill } from "./MatchMultiKill";
+// import { MatchGCC } from "./MatchGCC";
+// import { MatchSumRunes } from "./MatchSumRunes";
+// import { MatchSumSpells } from "./MatchSumSpells";
+// import { MatchChampIcon } from "./MatchChampIcon";
+// import { MatchItems } from "./MatchItems";
+import { Ranked } from "./Ranked";
+import { Match } from "./Match";
+import { SearchBar } from "./SearchBar";
+// import { promises as fs } from "fs";
 
 // const matches = [
 //   {
@@ -3071,472 +3073,16 @@ import { MatchItems } from "./MatchItems";
 //   },
 // ];
 
-const rankBaseline = {
-  "IRON-IV": 0,
-  "IRON-III": 100,
-  "IRON-II": 200,
-  "IRON-I": 300,
-  "BRONZE-IV": 400,
-  "BRONZE-III": 500,
-  "BRONZE-II": 600,
-  "BRONZE-I": 700,
-  "SILVER-IV": 800,
-  "SILVER-III": 900,
-  "SILVER-II": 1000,
-  "SILVER-I": 1100,
-  "GOLD-IV": 1200,
-  "GOLD-III": 1300,
-  "GOLD-II": 1400,
-  "GOLD-I": 1500,
-  "PLATINUM-IV": 1600,
-  "PLATINUM-III": 1700,
-  "PLATINUM-II": 1800,
-  "PLATINUM-I": 1900,
-  "EMERALD-IV": 2000,
-  "EMERALD-III": 2100,
-  "EMERALD-II": 2200,
-  "EMERALD-I": 2300,
-  "DIAMOND-IV": 2400,
-  "DIAMOND-III": 2500,
-  "DIAMOND-II": 2600,
-  "DIAMOND-I": 2700,
-  "MASTER-I": 2800,
-  "GRANDMASTER-I": 2900,
-  "CHALLENGER-I": 3000,
+const checkNameAndTag = ({ match, params }) => {
+  match.info.participants.forEach((item) => {
+    if (
+      item.riotIdGameName === params.username &&
+      item.riotIdTagline === params.tagLine
+    ) {
+      return true;
+    }
+  });
 };
-
-async function getMatches(username, tagLine) {
-  const res = await fetch(
-    `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`
-  );
-
-  if (!res.ok) throw new Error("Failed to fetch match data");
-
-  return await res.json();
-}
-
-let queues;
-async function getQueueInfo(queueId) {
-  if (!queues) {
-    const res = await fetch(
-      "https://static.developer.riotgames.com/docs/lol/queues.json"
-    );
-
-    if (!res.ok) throw new Error("Failed to fetch queue data");
-
-    queues = await res.json();
-  }
-
-  let queueOutcome = queues.find((queue) => queue.queueId === queueId);
-
-  switch (queueOutcome.queueId) {
-    case 420:
-      queueOutcome.description = "Ranked Solo";
-      break;
-    case 440:
-      queueOutcome.description = "Ranked Flex";
-      break;
-    case 490:
-      queueOutcome.description = "Quick Play";
-      break;
-    case 400:
-      queueOutcome.description = "Draft Pick";
-      break;
-    case 830:
-      queueOutcome.description = "AI Intro";
-      break;
-    case 840:
-      queueOutcome.description = "AI Beginner";
-      break;
-    case 850:
-      queueOutcome.description = "AI Intermediate";
-      break;
-    case 450:
-      queueOutcome.description = "ARAM";
-      break;
-    case 700:
-      queueOutcome.description = "Clash";
-      break;
-    case 720:
-      queueOutcome.description = "ARAM Clash";
-      break;
-    case 1710:
-      queueOutcome.description = "Arena";
-      break;
-    default:
-      queueOutcome.description = "Unknown";
-      break;
-  }
-
-  return queueOutcome;
-}
-
-let spells;
-async function getSpellInfo(spellNumberId) {
-  if (!spells) {
-    const res = await fetch(
-      "https://ddragon.leagueoflegends.com/cdn/14.11.1/data/en_US/summoner.json"
-    );
-
-    if (!res.ok) throw new Error("Failed to fetch summoner data");
-
-    spells = await res.json();
-  }
-
-  for (const summonerSpell in spells.data) {
-    const spellKey = spells.data[summonerSpell].key;
-    if (spellKey === spellNumberId.toString()) {
-      return spells.data[summonerSpell].id;
-    }
-  }
-}
-
-let runes;
-async function getRuneInfo() {
-  if (!runes) {
-    const res = await fetch(
-      "https://ddragon.leagueoflegends.com/cdn/14.12.1/data/en_US/runesReforged.json"
-    );
-
-    if (!res.ok) throw new Error("Failed to fetch runes data");
-
-    return (runes = await res.json());
-  }
-}
-
-async function getPrimaryInfo(runeId) {
-  const runeData = await getRuneInfo();
-
-  for (const runeTree of runeData) {
-    for (const slot of runeTree.slots) {
-      const primaryRune = slot.runes.find(
-        (primaryRune) => primaryRune.id === runeId
-      );
-
-      if (primaryRune) {
-        return primaryRune.icon;
-      }
-    }
-  }
-}
-
-async function getSecondaryInfo(runeId) {
-  const runeData = await getRuneInfo();
-
-  for (const rune of runeData) {
-    if (rune.id === runeId) {
-      return rune.icon;
-    }
-  }
-}
-
-async function getRankedInfo(summonerId) {
-  const res = await fetch(
-    `/api/league-of-legends/ranked?summonerId=${summonerId}`
-  );
-
-  if (!res.ok) throw new Error("Failed to fetch ranked data");
-
-  return await res.json();
-}
-
-async function getPlayerRankSolo(summonerId) {
-  let rankedSoloActivity = [];
-
-  const rankedData = await getRankedInfo(summonerId);
-
-  const checkActivity = rankedData.find(
-    (rankInfo) => rankInfo.queueType === "RANKED_SOLO_5x5"
-  );
-
-  if (checkActivity) {
-    const { tier, rank, leaguePoints, wins, losses } = checkActivity;
-    rankedSoloActivity[0] = tier;
-    rankedSoloActivity[1] = rank;
-    rankedSoloActivity[2] = `${leaguePoints} LP`;
-    rankedSoloActivity[3] = wins;
-    rankedSoloActivity[4] = losses;
-  } else {
-    rankedSoloActivity = false;
-  }
-
-  return rankedSoloActivity;
-}
-
-async function getPlayerRankFlex(summonerId) {
-  let rankedFlexActivity = [];
-
-  const rankedData = await getRankedInfo(summonerId);
-
-  const checkActivity = rankedData.find(
-    (rankInfo) => rankInfo.queueType === "RANKED_FLEX_SR"
-  );
-
-  if (checkActivity) {
-    const { tier, rank, leaguePoints, wins, losses } = checkActivity;
-    rankedFlexActivity[0] = tier;
-    rankedFlexActivity[1] = rank;
-    rankedFlexActivity[2] = `${leaguePoints} LP`;
-    rankedFlexActivity[3] = wins;
-    rankedFlexActivity[4] = losses;
-  } else {
-    rankedFlexActivity = false;
-  }
-
-  return rankedFlexActivity;
-}
-
-async function averageRank(summonerIds) {
-  let rankNum = 0;
-
-  let counter = 0;
-
-  const allRankInfo = await Promise.all(
-    summonerIds.map((summonerId) => getRankedInfo(summonerId))
-  );
-  for (const rankInfo of allRankInfo) {
-    const soloRank = rankInfo.find(
-      (rankInfo) => rankInfo.queueType === "RANKED_SOLO_5x5"
-    );
-
-    if (soloRank) {
-      const { tier, rank, leaguePoints } = soloRank;
-      rankNum += rankBaseline[`${tier}-${rank}`] + leaguePoints;
-      counter += 1;
-    }
-  }
-
-  return rankNum / counter;
-}
-
-// const checkNameAndTag = ({ match, params }) => {
-//   match.info.participants.forEach((item) => {
-//     if (
-//       item.riotIdGameName === params.username &&
-//       item.riotIdTagline === params.tagLine
-//     ) {
-//       return true;
-//     }
-//   });
-// };
-
-function Match({ match, params }) {
-  const [queueInfo, setQueueInfo] = useState({});
-  const [spellInfo1, setspellInfo1] = useState(null);
-  const [spellInfo2, setspellInfo2] = useState(null);
-  const [runeInfo1, setRuneInfo1] = useState(null);
-  const [runeInfo2, setRuneInfo2] = useState(null);
-  const [matchAvg, setMatchAvg] = useState({});
-
-  useEffect(() => {
-    (async () => {
-      setQueueInfo(await getQueueInfo(match.info.queueId));
-    })();
-  }, [match.info.queueId]);
-
-  useEffect(() => {
-    // (async () => {
-    getSpellInfo(getSpellId1()).then((x) => setspellInfo1(x));
-    getSpellInfo(getSpellId2()).then((x) => setspellInfo2(x));
-    getPrimaryInfo(getRunePrimary()).then((x) => setRuneInfo1(x));
-    getSecondaryInfo(getRuneSecondary()).then((x) => setRuneInfo2(x));
-    averageRank(getMatchSummonerIds()).then((x) => setMatchAvg(x));
-    // setspellInfo1(await getSummonerInfo(getSummrId1()));
-    // setspellInfo2(await getSummonerInfo(getSpellId2()));
-    // setMatchAvg(await averageRank(getMatchSummonerIds()));
-    // })();
-  }, []);
-
-  function getSpellId1() {
-    for (const item of match.info.participants) {
-      if (item.riotIdGameName === params.username) {
-        return item.summoner1Id;
-      }
-    }
-  }
-
-  function getSpellId2() {
-    for (const item of match.info.participants) {
-      if (item.riotIdGameName === params.username) {
-        return item.summoner2Id;
-      }
-    }
-  }
-
-  function getRunePrimary() {
-    for (const player of match.info.participants) {
-      if (player.riotIdGameName === params.username) {
-        return player.perks.styles[0].selections[0].perk;
-      }
-    }
-  }
-
-  function getRuneSecondary() {
-    for (const player of match.info.participants) {
-      if (player.riotIdGameName === params.username) {
-        return player.perks.styles[1].style;
-      }
-    }
-  }
-
-  function getMatchSummonerIds() {
-    let summonerIds = [];
-
-    match.info.participants.forEach((player) => {
-      summonerIds.push(player.summonerId);
-    });
-
-    return summonerIds;
-  }
-
-  function findSummonerName() {
-    let foundName = null;
-
-    match.info.participants.forEach((item) => {
-      if (
-        item.riotIdGameName === params.username &&
-        item.riotIdTagline === params.tagLine
-      ) {
-        foundName = item.riotIdGameName;
-      }
-    });
-
-    return foundName; //need to change for riot id and tagline
-  }
-
-  function getRelativeTime() {
-    let endTime = match.info.gameEndTimestamp;
-
-    const diff = new Date(endTime) - new Date();
-    const formatter = new Intl.RelativeTimeFormat("en");
-
-    if (diff < 2.68e9) {
-      return formatter.format(Math.ceil(diff / 8.64e7), "day");
-    } else if (diff < 3.156e10) {
-      return formatter.format(Math.ceil(diff / 2.6298e9), "month");
-    } else {
-      return formatter.format(Math.ceil(diff / 3.15576e10), "year");
-    }
-  }
-
-  function getGameDuration() {
-    let gameTime = null;
-
-    const minutes = Math.floor(match.info.gameDuration / 60);
-    const seconds = match.info.gameDuration % 60;
-
-    gameTime = `${minutes}m ${seconds}s`;
-
-    return gameTime;
-  }
-
-  function getOutcome() {
-    let victoryOutcome = null;
-
-    match.info.participants.forEach((item) => {
-      if (item.riotIdGameName === params.username && item.win === true) {
-        victoryOutcome = "VICTORY";
-      } else if (
-        item.riotIdGameName === params.username &&
-        item.win === false
-      ) {
-        victoryOutcome = "DEFEAT";
-      }
-    });
-
-    return victoryOutcome;
-  }
-
-  return (
-    <div className={styles["match-container"]}>
-      <div
-        className={`${styles["match-deco"]} ${
-          getOutcome() === "VICTORY"
-            ? styles["victory-deco"]
-            : styles["defeat-deco"]
-        }`}
-      ></div>
-      <div
-        className={`${styles["match-content"]} ${
-          getOutcome() === "VICTORY"
-            ? styles["victory-content"]
-            : styles["defeat-content"]
-        }`}
-      >
-        <div className={styles["sum-container1"]}>
-          <div className={styles["gamemode-label"]}>
-            {queueInfo.description}
-          </div>
-          <div className={styles["days-label"]}>{getRelativeTime()}</div>
-          <div className={styles["gametime-label"]}>{getGameDuration()}</div>
-          <div
-            className={`${styles["outcome-label"]} ${
-              getOutcome() === "VICTORY" ? styles["victory"] : styles["defeat"]
-            }`}
-          >
-            {getOutcome()}
-          </div>
-        </div>
-        <div className={styles["match-divider"]}></div>
-        <div className={styles["sum-container2"]}>
-          <div className={styles["icon-container1"]}>
-            <div className={styles["champsums-container"]}>
-              <MatchChampIcon match={match} params={params} />
-              <div className={styles["summoners-container"]}>
-                <MatchSumSpells
-                  match={match}
-                  params={params}
-                  spellInfo1={spellInfo1}
-                  spellInfo2={spellInfo2}
-                />
-              </div>
-            </div>
-            <div className={styles["runepage-container"]}>
-              <MatchSumRunes
-                match={match}
-                params={params}
-                runeInfo1={runeInfo1}
-                runeInfo2={runeInfo2}
-              />
-            </div>
-          </div>
-          <div className={styles["icon-container2"]}>
-            <div className={styles["matchstats-container"]}>
-              <MatchKda match={match} params={params} />
-              <MatchGCC match={match} params={params} />
-            </div>
-            <MatchItems match={match} params={params} />
-          </div>
-          <div className={styles["icon-container3"]}>
-            <div className={styles["matchrank-container"]}>
-              <MatchRankAvg matchAvg={matchAvg} rankBaseline={rankBaseline} />
-            </div>
-            <div className={styles["analysis-container"]}>
-              <Image
-                src={`/images/match/heimer_analysis.png`}
-                width={24}
-                height={24}
-                className={styles["cw-styling"]}
-                alt="control ward"
-              />
-              <span className={styles["analysis-title"]}>Analysis</span>
-            </div>
-            <div className={styles["multikill-placeholder"]}>
-              <MatchMultiKill match={match} params={params} />
-            </div>
-          </div>
-        </div>
-        <div className={styles["match-divider"]}></div>
-        <div className={styles["sum-container3"]}>
-          <Teams match={match} />
-        </div>
-        <div className={styles["expand-tab"]}>
-          <RiArrowDownDoubleLine className={styles["expand-styling"]} />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function getSummonerId(limitedMatches) {
   for (const player of limitedMatches[0].info.participants) {
@@ -3546,69 +3092,26 @@ function getSummonerId(limitedMatches) {
   }
 }
 
-export default function Page({ params }) {
-  const [isActive, setIsActive] = useState(false);
-  const [selected, setSelected] = useState("Region");
-  const options = ["EUW", "NA"];
-  const [rankedSoloInfo, setRankedSoloInfo] = useState({});
-  const [rankedFlexInfo, setRankedFlexInfo] = useState({});
-  const [matches, setMatches] = useState([]);
+async function getMatches(username, tagLine) {
+  const res = await fetch(
+    process.env.URL +
+      `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`,
+    { method: "GET" }
+  );
+
+  if (!res.ok) throw new Error("Failed to fetch match data");
+
+  return await res.json();
+}
+
+export default async function Page({ params }) {
+  const matches = await getMatches(params.username, params.tagLine);
   const limitedMatches = matches.slice(0, 8);
-
-  useEffect(() => {
-    // (async () => {
-    getPlayerRankSolo("-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4").then(
-      (x) => setRankedSoloInfo(x)
-    );
-    getPlayerRankFlex("-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4").then(
-      (x) => setRankedFlexInfo(x)
-    );
-    getMatches(params.username, params.tagLine).then((x) => setMatches(x));
-    // setspellInfo1(await getSummonerInfo(getSummrId1()));
-    // setspellInfo2(await getSummonerInfo(getSpellId2()));
-    // setMatchAvg(await averageRank(getMatchSummonerIds()));
-    // })();
-  }, []);
-
-  console.log(limitedMatches);
 
   return (
     <>
       <div className={styles["search-header"]}>
-        <div className={styles["search-container"]}>
-          <div className={styles["search-icon"]}>
-            <IoSearch size={30} />
-          </div>
-          <input
-            className={styles["input-field"]}
-            placeholder="Search Riot ID, PLAYER#EUW1"
-          />
-          <div className={styles["dropdown"]}>
-            <div
-              className={styles["dropdown-btn"]}
-              onClick={() => setIsActive(!isActive)}
-            >
-              {selected}
-              <span className={styles["dropdown-icon"]}>&#9660;</span>
-            </div>
-            {isActive && (
-              <div className={styles["dropdown-content"]}>
-                {options.map((option) => (
-                  <div
-                    key={option}
-                    onClick={() => {
-                      setSelected(option);
-                      setIsActive(false);
-                    }}
-                    className={styles["dropdown-item"]}
-                  >
-                    {option}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        <SearchBar />
       </div>
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
@@ -3624,13 +3127,7 @@ export default function Page({ params }) {
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
-              <div className={styles["ranked-title"]}>Current rank</div>
-              <div className={styles["ranked-solo"]}>
-                <RankedQueue label="Ranked Solo" rankedInfo={rankedSoloInfo} />
-              </div>
-              <div className={styles["ranked-flex"]}>
-                <RankedQueue label="Ranked Flex" rankedInfo={rankedFlexInfo} />
-              </div>
+              <Ranked />
             </div>
             <div className={styles["performance-container"]}></div>
           </div>

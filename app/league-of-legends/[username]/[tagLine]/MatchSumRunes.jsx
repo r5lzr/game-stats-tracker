@@ -1,15 +1,78 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export function MatchSumRunes({ match, params, runeInfo1, runeInfo2 }) {
+let runes;
+async function getRuneInfo() {
+  if (!runes) {
+    const res = await fetch(
+      "https://ddragon.leagueoflegends.com/cdn/14.12.1/data/en_US/runesReforged.json"
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch runes data");
+
+    return res.json();
+  }
+}
+
+async function getPrimaryInfo(runeId) {
+  const runeData = await getRuneInfo();
+
+  for (const runeTree of runeData) {
+    for (const slot of runeTree.slots) {
+      const primaryRune = slot.runes.find(
+        (primaryRune) => primaryRune.id === runeId
+      );
+
+      if (primaryRune) {
+        return primaryRune.icon;
+      }
+    }
+  }
+}
+
+async function getSecondaryInfo(runeId) {
+  const runeData = await getRuneInfo();
+
+  for (const rune of runeData) {
+    if (rune.id === runeId) {
+      return rune.icon;
+    }
+  }
+}
+
+function getRune(rune) {
+  const riotURL = `https://ddragon.leagueoflegends.com/cdn/img/${rune}`;
+
+  return riotURL;
+}
+
+export async function MatchSumRunes({ match, params }) {
   let champRune1 = null;
   let champRune2 = null;
 
-  const getRune = (rune) => {
-    const riotURL = `https://ddragon.leagueoflegends.com/cdn/img/${rune}`;
-
-    return riotURL;
+  const getRunePrimary = () => {
+    for (const player of match.info.participants) {
+      if (player.riotIdGameName === params.username) {
+        return player.perks.styles[0].selections[0].perk;
+      }
+    }
   };
+
+  const getRuneSecondary = () => {
+    for (const player of match.info.participants) {
+      if (player.riotIdGameName === params.username) {
+        return player.perks.styles[1].style;
+      }
+    }
+  };
+
+  const ChampRune1Id = getRunePrimary();
+  const ChampRune2Id = getRuneSecondary();
+
+  const [runeInfo1, runeInfo2] = await Promise.all([
+    getPrimaryInfo(ChampRune1Id),
+    getSecondaryInfo(ChampRune2Id),
+  ]);
 
   const participant = match.info.participants.find(
     (player) => player.riotIdGameName === params.username

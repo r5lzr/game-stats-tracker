@@ -1,8 +1,7 @@
-"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export const RankedQueue = ({ rankedInfo, label }) => {
+export function RankedQueue({ rankedInfo, label }) {
   let rankedTier = null;
   let rankedRank = null;
   let rankedLP = null;
@@ -60,4 +59,4 @@ export const RankedQueue = ({ rankedInfo, label }) => {
       </div>
     </>
   );
-};
+}
