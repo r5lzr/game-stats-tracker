@@ -643,6 +643,7 @@
 .item-style {
   border-radius: 5px;
   border: 1px solid black;
+  background-color: var(--grey-color1);
 }
 
 .icon-container3 {

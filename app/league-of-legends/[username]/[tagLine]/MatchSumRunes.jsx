@@ -1,17 +1,15 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { promises as fs } from "fs";
 
-let runes;
 async function getRuneInfo() {
-  if (!runes) {
-    const res = await fetch(
-      "https://ddragon.leagueoflegends.com/cdn/14.12.1/data/en_US/runesReforged.json"
-    );
+  const file = await fs.readFile(
+    process.cwd() +
+      "/app/dragontail-14.10.1/14.10.1/data/en_US/runesReforged.json",
+    "utf8"
+  );
 
-    if (!res.ok) throw new Error("Failed to fetch runes data");
-
-    return res.json();
-  }
+  return JSON.parse(file);
 }
 
 async function getPrimaryInfo(runeId) {

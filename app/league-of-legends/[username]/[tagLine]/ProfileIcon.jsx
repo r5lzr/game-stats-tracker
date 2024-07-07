@@ -9,7 +9,9 @@ const getProfileIcon = (iconId) => {
 
 async function getSummoner(summonerId) {
   const res = await fetch(
-    `http://localhost:3000/api/league-of-legends/summoner?summonerId=${summonerId}`
+    process.env.URL +
+      `/api/league-of-legends/summoner?summonerId=${summonerId}`,
+    { method: "GET" }
   );
 
   if (!res.ok) throw new Error("Failed to fetch summoner data");
@@ -19,7 +21,6 @@ async function getSummoner(summonerId) {
 
 export async function ProfileIcon({ summonerId }) {
   const summoner = await getSummoner(summonerId);
-  console.log(summoner);
   const profileIcon = getProfileIcon(summoner.profileIconId);
   const profileLevel = summoner.summonerLevel;
 

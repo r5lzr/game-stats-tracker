@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 function getItem(item) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.10.1/img/item/${item}.png`;
 
-  return riotURL;
+  return item !== 0 ? riotURL : "/images/empty.png";
 }
 
 export function MatchItems({ match, params }) {
@@ -29,6 +29,7 @@ export function MatchItems({ match, params }) {
         width={24}
         height={24}
         alt="Item 0"
+        placeholder="empty"
         className={styles["item-style"]}
       />
       <Image
@@ -36,6 +37,7 @@ export function MatchItems({ match, params }) {
         width={24}
         height={24}
         alt="Item 1"
+        placeholder="empty"
         className={styles["item-style"]}
       />
       <Image
@@ -43,6 +45,7 @@ export function MatchItems({ match, params }) {
         width={24}
         height={24}
         alt="Item 2"
+        placeholder="empty"
         className={styles["item-style"]}
       />
       <Image
@@ -50,27 +53,31 @@ export function MatchItems({ match, params }) {
         width={24}
         height={24}
         alt="Item 3"
+        placeholder="empty"
         className={styles["item-style"]}
       />
       <Image
         src={items.item4}
         width={24}
         height={24}
-        className={styles["item-style"]}
         alt="Item 4"
+        placeholder="empty"
+        className={styles["item-style"]}
       />
       <Image
         src={items.item5}
         width={24}
         height={24}
-        className={styles["item-style"]}
         alt="Item 5"
+        placeholder="empty"
+        className={styles["item-style"]}
       />
       <Image
         src={items.item6}
         width={24}
         height={24}
         alt="Item 6"
+        placeholder="empty"
         className={styles["item-style"]}
       />
     </div>

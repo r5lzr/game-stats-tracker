@@ -1,11 +1,10 @@
-"use client";
 import { RankedQueue } from "./RankedQueue";
-import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 async function getRankedInfo(summonerId) {
   const res = await fetch(
-    `/api/league-of-legends/ranked?summonerId=${summonerId}`
+    process.env.URL + `/api/league-of-legends/ranked?summonerId=${summonerId}`,
+    { method: "GET" }
   );
 
   if (!res.ok) throw new Error("Failed to fetch ranked data");
@@ -59,19 +58,11 @@ async function getPlayerRankFlex(summonerId) {
   return rankedFlexActivity;
 }
 
-export function Ranked() {
-  const [rankedSoloInfo, setRankedSoloInfo] = useState({});
-  const [rankedFlexInfo, setRankedFlexInfo] = useState({});
-
-  useEffect(() => {
-    // (async () => {
-    getPlayerRankSolo("-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4").then(
-      (x) => setRankedSoloInfo(x)
-    );
-    getPlayerRankFlex("-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4").then(
-      (x) => setRankedFlexInfo(x)
-    );
-  }, []);
+export async function Ranked({ summonerId }) {
+  const [rankedSoloInfo, rankedFlexInfo] = await Promise.all([
+    getPlayerRankSolo(summonerId),
+    getPlayerRankFlex(summonerId),
+  ]);
 
   return (
     <>

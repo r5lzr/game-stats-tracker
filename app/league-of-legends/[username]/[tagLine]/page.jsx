@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { IoSearch } from "react-icons/io5";
 // import { RiArrowDownDoubleLine } from "react-icons/ri";
 // import { RankedQueue } from "./RankedQueue";
-// import { ProfileIcon } from "./ProfileIcon";
+import { ProfileIcon } from "./ProfileIcon";
 import { GameMode } from "./GameMode";
 // import { Teams } from "./Teams";
 // import { MatchRankAvg } from "./MatchRankAvg";
@@ -3084,7 +3084,7 @@ const checkNameAndTag = ({ match, params }) => {
   });
 };
 
-function getSummonerId(limitedMatches) {
+function getSummonerId(limitedMatches, params) {
   for (const player of limitedMatches[0].info.participants) {
     if (player.riotIdGameName === params.username) {
       return player.summonerId;
@@ -3107,6 +3107,7 @@ async function getMatches(username, tagLine) {
 export default async function Page({ params }) {
   const matches = await getMatches(params.username, params.tagLine);
   const limitedMatches = matches.slice(0, 8);
+  const ProfileSummonerId = getSummonerId(limitedMatches, params);
 
   return (
     <>
@@ -3115,10 +3116,7 @@ export default async function Page({ params }) {
       </div>
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
-          {/* <ProfileIcon
-            label="Profile Icon"
-            summonerId={"-JXlAr1LmjIeT6eN8vxCT0LfcTE7h0Ku53bBhDTGlS7xBg4"}
-          /> */}
+          <ProfileIcon label="Profile Icon" summonerId={ProfileSummonerId} />
           <span className={styles["username-title"]}>
             {params.username}
             <span className={styles["tagline-title"]}>#{params.tagLine}</span>
@@ -3127,7 +3125,7 @@ export default async function Page({ params }) {
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
-              <Ranked />
+              <Ranked summonerId={ProfileSummonerId} />
             </div>
             <div className={styles["performance-container"]}></div>
           </div>
