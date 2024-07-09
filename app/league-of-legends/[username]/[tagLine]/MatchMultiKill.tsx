@@ -1,6 +1,14 @@
 import styles from "./page.module.css";
+import { MatchInfo } from "./page";
+import { PlayerParams } from "./page";
 
-export function MatchMultiKill({ match, params }) {
+export function MatchMultiKill({
+  match,
+  params,
+}: {
+  match: MatchInfo;
+  params: PlayerParams;
+}) {
   let isMultiKill = false;
   let multiKillType = null;
   let multiKill = null;

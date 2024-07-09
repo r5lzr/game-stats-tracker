@@ -1,24 +1,11 @@
-// import Image from "next/image";
 import "./page.css";
 import styles from "./page.module.css";
 import { IoSearch } from "react-icons/io5";
-// import { RiArrowDownDoubleLine } from "react-icons/ri";
-// import { RankedQueue } from "./RankedQueue";
 import { ProfileIcon } from "./ProfileIcon";
 import { GameMode } from "./GameMode";
-// import { Teams } from "./Teams";
-// import { MatchRankAvg } from "./MatchRankAvg";
-// import { MatchKda } from "./MatchKda";
-// import { MatchMultiKill } from "./MatchMultiKill";
-// import { MatchGCC } from "./MatchGCC";
-// import { MatchSumRunes } from "./MatchSumRunes";
-// import { MatchSumSpells } from "./MatchSumSpells";
-// import { MatchChampIcon } from "./MatchChampIcon";
-// import { MatchItems } from "./MatchItems";
 import { Ranked } from "./Ranked";
 import { Match } from "./Match";
 import { SearchBar } from "./SearchBar";
-// import { promises as fs } from "fs";
 
 // const matches = [
 //   {
@@ -3073,18 +3060,78 @@ import { SearchBar } from "./SearchBar";
 //   },
 // ];
 
-const checkNameAndTag = ({ match, params }) => {
-  match.info.participants.forEach((item) => {
-    if (
-      item.riotIdGameName === params.username &&
-      item.riotIdTagline === params.tagLine
-    ) {
-      return true;
-    }
-  });
-};
+export interface PlayerParams {
+  username: string;
+  tagLine: string;
+}
 
-function getSummonerId(limitedMatches, params) {
+export interface MatchInfo {
+  info: {
+    participants: MatchStats[];
+    gameDuration: number;
+    queueId: number;
+    gameEndTimestamp: number;
+  };
+  metadata: { matchId: string };
+}
+
+export interface MatchStats {
+  riotIdGameName: string;
+  riotIdTagline: string;
+  championName: string;
+  summonerId: string;
+  summoner1Id: number;
+  summoner2Id: number;
+  champLevel: number;
+  item0: number;
+  item1: number;
+  item2: number;
+  item3: number;
+  item4: number;
+  item5: number;
+  item6: number;
+  perks: { styles: PerkInfo[] };
+  teamId: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  doubleKills: number;
+  tripleKills: number;
+  quadraKills: number;
+  pentaKills: number;
+  challenges: {
+    kda: number;
+    killParticipation: number;
+    controlWardsPlaced: number;
+  };
+  goldEarned: number;
+  totalMinionsKilled: number;
+  win: boolean;
+}
+
+interface PerkInfo {
+  selections: [{ perk: number }];
+  style: number;
+}
+
+// const checkNameAndTag = ({
+//   match,
+//   params,
+// }: {
+//   match: any;
+//   params: PlayerParams;
+// }) => {
+//   match.info.participants.forEach((item) => {
+//     if (
+//       item.riotIdGameName === params.username &&
+//       item.riotIdTagline === params.tagLine
+//     ) {
+//       return true;
+//     }
+//   });
+// };
+
+function getSummonerId(limitedMatches: MatchInfo[], params: PlayerParams) {
   for (const player of limitedMatches[0].info.participants) {
     if (player.riotIdGameName === params.username) {
       return player.summonerId;
@@ -3092,7 +3139,7 @@ function getSummonerId(limitedMatches, params) {
   }
 }
 
-async function getMatches(username, tagLine) {
+async function getMatches(username: string, tagLine: string) {
   const res = await fetch(
     process.env.URL +
       `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`,
@@ -3104,9 +3151,9 @@ async function getMatches(username, tagLine) {
   return await res.json();
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params }: { params: PlayerParams }) {
   const matches = await getMatches(params.username, params.tagLine);
-  const limitedMatches = matches.slice(0, 8);
+  const limitedMatches: MatchInfo[] = matches.slice(0, 8);
   const ProfileSummonerId = getSummonerId(limitedMatches, params);
 
   return (
@@ -3116,7 +3163,7 @@ export default async function Page({ params }) {
       </div>
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
-          <ProfileIcon label="Profile Icon" summonerId={ProfileSummonerId} />
+          {ProfileSummonerId && <ProfileIcon summonerId={ProfileSummonerId} />}
           <span className={styles["username-title"]}>
             {params.username}
             <span className={styles["tagline-title"]}>#{params.tagLine}</span>
@@ -3125,7 +3172,7 @@ export default async function Page({ params }) {
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
-              <Ranked summonerId={ProfileSummonerId} />
+              {ProfileSummonerId && <Ranked summonerId={ProfileSummonerId} />}
             </div>
             <div className={styles["performance-container"]}></div>
           </div>

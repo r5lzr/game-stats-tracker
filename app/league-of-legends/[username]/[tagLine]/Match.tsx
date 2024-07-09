@@ -10,9 +10,16 @@ import { MatchSumRunes } from "./MatchSumRunes";
 import { MatchSumSpells } from "./MatchSumSpells";
 import { MatchChampIcon } from "./MatchChampIcon";
 import { MatchItems } from "./MatchItems";
+import { MatchInfo } from "./page";
+import { PlayerParams } from "./page";
 
-let queues;
-async function getQueueInfo(queueId) {
+interface QueueInfo {
+  queueId: number;
+  description: string;
+}
+
+let queues: QueueInfo[];
+async function getQueueInfo(queueId: number) {
   if (!queues) {
     const res = await fetch(
       "https://static.developer.riotgames.com/docs/lol/queues.json"
@@ -23,7 +30,13 @@ async function getQueueInfo(queueId) {
     queues = await res.json();
   }
 
-  let queueOutcome = queues.find((queue) => queue.queueId === queueId);
+  let queueOutcome: QueueInfo | undefined = queues.find(
+    (queue) => queue.queueId === queueId
+  );
+
+  if (!queueOutcome) {
+    return undefined;
+  }
 
   switch (queueOutcome.queueId) {
     case 420:
@@ -67,23 +80,14 @@ async function getQueueInfo(queueId) {
   return queueOutcome;
 }
 
-export async function Match({ match, params }) {
-  // useEffect(() => {
-  //   (async () => {
-  //     setQueueInfo(await getQueueInfo(match.info.queueId));
-  //   })();
-  // }, [match.info.queueId]);
-
+export async function Match({
+  match,
+  params,
+}: {
+  match: MatchInfo;
+  params: PlayerParams;
+}) {
   const queueInfo = await getQueueInfo(match.info.queueId);
-
-  // useEffect(() => {
-  //   // (async () => {
-  //   averageRank(getMatchSummonerIds()).then((x) => setMatchAvg(x));
-  //   // setspellInfo1(await getSummonerInfo(getSummrId1()));
-  //   // setspellInfo2(await getSummonerInfo(getSpellId2()));
-  //   // setMatchAvg(await averageRank(getMatchSummonerIds()));
-  //   // })();
-  // }, []);
 
   function findSummonerName() {
     let foundName = null;
@@ -104,7 +108,7 @@ export async function Match({ match, params }) {
     let endTime = match.info.gameEndTimestamp;
     let relativeTime = null;
 
-    const rdiff = new Date(endTime) - new Date();
+    const rdiff = new Date(endTime).getTime() - new Date().getTime();
     const diff = Math.abs(rdiff);
     const formatter = new Intl.RelativeTimeFormat("en");
 
@@ -171,7 +175,7 @@ export async function Match({ match, params }) {
       >
         <div className={styles["sum-container1"]}>
           <div className={styles["gamemode-label"]}>
-            {queueInfo.description}
+            {queueInfo?.description || "Unknown data"}
           </div>
           <div className={styles["days-label"]}>{getRelativeTime()}</div>
           <div className={styles["gametime-label"]}>{getGameDuration()}</div>

@@ -1,6 +1,14 @@
 import styles from "./page.module.css";
+import { MatchInfo } from "./page";
+import { PlayerParams } from "./page";
 
-export function MatchKda({ match, params }) {
+export function MatchKda({
+  match,
+  params,
+}: {
+  match: MatchInfo;
+  params: PlayerParams;
+}) {
   let kills = null;
   let deaths = null;
   let assists = null;

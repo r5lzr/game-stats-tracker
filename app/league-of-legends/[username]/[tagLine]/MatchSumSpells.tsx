@@ -1,8 +1,10 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { promises as fs } from "fs";
+import { MatchInfo } from "./page";
+import { PlayerParams } from "./page";
 
-async function getSpellInfo(spellNumberId) {
+async function getSpellInfo(spellNumberId: number | undefined) {
   const file = await fs.readFile(
     process.cwd() + "/app/dragontail-14.10.1/14.10.1/data/en_US/summoner.json",
     "utf8"
@@ -10,20 +12,27 @@ async function getSpellInfo(spellNumberId) {
   const spells = JSON.parse(file);
 
   for (const summonerSpell in spells.data) {
-    const spellKey = spells.data[summonerSpell].key;
-    if (spellKey === spellNumberId.toString()) {
+    const spellKey = parseInt(spells.data[summonerSpell].key);
+
+    if (spellKey === spellNumberId) {
       return spells.data[summonerSpell].id;
     }
   }
 }
 
-function getSpell(spell) {
+function getSpell(spell: string) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/spell/${spell}.png`;
 
-  return riotURL;
+  return spell !== undefined ? riotURL : "/images/empty.png";
 }
 
-export async function MatchSumSpells({ match, params }) {
+export async function MatchSumSpells({
+  match,
+  params,
+}: {
+  match: MatchInfo;
+  params: PlayerParams;
+}) {
   let champSpell1 = null;
   let champSpell2 = null;
 
@@ -62,7 +71,7 @@ export async function MatchSumSpells({ match, params }) {
     <>
       <div className={styles["spell-container1"]}>
         <Image
-          src={champSpell1}
+          src={champSpell1 || "/images/empty.png"}
           fill
           sizes="50px"
           alt="spell1"
@@ -71,7 +80,7 @@ export async function MatchSumSpells({ match, params }) {
       </div>
       <div className={styles["spell-container2"]}>
         <Image
-          src={champSpell2}
+          src={champSpell2 || "/images/empty.png"}
           fill
           sizes="50px"
           alt="spell2"

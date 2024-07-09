@@ -1,6 +1,12 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { promises as fs } from "fs";
+import { MatchInfo } from "./page";
+import { PlayerParams } from "./page";
+
+interface runeInfo {
+  id: number;
+}
 
 async function getRuneInfo() {
   const file = await fs.readFile(
@@ -12,13 +18,13 @@ async function getRuneInfo() {
   return JSON.parse(file);
 }
 
-async function getPrimaryInfo(runeId) {
+async function getPrimaryInfo(runeId: number | undefined) {
   const runeData = await getRuneInfo();
 
   for (const runeTree of runeData) {
     for (const slot of runeTree.slots) {
       const primaryRune = slot.runes.find(
-        (primaryRune) => primaryRune.id === runeId
+        (primaryRune: runeInfo) => primaryRune.id === runeId
       );
 
       if (primaryRune) {
@@ -28,7 +34,7 @@ async function getPrimaryInfo(runeId) {
   }
 }
 
-async function getSecondaryInfo(runeId) {
+async function getSecondaryInfo(runeId: number | undefined) {
   const runeData = await getRuneInfo();
 
   for (const rune of runeData) {
@@ -38,13 +44,19 @@ async function getSecondaryInfo(runeId) {
   }
 }
 
-function getRune(rune) {
+function getRune(rune: string) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/img/${rune}`;
 
-  return riotURL;
+  return rune !== undefined ? riotURL : "/images/empty.png";
 }
 
-export async function MatchSumRunes({ match, params }) {
+export async function MatchSumRunes({
+  match,
+  params,
+}: {
+  match: MatchInfo;
+  params: PlayerParams;
+}) {
   let champRune1 = null;
   let champRune2 = null;
 
@@ -85,16 +97,16 @@ export async function MatchSumRunes({ match, params }) {
     <>
       <div className={styles["rune-container1"]}>
         <Image
-          src={champRune1}
+          src={champRune1 || "/images/empty.png"}
           fill
           sizes="50px"
-          alt="rune1"
+          alt="spell1"
           style={{ borderRadius: "5px" }}
         />
       </div>
       <div className={styles["rune-container2"]}>
         <Image
-          src={champRune2}
+          src={champRune2 || "/images/empty.png"}
           width={25}
           height={25}
           sizes="50px"

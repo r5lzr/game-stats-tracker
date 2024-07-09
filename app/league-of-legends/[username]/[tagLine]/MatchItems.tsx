@@ -1,14 +1,30 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { MatchInfo } from "./page";
+import { PlayerParams } from "./page";
 
-function getItem(item) {
+function getItem(item: number) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.10.1/img/item/${item}.png`;
 
   return item !== 0 ? riotURL : "/images/empty.png";
 }
 
-export function MatchItems({ match, params }) {
-  const items = {};
+export function MatchItems({
+  match,
+  params,
+}: {
+  match: MatchInfo;
+  params: PlayerParams;
+}) {
+  const items = {
+    item0: "",
+    item1: "",
+    item2: "",
+    item3: "",
+    item4: "",
+    item5: "",
+    item6: "",
+  };
 
   match.info.participants.forEach((item) => {
     if (item.riotIdGameName === params.username) {

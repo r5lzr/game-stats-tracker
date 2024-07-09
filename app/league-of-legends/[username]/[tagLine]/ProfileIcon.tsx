@@ -1,13 +1,13 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-const getProfileIcon = (iconId) => {
+const getProfileIcon = (iconId: number) => {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/profileicon/${iconId}.png`;
 
   return riotURL;
 };
 
-async function getSummoner(summonerId) {
+async function getSummoner(summonerId: string) {
   const res = await fetch(
     process.env.URL +
       `/api/league-of-legends/summoner?summonerId=${summonerId}`,
@@ -19,7 +19,7 @@ async function getSummoner(summonerId) {
   return await res.json();
 }
 
-export async function ProfileIcon({ summonerId }) {
+export async function ProfileIcon({ summonerId }: { summonerId: string }) {
   const summoner = await getSummoner(summonerId);
   const profileIcon = getProfileIcon(summoner.profileIconId);
   const profileLevel = summoner.summonerLevel;

@@ -1,7 +1,16 @@
 import { RankedQueue } from "./RankedQueue";
 import styles from "./page.module.css";
 
-async function getRankedInfo(summonerId) {
+export interface RankedInfo {
+  queueType: string;
+  tier: string;
+  rank: string;
+  leaguePoints: number;
+  wins: number;
+  losses: number;
+}
+
+async function getRankedInfo(summonerId: string) {
   const res = await fetch(
     process.env.URL + `/api/league-of-legends/ranked?summonerId=${summonerId}`,
     { method: "GET" }
@@ -12,10 +21,10 @@ async function getRankedInfo(summonerId) {
   return await res.json();
 }
 
-async function getPlayerRankSolo(summonerId) {
-  let rankedSoloActivity = [];
+async function getPlayerRankSolo(summonerId: string) {
+  let rankedSoloActivity: any[] | boolean = [];
 
-  const rankedData = await getRankedInfo(summonerId);
+  const rankedData: RankedInfo[] = await getRankedInfo(summonerId);
 
   const checkActivity = rankedData.find(
     (rankInfo) => rankInfo.queueType === "RANKED_SOLO_5x5"
@@ -35,10 +44,10 @@ async function getPlayerRankSolo(summonerId) {
   return rankedSoloActivity;
 }
 
-async function getPlayerRankFlex(summonerId) {
-  let rankedFlexActivity = [];
+async function getPlayerRankFlex(summonerId: string) {
+  let rankedFlexActivity: any[] | boolean = [];
 
-  const rankedData = await getRankedInfo(summonerId);
+  const rankedData: RankedInfo[] = await getRankedInfo(summonerId);
 
   const checkActivity = rankedData.find(
     (rankInfo) => rankInfo.queueType === "RANKED_FLEX_SR"
@@ -58,7 +67,7 @@ async function getPlayerRankFlex(summonerId) {
   return rankedFlexActivity;
 }
 
-export async function Ranked({ summonerId }) {
+export async function Ranked({ summonerId }: { summonerId: string }) {
   const [rankedSoloInfo, rankedFlexInfo] = await Promise.all([
     getPlayerRankSolo(summonerId),
     getPlayerRankFlex(summonerId),

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { MatchInfo } from "./page";
+import { RankedInfo } from "./Ranked";
 
 const rankBaseline = {
   "IRON-IV": 0,
@@ -35,7 +37,7 @@ const rankBaseline = {
   "CHALLENGER-I": 3000,
 };
 
-async function getRankedInfo(summonerId) {
+async function getRankedInfo(summonerId: string) {
   const res = await fetch(
     process.env.URL + `/api/league-of-legends/ranked?summonerId=${summonerId}`,
     { method: "GET" }
@@ -46,12 +48,12 @@ async function getRankedInfo(summonerId) {
   return await res.json();
 }
 
-async function averageRank(summonerIds) {
+async function averageRank(summonerIds: string[]) {
   let rankNum = 0;
   let counter = 0;
 
-  const allRankInfo = await Promise.all(
-    summonerIds.map((summonerId) => getRankedInfo(summonerId))
+  const allRankInfo: RankedInfo[][] = await Promise.all(
+    summonerIds.map((summonerId: string) => getRankedInfo(summonerId))
   );
 
   for (const rankInfo of allRankInfo) {
@@ -61,7 +63,9 @@ async function averageRank(summonerIds) {
 
     if (soloRank) {
       const { tier, rank, leaguePoints } = soloRank;
-      rankNum += rankBaseline[`${tier}-${rank}`] + leaguePoints;
+      rankNum +=
+        rankBaseline[`${tier}-${rank}` as keyof typeof rankBaseline] +
+        leaguePoints;
       counter += 1;
     }
   }
@@ -69,8 +73,8 @@ async function averageRank(summonerIds) {
   return rankNum / counter;
 }
 
-function getMatchSummonerIds(match) {
-  let summonerIds = [];
+function getMatchSummonerIds(match: MatchInfo) {
+  let summonerIds: string[] = [];
 
   match.info.participants.forEach((player) => {
     summonerIds.push(player.summonerId);
@@ -79,7 +83,7 @@ function getMatchSummonerIds(match) {
   return summonerIds;
 }
 
-export async function MatchRankAvg({ match }) {
+export async function MatchRankAvg({ match }: { match: MatchInfo }) {
   let avgRankTitle = null;
   let rankEmblem = null;
   const highRanks = ["CHALLENGER", "GRANDMASTER", "MASTER"];
@@ -90,14 +94,12 @@ export async function MatchRankAvg({ match }) {
 
   let matchAvgRounded = Math.ceil(matchAvg / 100) * 100;
 
-  console.log(matchAvg);
-
   if (matchAvgRounded > 3000) {
     matchAvgRounded = 3000;
   }
 
   for (const rank in rankBaseline) {
-    if (rankBaseline[rank] === matchAvgRounded) {
+    if (rankBaseline[rank as keyof typeof rankBaseline] === matchAvgRounded) {
       avgRankTitle = rank;
       rankEmblem = avgRankTitle.slice(0, avgRankTitle.indexOf("-"));
 

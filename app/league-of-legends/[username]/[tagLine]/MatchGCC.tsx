@@ -1,7 +1,15 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { MatchInfo } from "./page";
+import { PlayerParams } from "./page";
 
-export function MatchGCC({ match, params }) {
+export function MatchGCC({
+  match,
+  params,
+}: {
+  match: MatchInfo;
+  params: PlayerParams;
+}) {
   let gold = null;
   let creepScore = null;
   let creepScorePerMinute = null;

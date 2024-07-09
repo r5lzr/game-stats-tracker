@@ -1,7 +1,9 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { MatchInfo } from "./page";
+import { MatchStats } from "./page";
 
-function getChampion(champ) {
+function getChampion(champ: string) {
   if (champ === "FiddleSticks") {
     champ = "Fiddlesticks";
   }
@@ -11,8 +13,14 @@ function getChampion(champ) {
   return riotURL;
 }
 
-function Team({ team }) {
-  let players = {};
+function Team({ team }: { team: MatchStats[] }) {
+  let players = {
+    champ1: "",
+    champ2: "",
+    champ3: "",
+    champ4: "",
+    champ5: "",
+  };
 
   // const stuff = team.map((participant) => ({
   //   playerName: participant.riotIdGameName,
@@ -73,7 +81,7 @@ function Team({ team }) {
   );
 }
 
-export function Teams({ match }) {
+export function Teams({ match }: { match: MatchInfo }) {
   const blueTeam = match.info.participants.filter(
     (participant) => participant.teamId === 100
   );
