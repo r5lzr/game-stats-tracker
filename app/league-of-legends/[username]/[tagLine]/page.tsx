@@ -3142,8 +3142,7 @@ function getSummonerId(limitedMatches: MatchInfo[], params: PlayerParams) {
 async function getMatches(username: string, tagLine: string) {
   const res = await fetch(
     process.env.URL +
-      `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`,
-    { method: "GET" }
+      `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`
   );
 
   if (!res.ok) throw new Error("Failed to fetch match data");
