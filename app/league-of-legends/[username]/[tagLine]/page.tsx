@@ -3142,7 +3142,8 @@ function getSummonerId(limitedMatches: MatchInfo[], params: PlayerParams) {
 async function getMatches(username: string, tagLine: string) {
   const res = await fetch(
     process.env.URL +
-      `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`
+      `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`,
+    { cache: "force-cache" }
   );
 
   if (!res.ok) throw new Error("Failed to fetch match data");
@@ -3173,21 +3174,21 @@ export default async function Page({ params }: { params: PlayerParams }) {
             <div className={styles["ranked-container"]}>
               {ProfileSummonerId && <Ranked summonerId={ProfileSummonerId} />}
             </div>
-            <div className={styles["performance-container"]}></div>
+            {/* <div className={styles["performance-container"]}></div> */}
           </div>
           <div className={styles["primary-container"]}>
-            <div className={styles["gamemode-container"]}>
+            {/* <div className={styles["gamemode-container"]}>
               <GameMode label="All" />
               <GameMode label="Ranked Solo" />
               <GameMode label="Ranked Flex" />
               <GameMode label="Draft Pick" />
               <GameMode label="Quick Play" />
               <GameMode label="Queue Type" />
-            </div>
+            </div> */}
             <div className={styles["matchsum-container"]}>
               <div className={styles["recent-container"]}>
                 <span className={styles["recent-label"]}>Recent Matches</span>
-                <div className={styles["matchsearch-container"]}>
+                {/* <div className={styles["matchsearch-container"]}>
                   <div className={styles["matchsearch-icon"]}>
                     <IoSearch size={30} />
                   </div>
@@ -3195,7 +3196,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
                     className={styles["matchinput-field"]}
                     placeholder="Search Champion..."
                   />
-                </div>
+                </div> */}
               </div>
               <div className={styles["stats-container"]}></div>
             </div>

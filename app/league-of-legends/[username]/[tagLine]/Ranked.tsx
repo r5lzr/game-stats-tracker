@@ -12,7 +12,8 @@ export interface RankedInfo {
 
 async function getRankedInfo(summonerId: string) {
   const res = await fetch(
-    process.env.URL + `/api/league-of-legends/ranked?summonerId=${summonerId}`
+    process.env.URL + `/api/league-of-legends/ranked?summonerId=${summonerId}`,
+    { cache: "force-cache" }
   );
 
   if (!res.ok) throw new Error("Failed to fetch ranked data");
