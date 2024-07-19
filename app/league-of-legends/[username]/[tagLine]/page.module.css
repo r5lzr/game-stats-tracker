@@ -389,6 +389,19 @@
   height: 100%;
 }
 
+.match-expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  background-color: var(--grey-color1);
+}
+
 .match-container {
   display: flex;
   width: 100%;
@@ -761,102 +774,3 @@
   height: 100%;
   color: #FFAA46;
 }
-
-/* .first-section {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  height: 100%;
-  width: 15%;
-} */
-
-/* .game-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  font-size: 1rem;
-  border-right: 2px solid black;
-  background-color: rgba(128, 128, 128, 0.473);
-}
-
-.outcome-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 20%;
-  border-right: 2px solid black;
-  background-color: rgba(102, 102, 102, 0.918);
-}
-
-.second-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-left: 20px;
-  height: 100%;
-  width: 10%;
-} */
-
-/* .champion-container {
-  width: 80px;
-  height: 80px;
-  background-color: red;
-}
-
-.summoner-container {
-  width: 80px;
-  height: 40px;
-  background-color: green;
-}
-
-.third-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 15%;
-}
-
-.kda {
-  font-size: 2rem;
-}
-
-.divider {
-  margin: 10px 0 10px 0;
-  border-top: 1px solid grey;
-  width: 80%;
-}
-
-.four-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 15%;
-  margin-left: 25px;
-  background-color: aqua;
-}
-
-.item-row1 {
-  display: flex;
-  width: 80%;
-  height: 20%;
-  margin-bottom: 10px;
-  background-color: red;
-}
-
-.item-row2 {
-  display: flex;
-  width: 80%;
-  height: 20%;
-  background-color: red;
-}
-
-.item1, .item2, .item3 .item4, .item5, .item6 {
-  width: 80px;
-  height: 40px;
-  background-color: green;
-} */

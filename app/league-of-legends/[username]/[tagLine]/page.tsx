@@ -1,11 +1,12 @@
 import "./page.css";
 import styles from "./page.module.css";
-import { IoSearch } from "react-icons/io5";
 import { ProfileIcon } from "./ProfileIcon";
-import { GameMode } from "./GameMode";
 import { Ranked } from "./Ranked";
 import { Match } from "./Match";
 import { SearchBar } from "./SearchBar";
+import { MatchExpand } from "./MatchExpand";
+// import { GameMode } from "./GameMode";
+// import { IoSearch } from "react-icons/io5";
 
 // const matches = [
 //   {
@@ -3208,6 +3209,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
                   key={match.metadata.matchId}
                 />
               ))}
+              <MatchExpand />
             </div>
           </div>
         </div>
