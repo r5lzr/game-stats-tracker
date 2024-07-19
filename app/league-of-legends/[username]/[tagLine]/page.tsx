@@ -4,7 +4,7 @@ import { ProfileIcon } from "./ProfileIcon";
 import { Ranked } from "./Ranked";
 import { Match } from "./Match";
 import { SearchBar } from "./SearchBar";
-import { MatchExpand } from "./MatchExpand";
+import { MatchHistory } from "./MatchHistory";
 // import { GameMode } from "./GameMode";
 // import { IoSearch } from "react-icons/io5";
 
@@ -3132,8 +3132,8 @@ interface PerkInfo {
 //   });
 // };
 
-function getSummonerId(limitedMatches: MatchInfo[], params: PlayerParams) {
-  for (const player of limitedMatches[0].info.participants) {
+function getSummonerId(matches: MatchInfo[], params: PlayerParams) {
+  for (const player of matches[0].info.participants) {
     if (player.riotIdGameName === params.username) {
       return player.summonerId;
     }
@@ -3153,9 +3153,12 @@ async function getMatches(username: string, tagLine: string) {
 }
 
 export default async function Page({ params }: { params: PlayerParams }) {
-  const matches = await getMatches(params.username, params.tagLine);
+  const matches: MatchInfo[] = await getMatches(
+    params.username,
+    params.tagLine
+  );
   const limitedMatches: MatchInfo[] = matches.slice(0, 8);
-  const ProfileSummonerId = getSummonerId(limitedMatches, params);
+  const ProfileSummonerId = getSummonerId(matches, params);
 
   return (
     <>
@@ -3202,14 +3205,14 @@ export default async function Page({ params }: { params: PlayerParams }) {
               <div className={styles["stats-container"]}></div>
             </div>
             <div className={styles["history-container"]}>
-              {limitedMatches.map((match) => (
+              {/* {limitedMatches.map((match) => (
                 <Match
                   match={match}
                   params={params}
                   key={match.metadata.matchId}
                 />
-              ))}
-              <MatchExpand />
+              ))} */}
+              <MatchHistory matches={matches} />
             </div>
           </div>
         </div>
