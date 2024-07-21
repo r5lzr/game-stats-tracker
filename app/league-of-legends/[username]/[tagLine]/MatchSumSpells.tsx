@@ -21,12 +21,12 @@ export async function MatchSumSpells({
   let champSpell1 = null;
   let champSpell2 = null;
 
-  match.info.participants.forEach((player) => {
-    if (player.riotIdGameName === params.username) {
-      champSpell1 = getSpell(spellInfo1);
-      champSpell2 = getSpell(spellInfo2);
-    }
-  });
+  // match.info.participants.forEach((player) => {
+  //   if (player.riotIdGameName === params.username) {
+  //     champSpell1 = getSpell(spellInfo1);
+  //     champSpell2 = getSpell(spellInfo2);
+  //   }
+  // });
 
   return (
     <>

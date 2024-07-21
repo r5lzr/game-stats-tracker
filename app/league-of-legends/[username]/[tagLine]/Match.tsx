@@ -108,7 +108,7 @@ export function Match({
       >
         <div className={styles["sum-container1"]}>
           <div className={styles["gamemode-label"]}>
-            {queueInfo?.description || "Unknown data"}
+            {/* {queueInfo?.description || "Unknown data"} */}
           </div>
           <div className={styles["days-label"]}>{getRelativeTime()}</div>
           <div className={styles["gametime-label"]}>{getGameDuration()}</div>
