@@ -2,9 +2,8 @@ import "./page.css";
 import styles from "./page.module.css";
 import { ProfileIcon } from "./ProfileIcon";
 import { Ranked } from "./Ranked";
-import { Match } from "./Match";
 import { SearchBar } from "./SearchBar";
-import { MatchHistory } from "./MatchHistory";
+import { MatchData } from "./MatchData";
 // import { GameMode } from "./GameMode";
 // import { IoSearch } from "react-icons/io5";
 
@@ -3157,8 +3156,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
     params.username,
     params.tagLine
   );
-  const limitedMatches: MatchInfo[] = matches.slice(0, 8);
-  const ProfileSummonerId = getSummonerId(matches, params);
+  const profileSummonerId = getSummonerId(matches, params);
 
   return (
     <>
@@ -3167,7 +3165,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
       </div>
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
-          {ProfileSummonerId && <ProfileIcon summonerId={ProfileSummonerId} />}
+          {profileSummonerId && <ProfileIcon summonerId={profileSummonerId} />}
           <span className={styles["username-title"]}>
             {params.username}
             <span className={styles["tagline-title"]}>#{params.tagLine}</span>
@@ -3176,7 +3174,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
-              {ProfileSummonerId && <Ranked summonerId={ProfileSummonerId} />}
+              {profileSummonerId && <Ranked summonerId={profileSummonerId} />}
             </div>
             {/* <div className={styles["performance-container"]}></div> */}
           </div>
@@ -3205,14 +3203,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
               <div className={styles["stats-container"]}></div>
             </div>
             <div className={styles["history-container"]}>
-              {/* {limitedMatches.map((match) => (
-                <Match
-                  match={match}
-                  params={params}
-                  key={match.metadata.matchId}
-                />
-              ))} */}
-              <MatchHistory matches={matches} />
+              <MatchData matches={matches} params={params} />
             </div>
           </div>
         </div>

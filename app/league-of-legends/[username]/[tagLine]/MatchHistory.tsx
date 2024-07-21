@@ -1,17 +1,18 @@
 "use client";
-import { MatchInfo } from "./page";
+
 import styles from "./page.module.css";
 
-export function MatchHistory({ matches }: { matches: MatchInfo[] }) {
-  function handleC() {
-    console.log("hji");
-  }
+export function MatchHistory({ matchDataList }: { matchDataList: any }) {
+  console.log(matchDataList);
 
   return (
     <>
+      {/* {limitedMatches.map((match) => (
+        <Match match={match} params={params} key={match.metadata.matchId} />
+      ))}
       <button className={styles["match-expand"]} onClick={handleC}>
         <span>Expand more</span>
-      </button>
+      </button> */}
     </>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import { RiArrowDownDoubleLine } from "react-icons/ri";
@@ -13,82 +15,13 @@ import { MatchItems } from "./MatchItems";
 import { MatchInfo } from "./page";
 import { PlayerParams } from "./page";
 
-interface QueueInfo {
-  queueId: number;
-  description: string;
-}
-
-let queues: QueueInfo[];
-async function getQueueInfo(queueId: number) {
-  if (!queues) {
-    const res = await fetch(
-      "https://static.developer.riotgames.com/docs/lol/queues.json"
-    );
-
-    if (!res.ok) throw new Error("Failed to fetch queue data");
-
-    queues = await res.json();
-  }
-
-  let queueOutcome: QueueInfo | undefined = queues.find(
-    (queue) => queue.queueId === queueId
-  );
-
-  if (!queueOutcome) {
-    return undefined;
-  }
-
-  switch (queueOutcome.queueId) {
-    case 420:
-      queueOutcome.description = "Ranked Solo";
-      break;
-    case 440:
-      queueOutcome.description = "Ranked Flex";
-      break;
-    case 490:
-      queueOutcome.description = "Quick Play";
-      break;
-    case 400:
-      queueOutcome.description = "Draft Pick";
-      break;
-    case 830:
-      queueOutcome.description = "AI Intro";
-      break;
-    case 840:
-      queueOutcome.description = "AI Beginner";
-      break;
-    case 850:
-      queueOutcome.description = "AI Intermediate";
-      break;
-    case 450:
-      queueOutcome.description = "ARAM";
-      break;
-    case 700:
-      queueOutcome.description = "Clash";
-      break;
-    case 720:
-      queueOutcome.description = "ARAM Clash";
-      break;
-    case 1710:
-      queueOutcome.description = "Arena";
-      break;
-    default:
-      queueOutcome.description = "Unknown";
-      break;
-  }
-
-  return queueOutcome;
-}
-
-export async function Match({
+export function Match({
   match,
   params,
 }: {
   match: MatchInfo;
   params: PlayerParams;
 }) {
-  const queueInfo = await getQueueInfo(match.info.queueId);
-
   function findSummonerName() {
     let foundName = null;
 
