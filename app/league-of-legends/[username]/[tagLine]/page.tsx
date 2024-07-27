@@ -3,23 +3,20 @@ import styles from "./page.module.css";
 import { ProfileIcon } from "./ProfileIcon";
 import { Ranked } from "./Ranked";
 import { SearchBar } from "./SearchBar";
-import { MatchInfo, PlayerParams } from "@/app/lib/definitions";
+import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { matchData } from "@/app/lib/match-data";
 // import { GameMode } from "./GameMode";
 // import { IoSearch } from "react-icons/io5";
 
-function getSummonerId(matches: MatchInfo[], params: PlayerParams) {
-  for (const player of matches[0].info.participants) {
-    if (player.riotIdGameName === params.username) {
-      return player.summonerId;
-    }
-  }
+function getSummonerId(match: MatchStats) {
+  const { summonerId } = match;
+  return summonerId;
 }
 
 export default async function Page({ params }: { params: PlayerParams }) {
   const matches = await matchData(params);
+  const profileSummonerId = getSummonerId(matches[0]);
 
-  const profileSummonerId = getSummonerId(matches, params);
   return (
     <>
       <div className={styles["search-header"]}>
@@ -27,7 +24,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
       </div>
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
-          {/* {profileSummonerId && <ProfileIcon summonerId={profileSummonerId} />} */}
+          {profileSummonerId && <ProfileIcon summonerId={profileSummonerId} />}
           <span className={styles["username-title"]}>
             {params.username}
             <span className={styles["tagline-title"]}>#{params.tagLine}</span>
@@ -36,7 +33,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
-              {/* {profileSummonerId && <Ranked summonerId={profileSummonerId} />} */}
+              {profileSummonerId && <Ranked summonerId={profileSummonerId} />}
             </div>
             {/* <div className={styles["performance-container"]}></div> */}
           </div>
