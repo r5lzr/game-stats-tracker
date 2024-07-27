@@ -1,5 +1,5 @@
 import { MatchInfo, PlayerParams } from "./definitions";
-import { getNameTagInfo } from "./match-functions/nametag-info";
+import { getPlayerInfo } from "./match-functions/player-info";
 import { getQueueInfo } from "./match-functions/queue-info";
 import { getChampIcon, getChampLevel } from "./match-functions/champ-info";
 import {
@@ -46,6 +46,7 @@ export async function matchData(params: PlayerParams) {
       const [
         playerName,
         tagLine,
+        summonerId,
         queueInfo,
         champIcon,
         champLevel,
@@ -103,8 +104,9 @@ export async function matchData(params: PlayerParams) {
         redPlayer5Tag,
         redPlayer5Champ,
       ] = await Promise.all([
-        getNameTagInfo(match, params)?.[0],
-        getNameTagInfo(match, params)?.[1],
+        getPlayerInfo(match, params)?.[0],
+        getPlayerInfo(match, params)?.[1],
+        getPlayerInfo(match, params)?.[2],
         getQueueInfo(match.info.queueId),
         getChampIcon(match, params),
         getChampLevel(match, params),
@@ -166,6 +168,7 @@ export async function matchData(params: PlayerParams) {
       return {
         playerName,
         tagLine,
+        summonerId,
         queueInfo,
         champIcon,
         champLevel,

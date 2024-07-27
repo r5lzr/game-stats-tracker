@@ -16,27 +16,10 @@ function getSummonerId(matches: MatchInfo[], params: PlayerParams) {
   }
 }
 
-// async function getMatches(username: string, tagLine: string) {
-//   const res = await fetch(
-//     process.env.URL +
-//       `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`,
-//     { cache: "force-cache" }
-//   );
-
-//   if (!res.ok) throw new Error("Failed to fetch match data");
-
-//   return await res.json();
-// }
-
 export default async function Page({ params }: { params: PlayerParams }) {
-  const matches = matchData(params);
-  // const matches: MatchInfo[] = await getMatches(
-  //   params.username,
-  //   params.tagLine
-  // );
+  const matches = await matchData(params);
 
-  // const profileSummonerId = getSummonerId(matches, params);
-
+  const profileSummonerId = getSummonerId(matches, params);
   return (
     <>
       <div className={styles["search-header"]}>
