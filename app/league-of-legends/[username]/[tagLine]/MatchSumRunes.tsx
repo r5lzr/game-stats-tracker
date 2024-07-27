@@ -4,46 +4,6 @@ import { promises as fs } from "fs";
 import { MatchInfo } from "./page";
 import { PlayerParams } from "./page";
 
-interface runeInfo {
-  id: number;
-}
-
-async function getRuneInfo() {
-  const file = await fs.readFile(
-    process.cwd() +
-      "/app/dragontail-14.10.1/14.10.1/data/en_US/runesReforged.json",
-    "utf8"
-  );
-
-  return JSON.parse(file);
-}
-
-async function getPrimaryInfo(runeId: number | undefined) {
-  const runeData = await getRuneInfo();
-
-  for (const runeTree of runeData) {
-    for (const slot of runeTree.slots) {
-      const primaryRune = slot.runes.find(
-        (primaryRune: runeInfo) => primaryRune.id === runeId
-      );
-
-      if (primaryRune) {
-        return primaryRune.icon;
-      }
-    }
-  }
-}
-
-async function getSecondaryInfo(runeId: number | undefined) {
-  const runeData = await getRuneInfo();
-
-  for (const rune of runeData) {
-    if (rune.id === runeId) {
-      return rune.icon;
-    }
-  }
-}
-
 function getRune(rune: string) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/img/${rune}`;
 
@@ -59,22 +19,6 @@ export async function MatchSumRunes({
 }) {
   let champRune1 = null;
   let champRune2 = null;
-
-  const getRunePrimary = () => {
-    for (const player of match.info.participants) {
-      if (player.riotIdGameName === params.username) {
-        return player.perks.styles[0].selections[0].perk;
-      }
-    }
-  };
-
-  const getRuneSecondary = () => {
-    for (const player of match.info.participants) {
-      if (player.riotIdGameName === params.username) {
-        return player.perks.styles[1].style;
-      }
-    }
-  };
 
   const ChampRune1Id = getRunePrimary();
   const ChampRune2Id = getRuneSecondary();

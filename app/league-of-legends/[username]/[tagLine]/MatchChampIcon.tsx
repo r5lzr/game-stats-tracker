@@ -25,13 +25,6 @@ export function MatchChampIcon({
   let champIcon = null;
   let champLevel = null;
 
-  match.info.participants.forEach((player) => {
-    if (player.riotIdGameName === params.username) {
-      champIcon = getChampion(player.championName);
-      champLevel = player.champLevel;
-    }
-  });
-
   return (
     <div className={styles["champ-container"]}>
       <Image

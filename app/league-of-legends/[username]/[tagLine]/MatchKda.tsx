@@ -15,18 +15,6 @@ export function MatchKda({
   let kdaRatio = null;
   let kpRatio = null;
 
-  match.info.participants.forEach((item) => {
-    if (item.riotIdGameName === params.username) {
-      kills = item.kills;
-      deaths = item.deaths;
-      assists = item.assists;
-
-      kdaRatio = item.challenges.kda.toFixed(2);
-
-      kpRatio = (item.challenges.killParticipation * 100).toFixed();
-    }
-  });
-
   return (
     <div className={styles["kda-container"]}>
       <div className={styles["kda-num"]}>
