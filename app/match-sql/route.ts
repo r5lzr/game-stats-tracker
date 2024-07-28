@@ -1,5 +1,6 @@
 import { db } from "@vercel/postgres";
 import { matchDataList } from "../league-of-legends/[username]/[tagLine]/page";
+import { MatchInfo, MatchStats } from "../lib/definitions";
 
 const client = await db.connect();
 
@@ -8,6 +9,7 @@ async function updateMatchDb() {
   await client.sql`
     CREATE TABLE IF NOT EXISTS matches (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      match_id UUID NOT NULL,
       player_name VARCHAR(50) NOT NULL,
       tag_line VARCHAR(50) NOT NULL,
       summoner_id VARCHAR(100) NOT NULL,
@@ -77,9 +79,9 @@ async function updateMatchDb() {
 
   const insertedMatchData = await Promise.all(
     matchDataList.map(
-      (match) => client.sql`
-        INSERT INTO matches (id)
-        VALUES ()
+      (match: MatchStats) => client.sql`
+        INSERT INTO matches (match_id, player_name)
+        VALUES (${match.matchId}, ${match.playerName})
         ON CONFLICT (id) DO NOTHING;
       `
     )

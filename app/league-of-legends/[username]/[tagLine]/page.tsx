@@ -17,7 +17,7 @@ let matchDataList: any;
 export default async function Page({ params }: { params: PlayerParams }) {
   matchDataList = await matchData(params);
   const profileSummonerId = getSummonerId(matchDataList[0]);
-
+  console.log(matchDataList);
   return (
     <>
       <div className={styles["search-header"]}>
