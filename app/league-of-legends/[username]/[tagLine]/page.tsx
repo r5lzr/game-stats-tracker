@@ -13,9 +13,11 @@ function getSummonerId(match: MatchStats) {
   return summonerId;
 }
 
+let matchDataList: any;
 export default async function Page({ params }: { params: PlayerParams }) {
-  const matches = await matchData(params);
-  const profileSummonerId = getSummonerId(matches[0]);
+  matchDataList = await matchData(params);
+  const profileSummonerId = getSummonerId(matchDataList[0]);
+
   return (
     <>
       <div className={styles["search-header"]}>
@@ -69,3 +71,5 @@ export default async function Page({ params }: { params: PlayerParams }) {
     </>
   );
 }
+
+export { matchDataList };

@@ -16,6 +16,6 @@ export function getOutcomeInfo(match: MatchInfo, params: PlayerParams) {
       gameOutcome = "DEFEAT";
     }
   }
-  console.log(gameOutcome);
+
   return gameOutcome;
 }

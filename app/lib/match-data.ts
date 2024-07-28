@@ -1,4 +1,5 @@
-import { MatchInfo, PlayerParams } from "./definitions";
+import { MatchInfo, MatchStats, PlayerParams } from "./definitions";
+import { getMatchIdInfo } from "./match-functions/matchid-info";
 import { getPlayerInfo } from "./match-functions/player-info";
 import { getQueueInfo } from "./match-functions/queue-info";
 import {
@@ -50,6 +51,7 @@ export async function matchData(params: PlayerParams) {
   const matchDataList: any = await Promise.all(
     matches.map(async (match) => {
       const [
+        matchId,
         playerName,
         tagLine,
         summonerId,
@@ -117,6 +119,7 @@ export async function matchData(params: PlayerParams) {
         redPlayer5Tag,
         redPlayer5Champ,
       ] = await Promise.all([
+        getMatchIdInfo(match),
         getPlayerInfo(match, params)?.[0],
         getPlayerInfo(match, params)?.[1],
         getPlayerInfo(match, params)?.[2],
@@ -186,6 +189,7 @@ export async function matchData(params: PlayerParams) {
       ]);
 
       return {
+        matchId,
         playerName,
         tagLine,
         summonerId,

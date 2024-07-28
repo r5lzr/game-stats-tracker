@@ -16,6 +16,6 @@ export function getPingingInfo(match: MatchInfo, params: PlayerParams) {
     assistPings = participant.assistMePings;
     missingPings = participant.enemyMissingPings;
   }
-  console.log([dangerPings, pathingPings, assistPings, missingPings]);
+
   return [dangerPings, pathingPings, assistPings, missingPings];
 }
