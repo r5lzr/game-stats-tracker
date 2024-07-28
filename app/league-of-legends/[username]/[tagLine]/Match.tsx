@@ -22,21 +22,6 @@ export function Match({
   match: MatchInfo;
   params: PlayerParams;
 }) {
-  function findSummonerName() {
-    let foundName = null;
-
-    match.info.participants.forEach((item) => {
-      if (
-        item.riotIdGameName === params.username &&
-        item.riotIdTagline === params.tagLine
-      ) {
-        foundName = item.riotIdGameName;
-      }
-    });
-
-    return foundName; //need to change for riot id and tagline
-  }
-
   function getRelativeTime() {
     let endTime = match.info.gameEndTimestamp;
     let relativeTime = null;

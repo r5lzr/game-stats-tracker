@@ -49,6 +49,12 @@ export interface MatchStats {
   };
   goldEarned: number;
   totalMinionsKilled: number;
+  dangerPings: number;
+  getBackPings: number;
+  onMyWayPings: number;
+  assistMePings: number;
+  enemyMissingPings: number;
+  gameEndedInEarlySurrender: boolean;
   win: boolean;
 }
 

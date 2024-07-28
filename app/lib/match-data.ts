@@ -1,6 +1,11 @@
 import { MatchInfo, PlayerParams } from "./definitions";
 import { getPlayerInfo } from "./match-functions/player-info";
 import { getQueueInfo } from "./match-functions/queue-info";
+import {
+  getRelativeTimeInfo,
+  getGameDurationInfo,
+} from "./match-functions/time-info";
+import { getOutcomeInfo } from "./match-functions/outcome-info";
 import { getChampIcon, getChampLevel } from "./match-functions/champ-info";
 import {
   getSpellInfo,
@@ -17,6 +22,7 @@ import { getKDAInfo } from "./match-functions/kda-info";
 import { getGCCInfo } from "./match-functions/gcc-info";
 import { getItemInfo } from "./match-functions/item-info";
 // import { getAvgRankIcon } from "./match-functions/avgrank-info";
+import { getPingingInfo } from "./match-functions/pinging-info";
 import { getMultiKillInfo } from "./match-functions/multikill-info";
 import { getBlueTeamInfo, getRedTeamInfo } from "./match-functions/team-info";
 
@@ -48,6 +54,9 @@ export async function matchData(params: PlayerParams) {
         tagLine,
         summonerId,
         queueInfo,
+        relativeTime,
+        gameDuration,
+        outcome,
         champIcon,
         champLevel,
         spellInfo1,
@@ -72,6 +81,10 @@ export async function matchData(params: PlayerParams) {
         itemId6,
         // avgRankEmblem,
         // avgRankTitle,
+        dangerPings,
+        pathingPings,
+        assistPings,
+        missingPings,
         multiKill,
         bluePlayer1Name,
         bluePlayer1Tag,
@@ -108,6 +121,9 @@ export async function matchData(params: PlayerParams) {
         getPlayerInfo(match, params)?.[1],
         getPlayerInfo(match, params)?.[2],
         getQueueInfo(match.info.queueId),
+        getRelativeTimeInfo(match),
+        getGameDurationInfo(match),
+        getOutcomeInfo(match, params),
         getChampIcon(match, params),
         getChampLevel(match, params),
         getSpellInfo(getSpellId1(match, params)),
@@ -132,6 +148,10 @@ export async function matchData(params: PlayerParams) {
         getItemInfo(match, params)?.[6],
         // (await getAvgRankIcon(match))?.[0],
         // (await getAvgRankIcon(match))?.[1],
+        getPingingInfo(match, params)?.[0],
+        getPingingInfo(match, params)?.[1],
+        getPingingInfo(match, params)?.[2],
+        getPingingInfo(match, params)?.[3],
         getMultiKillInfo(match, params),
         getBlueTeamInfo(match)?.[0][0],
         getBlueTeamInfo(match)?.[1][0],
@@ -170,6 +190,9 @@ export async function matchData(params: PlayerParams) {
         tagLine,
         summonerId,
         queueInfo,
+        relativeTime,
+        gameDuration,
+        outcome,
         champIcon,
         champLevel,
         spellInfo1,
@@ -194,6 +217,10 @@ export async function matchData(params: PlayerParams) {
         itemId6,
         // avgRankEmblem,
         // avgRankTitle,
+        dangerPings,
+        pathingPings,
+        assistPings,
+        missingPings,
         multiKill,
         bluePlayer1Name,
         bluePlayer1Tag,
