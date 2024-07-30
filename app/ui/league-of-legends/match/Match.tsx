@@ -19,7 +19,8 @@ export function Match({ match }: { match: MatchStats }) {
   if (
     queueInfo === "Arena" ||
     queueInfo === "Swarm" ||
-    queueInfo === "Unknown"
+    queueInfo === "Unknown" ||
+    outcome === "REMAKE"
   ) {
     showMatch = false;
   }
