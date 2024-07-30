@@ -1,19 +1,8 @@
-import styles from "./page.module.css";
-import { MatchInfo } from "./page";
-import { PlayerParams } from "./page";
+import styles from "../profile.module.css";
+import { MatchStats } from "@/app/lib/definitions";
 
-export function MatchKda({
-  match,
-  params,
-}: {
-  match: MatchInfo;
-  params: PlayerParams;
-}) {
-  let kills = null;
-  let deaths = null;
-  let assists = null;
-  let kdaRatio = null;
-  let kpRatio = null;
+export function MatchKda({ match }: { match: MatchStats }) {
+  const { kills, deaths, assists, kdaRatio, kpRatio } = match;
 
   return (
     <div className={styles["kda-container"]}>

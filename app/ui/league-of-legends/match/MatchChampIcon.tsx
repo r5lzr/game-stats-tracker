@@ -1,34 +1,26 @@
-"use client";
-
 import Image from "next/image";
-import styles from "./page.module.css";
-import { MatchInfo } from "./page";
-import { PlayerParams } from "./page";
+import styles from "../profile.module.css";
+import { MatchStats } from "@/app/lib/definitions";
 
 function getChampion(champ: string) {
   if (champ === "FiddleSticks") {
     champ = "Fiddlesticks";
   }
 
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.11.1/img/champion/${champ}.png`;
+  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.14.1/img/champion/${champ}.png`;
 
   return champ !== undefined ? riotURL : "/images/empty.png";
 }
 
-export function MatchChampIcon({
-  match,
-  params,
-}: {
-  match: MatchInfo;
-  params: PlayerParams;
-}) {
-  let champIcon = null;
-  let champLevel = null;
+export function MatchChampIcon({ match }: { match: MatchStats }) {
+  const { champIcon, champLevel } = match;
+
+  const champ = getChampion(champIcon);
 
   return (
     <div className={styles["champ-container"]}>
       <Image
-        src={champIcon || "/images/empty.png"}
+        src={champ || "/images/empty.png"}
         fill
         sizes="50px"
         alt="Icon 1"

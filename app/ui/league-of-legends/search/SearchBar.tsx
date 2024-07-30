@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import styles from "./page.module.css";
+import styles from "../profile.module.css";
 
 export function SearchBar() {
   const [isActive, setIsActive] = useState(false);

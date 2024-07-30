@@ -1,9 +1,6 @@
-"use client";
-
 import Image from "next/image";
-import styles from "./page.module.css";
-import { MatchInfo } from "./page";
-import { PlayerParams } from "./page";
+import styles from "../profile.module.css";
+import { MatchStats } from "@/app/lib/definitions";
 
 function getSpell(spell: string) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/spell/${spell}.png`;
@@ -11,22 +8,11 @@ function getSpell(spell: string) {
   return spell !== undefined ? riotURL : "/images/empty.png";
 }
 
-export async function MatchSumSpells({
-  match,
-  params,
-}: {
-  match: MatchInfo;
-  params: PlayerParams;
-}) {
-  let champSpell1 = null;
-  let champSpell2 = null;
+export async function MatchSumSpells({ match }: { match: MatchStats }) {
+  const { spellInfo1, spellInfo2 } = match;
 
-  // match.info.participants.forEach((player) => {
-  //   if (player.riotIdGameName === params.username) {
-  //     champSpell1 = getSpell(spellInfo1);
-  //     champSpell2 = getSpell(spellInfo2);
-  //   }
-  // });
+  const champSpell1 = getSpell(spellInfo1);
+  const champSpell2 = getSpell(spellInfo2);
 
   return (
     <>

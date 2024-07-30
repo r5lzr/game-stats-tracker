@@ -1,11 +1,11 @@
-import "./page.css";
-import styles from "./page.module.css";
-import { ProfileIcon } from "./ProfileIcon";
-import { Ranked } from "./Ranked";
-import { SearchBar } from "./SearchBar";
+import "@/app/ui/globals.css";
+import styles from "@/app/ui/league-of-legends/profile.module.css";
+import { ProfileIcon } from "@/app/ui/league-of-legends/header/ProfileIcon";
+import { Ranked } from "@/app/ui/league-of-legends/ranked/Ranked";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { matchData } from "@/app/lib/match-data";
-// import { GameMode } from "./GameMode";
+import { Match } from "@/app/ui/league-of-legends/match/Match";
+// import { GameMode } from "@/app/ui/league-of-legends/match/GameMode";
 // import { IoSearch } from "react-icons/io5";
 
 function getSummonerId(match: MatchStats) {
@@ -13,19 +13,15 @@ function getSummonerId(match: MatchStats) {
   return summonerId;
 }
 
-let matchDataList: any;
 export default async function Page({ params }: { params: PlayerParams }) {
-  matchDataList = await matchData(params);
+  const matchDataList = await matchData(params);
   const profileSummonerId = getSummonerId(matchDataList[0]);
-  console.log(matchDataList);
+  // console.log(matchDataList);
   return (
-    <>
-      <div className={styles["search-header"]}>
-        <SearchBar />
-      </div>
+    <main className="body-container">
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
-          {profileSummonerId && <ProfileIcon summonerId={profileSummonerId} />}
+          <ProfileIcon summonerId={profileSummonerId} />
           <span className={styles["username-title"]}>
             {params.username}
             <span className={styles["tagline-title"]}>#{params.tagLine}</span>
@@ -34,7 +30,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
-              {profileSummonerId && <Ranked summonerId={profileSummonerId} />}
+              <Ranked summonerId={profileSummonerId} />
             </div>
             {/* <div className={styles["performance-container"]}></div> */}
           </div>
@@ -63,13 +59,13 @@ export default async function Page({ params }: { params: PlayerParams }) {
               <div className={styles["stats-container"]}></div>
             </div>
             <div className={styles["history-container"]}>
-              {/* <MatchData matches={matches} params={params} /> */}
+              {matchDataList.map((match: MatchStats) => (
+                <Match match={match} key={match.matchId} />
+              ))}
             </div>
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 }
-
-export { matchDataList };

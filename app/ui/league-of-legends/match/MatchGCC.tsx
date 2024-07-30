@@ -1,32 +1,10 @@
 import Image from "next/image";
-import styles from "./page.module.css";
-import { MatchInfo } from "./page";
-import { PlayerParams } from "./page";
+import styles from "../profile.module.css";
 
-export function MatchGCC({
-  match,
-  params,
-}: {
-  match: MatchInfo;
-  params: PlayerParams;
-}) {
-  let gold = null;
-  let creepScore = null;
-  let creepScorePerMinute = null;
-  let controlWards = null;
+import { MatchStats } from "@/app/lib/definitions";
 
-  match.info.participants.forEach((item) => {
-    if (item.riotIdGameName === params.username) {
-      gold = item.goldEarned;
-
-      creepScore = item.totalMinionsKilled;
-      const minutes = Math.floor(match.info.gameDuration / 60);
-      const seconds = match.info.gameDuration % 60;
-      creepScorePerMinute = (creepScore / (minutes + seconds / 60)).toFixed(1);
-
-      controlWards = item.challenges.controlWardsPlaced;
-    }
-  });
+export function MatchGCC({ match }: { match: MatchStats }) {
+  const { gold, creepScore, creepScorePerMin, controlWards } = match;
 
   return (
     <div className={styles["gcc-container"]}>
@@ -48,7 +26,7 @@ export function MatchGCC({
           className={styles["cs-styling"]}
           alt="creep score"
         />
-        {creepScore} ({creepScorePerMinute})
+        {creepScore} ({creepScorePerMin})
       </div>
       <div className={styles["control-wards"]}>
         <Image

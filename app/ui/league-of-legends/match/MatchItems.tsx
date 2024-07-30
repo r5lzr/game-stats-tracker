@@ -1,7 +1,6 @@
 import Image from "next/image";
-import styles from "./page.module.css";
-import { MatchInfo } from "./page";
-import { PlayerParams } from "./page";
+import styles from "../profile.module.css";
+import { MatchStats } from "@/app/lib/definitions";
 
 function getItem(item: number) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.10.1/img/item/${item}.png`;
@@ -9,39 +8,22 @@ function getItem(item: number) {
   return item !== 0 ? riotURL : "/images/empty.png";
 }
 
-export function MatchItems({
-  match,
-  params,
-}: {
-  match: MatchInfo;
-  params: PlayerParams;
-}) {
-  const items = {
-    item0: "",
-    item1: "",
-    item2: "",
-    item3: "",
-    item4: "",
-    item5: "",
-    item6: "",
-  };
+export function MatchItems({ match }: { match: MatchStats }) {
+  const { itemId0, itemId1, itemId2, itemId3, itemId4, itemId5, itemId6 } =
+    match;
 
-  match.info.participants.forEach((item) => {
-    if (item.riotIdGameName === params.username) {
-      items.item0 = getItem(item.item0);
-      items.item1 = getItem(item.item1);
-      items.item2 = getItem(item.item2);
-      items.item3 = getItem(item.item3);
-      items.item4 = getItem(item.item4);
-      items.item5 = getItem(item.item5);
-      items.item6 = getItem(item.item6);
-    }
-  });
+  const item0 = getItem(itemId0);
+  const item1 = getItem(itemId1);
+  const item2 = getItem(itemId2);
+  const item3 = getItem(itemId3);
+  const item4 = getItem(itemId4);
+  const item5 = getItem(itemId5);
+  const item6 = getItem(itemId6);
 
   return (
     <div className={styles["items-container"]}>
       <Image
-        src={items.item0}
+        src={item0}
         width={24}
         height={24}
         alt="Item 0"
@@ -49,7 +31,7 @@ export function MatchItems({
         className={styles["item-style"]}
       />
       <Image
-        src={items.item1}
+        src={item1}
         width={24}
         height={24}
         alt="Item 1"
@@ -57,7 +39,7 @@ export function MatchItems({
         className={styles["item-style"]}
       />
       <Image
-        src={items.item2}
+        src={item2}
         width={24}
         height={24}
         alt="Item 2"
@@ -65,7 +47,7 @@ export function MatchItems({
         className={styles["item-style"]}
       />
       <Image
-        src={items.item3}
+        src={item3}
         width={24}
         height={24}
         alt="Item 3"
@@ -73,7 +55,7 @@ export function MatchItems({
         className={styles["item-style"]}
       />
       <Image
-        src={items.item4}
+        src={item4}
         width={24}
         height={24}
         alt="Item 4"
@@ -81,7 +63,7 @@ export function MatchItems({
         className={styles["item-style"]}
       />
       <Image
-        src={items.item5}
+        src={item5}
         width={24}
         height={24}
         alt="Item 5"
@@ -89,7 +71,7 @@ export function MatchItems({
         className={styles["item-style"]}
       />
       <Image
-        src={items.item6}
+        src={item6}
         width={24}
         height={24}
         alt="Item 6"

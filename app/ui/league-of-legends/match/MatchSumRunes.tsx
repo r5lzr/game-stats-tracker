@@ -1,8 +1,6 @@
 import Image from "next/image";
-import styles from "./page.module.css";
-import { promises as fs } from "fs";
-import { MatchInfo } from "./page";
-import { PlayerParams } from "./page";
+import styles from "../profile.module.css";
+import { MatchStats } from "@/app/lib/definitions";
 
 function getRune(rune: string) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/img/${rune}`;
@@ -10,32 +8,11 @@ function getRune(rune: string) {
   return rune !== undefined ? riotURL : "/images/empty.png";
 }
 
-export async function MatchSumRunes({
-  match,
-  params,
-}: {
-  match: MatchInfo;
-  params: PlayerParams;
-}) {
-  let champRune1 = null;
-  let champRune2 = null;
+export async function MatchSumRunes({ match }: { match: MatchStats }) {
+  const { runeInfo1, runeInfo2 } = match;
 
-  const ChampRune1Id = getRunePrimary();
-  const ChampRune2Id = getRuneSecondary();
-
-  const [runeInfo1, runeInfo2] = await Promise.all([
-    getPrimaryInfo(ChampRune1Id),
-    getSecondaryInfo(ChampRune2Id),
-  ]);
-
-  const participant = match.info.participants.find(
-    (player) => player.riotIdGameName === params.username
-  );
-
-  if (participant) {
-    champRune1 = getRune(runeInfo1);
-    champRune2 = getRune(runeInfo2);
-  }
+  const champRune1 = getRune(runeInfo1);
+  const champRune2 = getRune(runeInfo2);
 
   return (
     <>

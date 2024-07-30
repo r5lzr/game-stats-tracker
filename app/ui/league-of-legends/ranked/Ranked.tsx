@@ -1,14 +1,6 @@
 import { RankedQueue } from "./RankedQueue";
-import styles from "./page.module.css";
-
-export interface RankedInfo {
-  queueType: string;
-  tier: string;
-  rank: string;
-  leaguePoints: number;
-  wins: number;
-  losses: number;
-}
+import styles from "../profile.module.css";
+import { RankedInfo } from "@/app/lib/definitions";
 
 async function getRankedInfo(summonerId: string) {
   const res = await fetch(

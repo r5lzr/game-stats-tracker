@@ -39,7 +39,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 83vh;
+  min-height: 83vh;
 }
 
 /* width */

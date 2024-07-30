@@ -16,6 +16,7 @@ export interface MatchInfo {
     gameEndTimestamp: number;
   };
   metadata: { matchId: string };
+  matchId: string;
 }
 
 export interface MatchStats {
@@ -49,17 +50,23 @@ export interface MatchStats {
   itemId1: number;
   itemId2: number;
   itemId3: number;
-  itemId4: Number;
+  itemId4: number;
   itemId5: number;
   itemId6: number;
   dangerPings: number;
   pathingPings: number;
   onMyWayPings: number;
   assistPings: number;
-  assistMePings: Number;
+  assistMePings: number;
   missingPings: number;
   enemyMissingPings: number;
   multiKill: string;
+  blueTeamPlayers: string[];
+  blueTeamTags: string[];
+  blueTeamChamps: string[];
+  redTeamPlayers: string[];
+  redTeamTags: string[];
+  redTeamChamps: string[];
   bluePlayer1Name: string;
   bluePlayer1Tag: string;
   bluePlayer1Champ: string;
@@ -123,4 +130,13 @@ export interface PerkInfo {
 
 export interface runeInfo {
   id: number;
+}
+
+export interface RankedInfo {
+  queueType: string;
+  tier: string;
+  rank: string;
+  leaguePoints: number;
+  wins: number;
+  losses: number;
 }
