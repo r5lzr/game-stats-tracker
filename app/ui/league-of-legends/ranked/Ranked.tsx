@@ -1,4 +1,4 @@
-import { RankedQueue } from "./RankedQueue";
+import { RankedQueue } from "./ranked-queue";
 import styles from "../profile.module.css";
 import { RankedInfo } from "@/app/lib/definitions";
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
 import { RiArrowDownDoubleLine } from "react-icons/ri";
-import { Teams } from "./Teams";
+import { Teams } from "./teams";
 // import { MatchRankAvg } from "./MatchRankAvg";
 import { Kda } from "./kda";
 import { MultiKill } from "./multiKill";
@@ -9,7 +9,7 @@ import { GCC } from "./gcc";
 import { SumRunes } from "./sum-runes";
 import { SumSpells } from "./sum-spells";
 import { ChampIcon } from "./champ-icon";
-import { Items } from "./Items";
+import { Items } from "./items";
 import { MatchStats } from "@/app/lib/definitions";
 import { Pings } from "./pings";
 

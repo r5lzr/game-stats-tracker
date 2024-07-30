@@ -1,10 +1,10 @@
 import "@/app/ui/globals.css";
 import styles from "@/app/ui/league-of-legends/profile.module.css";
 import { ProfileIcon } from "@/app/ui/league-of-legends/header/ProfileIcon";
-import { Ranked } from "@/app/ui/league-of-legends/ranked/Ranked";
+import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { matchData } from "@/app/lib/match-data";
-import { Match } from "@/app/ui/league-of-legends/matches/match";
+import { Match } from "@/app/ui/league-of-legends/match/match";
 // import { GameMode } from "@/app/ui/league-of-legends/match/GameMode";
 // import { IoSearch } from "react-icons/io5";
 
