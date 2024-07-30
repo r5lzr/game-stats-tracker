@@ -1,6 +1,8 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
 
+const highRanks = ["CHALLENGER", "GRANDMASTER", "MASTER"];
+
 export function RankedQueue({
   rankedInfo,
   label,
@@ -14,6 +16,7 @@ export function RankedQueue({
   let rankedWins = null;
   let rankedLosses = null;
   let rankedRatio = null;
+  let showRank = true;
 
   if (Array.isArray(rankedInfo)) {
     rankedTier = rankedInfo[0];
@@ -25,6 +28,10 @@ export function RankedQueue({
     rankedRatio = Math.ceil((rankedWins / (rankedWins + rankedLosses)) * 100);
   } else {
     rankedTier = "UNRANKED";
+  }
+
+  if (highRanks.includes(rankedTier)) {
+    showRank = false;
   }
 
   return (
@@ -44,7 +51,9 @@ export function RankedQueue({
         <div className={styles["ranked-type-container"]}>
           <div className={styles["tier-rank-container"]}>
             <div className={styles["tier-title"]}>{rankedTier}</div>
-            <div className={styles["division-title"]}>{rankedRank}</div>
+            {showRank && (
+              <div className={styles["division-title"]}>{rankedRank}</div>
+            )}
             <div className={styles["LP-title"]}>{rankedLP}</div>
           </div>
           {rankedInfo && (
