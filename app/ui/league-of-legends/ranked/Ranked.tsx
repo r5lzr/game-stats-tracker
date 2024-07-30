@@ -5,7 +5,7 @@ import { RankedInfo } from "@/app/lib/definitions";
 async function getRankedInfo(summonerId: string) {
   const res = await fetch(
     process.env.URL + `/api/league-of-legends/ranked?summonerId=${summonerId}`,
-    { cache: "force-cache" }
+    { cache: "reload" }
   );
 
   if (!res.ok) throw new Error("Failed to fetch ranked data");

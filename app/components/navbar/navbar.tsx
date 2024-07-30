@@ -12,12 +12,12 @@ export const Navbar = () => {
         <span className={styles.name}>METRICS</span>
         <span className={styles.domain}>.GA</span>
       </Link>
-      <Link href="/login" className={styles["login-btn"]}>
+      {/* <Link href="/login" className={styles["login-btn"]}>
         Login
         <span className={styles["login-icon"]}>
           <GrLogin size={30} />
         </span>
-      </Link>
+      </Link> */}
     </nav>
   );
 };

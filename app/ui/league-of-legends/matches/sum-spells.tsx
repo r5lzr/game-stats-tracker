@@ -8,7 +8,7 @@ function getSpell(spell: string) {
   return spell !== undefined ? riotURL : "/images/empty.png";
 }
 
-export async function MatchSumSpells({ match }: { match: MatchStats }) {
+export async function SumSpells({ match }: { match: MatchStats }) {
   const { spellInfo1, spellInfo2 } = match;
 
   const champSpell1 = getSpell(spellInfo1);

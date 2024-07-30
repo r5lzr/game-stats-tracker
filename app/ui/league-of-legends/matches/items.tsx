@@ -8,7 +8,7 @@ function getItem(item: number) {
   return item !== 0 ? riotURL : "/images/empty.png";
 }
 
-export function MatchItems({ match }: { match: MatchStats }) {
+export function Items({ match }: { match: MatchStats }) {
   const { itemId0, itemId1, itemId2, itemId3, itemId4, itemId5, itemId6 } =
     match;
 

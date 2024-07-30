@@ -1,7 +1,7 @@
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
-export function MatchMultiKill({ match }: { match: MatchStats }) {
+export function MultiKill({ match }: { match: MatchStats }) {
   let isMultiKill = true;
   const { multiKill } = match;
 

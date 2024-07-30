@@ -3,7 +3,7 @@ import styles from "../profile.module.css";
 
 import { MatchStats } from "@/app/lib/definitions";
 
-export function MatchGCC({ match }: { match: MatchStats }) {
+export function GCC({ match }: { match: MatchStats }) {
   const { gold, creepScore, creepScorePerMin, controlWards } = match;
 
   return (

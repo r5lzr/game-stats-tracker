@@ -8,7 +8,7 @@ function getRune(rune: string) {
   return rune !== undefined ? riotURL : "/images/empty.png";
 }
 
-export async function MatchSumRunes({ match }: { match: MatchStats }) {
+export async function SumRunes({ match }: { match: MatchStats }) {
   const { runeInfo1, runeInfo2 } = match;
 
   const champRune1 = getRune(runeInfo1);

@@ -4,7 +4,7 @@ import { ProfileIcon } from "@/app/ui/league-of-legends/header/ProfileIcon";
 import { Ranked } from "@/app/ui/league-of-legends/ranked/Ranked";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { matchData } from "@/app/lib/match-data";
-import { Match } from "@/app/ui/league-of-legends/match/Match";
+import { Match } from "@/app/ui/league-of-legends/matches/match";
 // import { GameMode } from "@/app/ui/league-of-legends/match/GameMode";
 // import { IoSearch } from "react-icons/io5";
 
@@ -14,6 +14,8 @@ function getSummonerId(match: MatchStats) {
 }
 
 export default async function Page({ params }: { params: PlayerParams }) {
+  console.log(123);
+  console.log(params);
   const matchDataList = await matchData(params);
   const profileSummonerId = getSummonerId(matchDataList[0]);
   // console.log(matchDataList);

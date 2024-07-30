@@ -3,14 +3,15 @@ import styles from "../profile.module.css";
 import { RiArrowDownDoubleLine } from "react-icons/ri";
 import { Teams } from "./Teams";
 // import { MatchRankAvg } from "./MatchRankAvg";
-import { MatchKda } from "./MatchKda";
-import { MatchMultiKill } from "./MatchMultiKill";
-import { MatchGCC } from "./MatchGCC";
-import { MatchSumRunes } from "./MatchSumRunes";
-import { MatchSumSpells } from "./MatchSumSpells";
-import { MatchChampIcon } from "./MatchChampIcon";
-import { MatchItems } from "./MatchItems";
+import { Kda } from "./kda";
+import { MultiKill } from "./multiKill";
+import { GCC } from "./gcc";
+import { SumRunes } from "./sum-runes";
+import { SumSpells } from "./sum-spells";
+import { ChampIcon } from "./champ-icon";
+import { Items } from "./Items";
 import { MatchStats } from "@/app/lib/definitions";
+import { Pings } from "./pings";
 
 export function Match({ match }: { match: MatchStats }) {
   const { outcome, queueInfo, relativeTime, gameDuration } = match;
@@ -59,27 +60,27 @@ export function Match({ match }: { match: MatchStats }) {
             <div className={styles["sum-container2"]}>
               <div className={styles["icon-container1"]}>
                 <div className={styles["champsums-container"]}>
-                  <MatchChampIcon match={match} />
+                  <ChampIcon match={match} />
                   <div className={styles["summoners-container"]}>
-                    <MatchSumSpells match={match} />
+                    <SumSpells match={match} />
                   </div>
                 </div>
                 <div className={styles["runepage-container"]}>
-                  <MatchSumRunes match={match} />
+                  <SumRunes match={match} />
                 </div>
               </div>
               <div className={styles["icon-container2"]}>
                 <div className={styles["matchstats-container"]}>
-                  <MatchKda match={match} />
-                  <MatchGCC match={match} />
+                  <Kda match={match} />
+                  <GCC match={match} />
                 </div>
-                <MatchItems match={match} />
+                <Items match={match} />
               </div>
               <div className={styles["icon-container3"]}>
-                <div className={styles["matchrank-container"]}>
-                  {/* <MatchRankAvg match={match} /> */}
-                </div>
-                <div className={styles["analysis-container"]}>
+                {/* <div className={styles["matchrank-container"]}>
+                  <MatchRankAvg match={match} />
+                </div> */}
+                {/* <div className={styles["analysis-container"]}>
                   <Image
                     src={`/images/match/heimer_analysis.png`}
                     width={24}
@@ -88,9 +89,12 @@ export function Match({ match }: { match: MatchStats }) {
                     alt="control ward"
                   />
                   <span className={styles["analysis-title"]}>Analysis</span>
+                </div> */}
+                <div className={styles["pings-container"]}>
+                  <Pings match={match} />
                 </div>
                 <div className={styles["multikill-placeholder"]}>
-                  <MatchMultiKill match={match} />
+                  <MultiKill match={match} />
                 </div>
               </div>
             </div>

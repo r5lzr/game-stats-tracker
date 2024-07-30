@@ -12,7 +12,7 @@ function getChampion(champ: string) {
   return champ !== undefined ? riotURL : "/images/empty.png";
 }
 
-export function MatchChampIcon({ match }: { match: MatchStats }) {
+export function ChampIcon({ match }: { match: MatchStats }) {
   const { champIcon, champLevel } = match;
 
   const champ = getChampion(champIcon);

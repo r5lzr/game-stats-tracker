@@ -1,7 +1,7 @@
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
-export function MatchKda({ match }: { match: MatchStats }) {
+export function Kda({ match }: { match: MatchStats }) {
   const { kills, deaths, assists, kdaRatio, kpRatio } = match;
 
   return (
