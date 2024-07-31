@@ -1,10 +1,11 @@
 import { RankedQueue } from "./ranked-queue";
 import styles from "../profile.module.css";
-import { RankedInfo } from "@/app/lib/definitions";
+import { RankedInfo, PlayerParams } from "@/app/lib/definitions";
 
-async function getRankedInfo(summonerId: string) {
+async function getRankedInfo(summonerId: string, region: string) {
   const res = await fetch(
-    process.env.URL + `/api/league-of-legends/ranked?summonerId=${summonerId}`,
+    process.env.URL +
+      `/api/league-of-legends/ranked?summonerId=${summonerId}&region=${region}`,
     { cache: "reload" }
   );
 
@@ -13,10 +14,10 @@ async function getRankedInfo(summonerId: string) {
   return await res.json();
 }
 
-async function getPlayerRankSolo(summonerId: string) {
+async function getPlayerRankSolo(summonerId: string, region: string) {
   let rankedSoloActivity: any[] | boolean = [];
 
-  const rankedData: RankedInfo[] = await getRankedInfo(summonerId);
+  const rankedData: RankedInfo[] = await getRankedInfo(summonerId, region);
 
   const checkActivity = rankedData.find(
     (rankInfo) => rankInfo.queueType === "RANKED_SOLO_5x5"
@@ -36,10 +37,10 @@ async function getPlayerRankSolo(summonerId: string) {
   return rankedSoloActivity;
 }
 
-async function getPlayerRankFlex(summonerId: string) {
+async function getPlayerRankFlex(summonerId: string, region: string) {
   let rankedFlexActivity: any[] | boolean = [];
 
-  const rankedData: RankedInfo[] = await getRankedInfo(summonerId);
+  const rankedData: RankedInfo[] = await getRankedInfo(summonerId, region);
 
   const checkActivity = rankedData.find(
     (rankInfo) => rankInfo.queueType === "RANKED_FLEX_SR"
@@ -59,10 +60,16 @@ async function getPlayerRankFlex(summonerId: string) {
   return rankedFlexActivity;
 }
 
-export async function Ranked({ summonerId }: { summonerId: string }) {
+export async function Ranked({
+  summonerId,
+  region,
+}: {
+  summonerId: string;
+  region: string;
+}) {
   const [rankedSoloInfo, rankedFlexInfo] = await Promise.all([
-    getPlayerRankSolo(summonerId),
-    getPlayerRankFlex(summonerId),
+    getPlayerRankSolo(summonerId, region),
+    getPlayerRankFlex(summonerId, region),
   ]);
 
   return (

@@ -7,11 +7,11 @@ const getProfileIcon = (iconId: number) => {
   return riotURL;
 };
 
-async function getSummoner(summonerId: string) {
+async function getSummoner(summonerId: string, region: string) {
   const res = await fetch(
     process.env.URL +
-      `/api/league-of-legends/summoner?summonerId=${summonerId}`,
-    { method: "GET" }
+      `/api/league-of-legends/summoner?summonerId=${summonerId}&region=${region}`,
+    { cache: "reload" }
   );
 
   if (!res.ok) throw new Error("Failed to fetch summoner data");
@@ -19,8 +19,14 @@ async function getSummoner(summonerId: string) {
   return await res.json();
 }
 
-export async function ProfileIcon({ summonerId }: { summonerId: string }) {
-  const summoner = await getSummoner(summonerId);
+export async function ProfileIcon({
+  summonerId,
+  region,
+}: {
+  summonerId: string;
+  region: string;
+}) {
+  const summoner = await getSummoner(summonerId, region);
   const profileIcon = getProfileIcon(summoner.profileIconId);
   const profileLevel = summoner.summonerLevel;
 

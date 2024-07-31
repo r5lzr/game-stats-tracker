@@ -1,6 +1,7 @@
 export interface PlayerParams {
   username: string;
   tagLine: string;
+  region: string;
 }
 
 export interface QueueInfo {

@@ -30,10 +30,10 @@ import { getBlueTeamInfo, getRedTeamInfo } from "./match-functions/team-info";
 // NOTE:
 // Commented out average rank functionality due to API bottlenecks for now.
 
-async function getMatches(username: string, tagLine: string) {
+async function getMatches(username: string, tagLine: string, region: string) {
   const res = await fetch(
     process.env.URL +
-      `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}`,
+      `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}&region=${region}`,
     { cache: "reload" }
   );
 
@@ -43,9 +43,11 @@ async function getMatches(username: string, tagLine: string) {
 }
 
 export async function matchData(params: PlayerParams) {
+  // console.log("hi2", params);
   const matches: MatchInfo[] = await getMatches(
     params.username,
-    params.tagLine
+    params.tagLine,
+    params.region
   );
   // const matchesTen = matches.slice(0, 10);
   const matchDataList: any = await Promise.all(
