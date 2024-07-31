@@ -18,7 +18,7 @@ export default async function Page({ params }: { params: PlayerParams }) {
   const matchDataList = await matchData(params);
   const profileSummonerId = getSummonerId(matchDataList[0]);
   const region = getRegion(params);
-  // console.log(matchDataList);
+
   return (
     <main className="body-container">
       <div className={styles["inside-background"]}>

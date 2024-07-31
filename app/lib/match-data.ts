@@ -26,6 +26,7 @@ import { getItemInfo } from "./match-functions/item-info";
 import { getPingingInfo } from "./match-functions/pinging-info";
 import { getMultiKillInfo } from "./match-functions/multikill-info";
 import { getBlueTeamInfo, getRedTeamInfo } from "./match-functions/team-info";
+import { getUsername } from "./username-info";
 
 // NOTE:
 // Commented out average rank functionality due to API bottlenecks for now.
@@ -43,13 +44,14 @@ async function getMatches(username: string, tagLine: string, region: string) {
 }
 
 export async function matchData(params: PlayerParams) {
-  // console.log("hi2", params);
   const matches: MatchInfo[] = await getMatches(
     params.username,
     params.tagLine,
     params.region
   );
-  // const matchesTen = matches.slice(0, 10);
+
+  params.username = getUsername(params);
+
   const matchDataList: any = await Promise.all(
     matches.map(async (match) => {
       const [
