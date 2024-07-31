@@ -1,10 +1,11 @@
-
 .game-title {
   font-size: 6rem;
   text-decoration: none;
   font-weight: bold;
   margin-bottom: 20px;
   text-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .name-title {
@@ -17,12 +18,39 @@
 
 .search-container {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  height: 90px;
+}
+
+.search-region-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 5px;
+  justify-content: space-between;
+}
+
+.search-title, .region-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--gold-accent);
+}
+
+.region-title {
+  margin-right: 131px;
+}
+
+.input-container {
+  display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
-  width: 45%;
+  width: 100%;
   border-radius: 10px;
-  height: 70px;
+  height: 100%;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
 }
 

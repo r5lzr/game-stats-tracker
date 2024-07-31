@@ -27,7 +27,7 @@ export function HomeSearch() {
   };
 
   return (
-    <div className={styles["search-container"]}>
+    <div className={styles["input-container"]}>
       <form className={styles["form-field"]} onSubmit={onSearch}>
         <input
           value={searchQuery}
