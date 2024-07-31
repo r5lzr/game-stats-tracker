@@ -3,6 +3,7 @@
 import styles from "./home.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { IoSearch } from "react-icons/io5";
 
 export function HomeSearch() {
   const [isActive, setIsActive] = useState(false);
@@ -28,6 +29,9 @@ export function HomeSearch() {
 
   return (
     <div className={styles["input-container"]}>
+      <div className={styles["search-icon"]}>
+        <IoSearch size={50} />
+      </div>
       <form className={styles["form-field"]} onSubmit={onSearch}>
         <input
           value={searchQuery}
