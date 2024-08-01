@@ -12,12 +12,14 @@ export function MultiKill({ match }: { match: MatchStats }) {
   return (
     <>
       {isMultiKill && (
-        <div
-          className={`${styles["multikill-container"]} ${
-            multiKill === "PENTAKILL" ? styles["pentakill"] : null
-          }`}
-        >
-          <span className={styles["multikill-title"]}>{multiKill}</span>
+        <div className={styles["multikill-placeholder"]}>
+          <div
+            className={`${styles["multikill-container"]} ${
+              multiKill === "PENTAKILL" ? styles["pentakill"] : null
+            }`}
+          >
+            <span className={styles["multikill-title"]}>{multiKill}</span>
+          </div>
         </div>
       )}
     </>

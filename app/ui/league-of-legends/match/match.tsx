@@ -93,9 +93,7 @@ export function Match({ match }: { match: MatchStats }) {
                 <div className={styles["pings-container"]}>
                   <Pings match={match} />
                 </div>
-                <div className={styles["multikill-placeholder"]}>
-                  <MultiKill match={match} />
-                </div>
+                <MultiKill match={match} />
               </div>
             </div>
             <div className={styles["match-divider"]}></div>

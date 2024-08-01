@@ -674,7 +674,7 @@
   justify-content: center;
   width: 30%;
   height: 100%;
-  margin-right: 8px;
+  margin-right: 5px;
 }
 
 .matchrank-container {
@@ -706,6 +706,21 @@
 .analysis-title {
   color: white;
   font-size: 0.8rem;
+}
+
+.pings-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.danger-ping, .pathing-ping, .assist-ping, .missing-ping {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .multikill-placeholder {
