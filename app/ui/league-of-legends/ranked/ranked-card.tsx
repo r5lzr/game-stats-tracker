@@ -1,6 +1,6 @@
 import { RankedQueue } from "./ranked-queue";
 import styles from "../profile.module.css";
-import { RankedInfo, PlayerParams } from "@/app/lib/definitions";
+import { RankedInfo } from "@/app/lib/definitions";
 
 async function getRankedInfo(summonerId: string, region: string) {
   const res = await fetch(
