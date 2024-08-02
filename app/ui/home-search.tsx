@@ -4,6 +4,8 @@ import styles from "./home.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { IoSearch } from "react-icons/io5";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropup } from "react-icons/io";
 
 export function HomeSearch() {
   const [isActive, setIsActive] = useState(false);
@@ -49,7 +51,15 @@ export function HomeSearch() {
           onClick={() => setIsActive(!isActive)}
         >
           {selected}
-          <span className={styles["dropdown-icon"]}>&#9660;</span>
+          {isActive ? (
+            <span className={styles["dropdown-icon"]}>
+              <IoMdArrowDropup size={50} />
+            </span>
+          ) : (
+            <span className={styles["dropdown-icon"]}>
+              <IoMdArrowDropdown size={50} />
+            </span>
+          )}
         </div>
         {isActive && (
           <div className={styles["dropdown-content"]}>

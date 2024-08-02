@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { IoSearch } from "react-icons/io5";
 import styles from "../profile.module.css";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropup } from "react-icons/io";
 
 export function SearchBar() {
   const [isActive, setIsActive] = useState(false);
@@ -48,7 +50,15 @@ export function SearchBar() {
           onClick={() => setIsActive(!isActive)}
         >
           {selected}
-          <span className={styles["dropdown-icon"]}>&#9660;</span>
+          {isActive ? (
+            <span className={styles["dropdown-icon"]}>
+              <IoMdArrowDropup size={30} />
+            </span>
+          ) : (
+            <span className={styles["dropdown-icon"]}>
+              <IoMdArrowDropdown size={30} />
+            </span>
+          )}
         </div>
         {isActive && (
           <div className={styles["dropdown-content"]}>
