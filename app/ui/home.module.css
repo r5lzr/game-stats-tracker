@@ -52,6 +52,7 @@
   border-radius: 10px;
   height: 100%;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
+  background-color: white;
 }
 
 .search-icon {
@@ -61,12 +62,14 @@
   height: 100%;
   width: 5%;
   margin-left: 10px;
+  color: black;
 }
 
 .form-field {
   display: flex;
   height: 100%;
   width: 100%;
+  background-color: white;
 }
 
 .input-field {
@@ -77,6 +80,8 @@
   border-radius: 10px 0 0 10px;
   letter-spacing: 1px;
   font-weight: bold;
+  color: black;
+  background-color: white;
 }
 
 .input-field::placeholder {
@@ -98,7 +103,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: white;
   cursor: pointer;
   height: 70px;
   border-radius: 0 10px 10px 0;
@@ -106,8 +110,9 @@
   border-left: 2px solid var(--grey-background);
   font-size: 1.5rem;
   letter-spacing: 1px;
-  color: black;
   font-weight: bold;
+  color: black;
+  background-color: white;
 }
 
 .dropdown-icon {

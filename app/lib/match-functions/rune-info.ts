@@ -1,15 +1,13 @@
-import { promises as fs } from "fs";
 import { MatchInfo, PlayerParams, runeInfo } from "../definitions";
 
-
 export async function getRuneInfo() {
-  const file = await fs.readFile(
-    process.cwd() +
-      "/app/dragontail-14.10.1/14.10.1/data/en_US/runesReforged.json",
-    "utf8"
+  const res = await fetch(
+    "https://ddragon.leagueoflegends.com/cdn/14.15.1/data/en_US/runesReforged.json"
   );
 
-  return JSON.parse(file);
+  const data = await res.json();
+
+  return data;
 }
 
 export async function getRunePrimaryInfo(runeId: number | undefined) {
@@ -46,7 +44,7 @@ export function getRuneId1(match: MatchInfo, params: PlayerParams) {
   if (participant) {
     return participant.perks.styles[0].selections[0].perk;
   }
-};
+}
 
 export function getRuneId2(match: MatchInfo, params: PlayerParams) {
   const participant = match.info.participants.find(
@@ -56,4 +54,4 @@ export function getRuneId2(match: MatchInfo, params: PlayerParams) {
   if (participant) {
     return participant.perks.styles[1].style;
   }
-};
+}
