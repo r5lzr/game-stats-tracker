@@ -1,7 +1,7 @@
 import styles from "@/app/ui/home.module.css";
 import { HomeSearch } from "./ui/home-search";
 
-export default function Leagueoflegends() {
+export default function Home() {
   return (
     <main className="body-container">
       <div className={styles["game-title"]}>
