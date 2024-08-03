@@ -11,15 +11,16 @@ import { Items } from "./items";
 import { MatchStats } from "@/app/lib/definitions";
 import { Pings } from "./pings";
 
-export function Match({ match }: { match: MatchStats }) {
-  const { outcome, queueInfo, relativeTime, gameDuration } = match;
+export function MatchCard({ match }: { match: MatchStats }) {
+  const { outcome, queueInfo, relativeTime, gameDuration, summonerId } = match;
   let showMatch = true;
 
   if (
     queueInfo === "Arena" ||
     queueInfo === "Swarm" ||
     queueInfo === "Unknown" ||
-    outcome === "REMAKE"
+    outcome === "REMAKE" ||
+    summonerId === undefined
   ) {
     showMatch = false;
   }

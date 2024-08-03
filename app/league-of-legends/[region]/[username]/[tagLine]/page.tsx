@@ -4,7 +4,7 @@ import { ProfileIcon } from "@/app/ui/league-of-legends/header/profile-icon";
 import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked-card";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { matchData } from "@/app/lib/match-data";
-import { Match } from "@/app/ui/league-of-legends/match/match-card";
+import { MatchCard } from "@/app/ui/league-of-legends/match/match-card";
 
 function getSummonerId(match: MatchStats) {
   const { summonerId } = match;
@@ -44,7 +44,7 @@ export default async function LeagueProfile({
             </div>
             <div className={styles["history-container"]}>
               {matchDataList.map((match: MatchStats) => (
-                <Match match={match} key={match.matchId} />
+                <MatchCard match={match} key={match.matchId} />
               ))}
             </div>
           </div>
