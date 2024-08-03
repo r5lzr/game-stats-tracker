@@ -1,6 +1,5 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
-import { MatchStats } from "@/app/lib/definitions";
 
 function getChampion(champ: string) {
   if (champ === "FiddleSticks") {

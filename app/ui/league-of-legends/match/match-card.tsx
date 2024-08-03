@@ -1,8 +1,6 @@
-import Image from "next/image";
 import styles from "../profile.module.css";
 import { RiArrowDownDoubleLine } from "react-icons/ri";
 import { Teams } from "./teams";
-// import { MatchRankAvg } from "./MatchRankAvg";
 import { Kda } from "./kda";
 import { MultiKill } from "./multiKill";
 import { GCC } from "./gcc";
@@ -77,19 +75,6 @@ export function Match({ match }: { match: MatchStats }) {
                 <Items match={match} />
               </div>
               <div className={styles["icon-container3"]}>
-                {/* <div className={styles["matchrank-container"]}>
-                  <MatchRankAvg match={match} />
-                </div> */}
-                {/* <div className={styles["analysis-container"]}>
-                  <Image
-                    src={`/images/match/heimer_analysis.png`}
-                    width={24}
-                    height={24}
-                    className={styles["cw-styling"]}
-                    alt="control ward"
-                  />
-                  <span className={styles["analysis-title"]}>Analysis</span>
-                </div> */}
                 <div className={styles["pings-container"]}>
                   <Pings match={match} />
                 </div>

@@ -1,4 +1,4 @@
-import { MatchInfo, MatchStats, PlayerParams } from "./definitions";
+import { MatchInfo, PlayerParams } from "./definitions";
 import { getMatchIdInfo } from "./match-functions/matchid-info";
 import { getPlayerInfo } from "./match-functions/player-info";
 import { getQueueInfo } from "./match-functions/queue-info";
@@ -22,14 +22,10 @@ import {
 import { getKDAInfo } from "./match-functions/kda-info";
 import { getGCCInfo } from "./match-functions/gcc-info";
 import { getItemInfo } from "./match-functions/item-info";
-// import { getAvgRankIcon } from "./match-functions/avgrank-info";
 import { getPingingInfo } from "./match-functions/pinging-info";
 import { getMultiKillInfo } from "./match-functions/multikill-info";
 import { getBlueTeamInfo, getRedTeamInfo } from "./match-functions/team-info";
 import { decodeNameTag } from "./decode-nametag";
-
-// NOTE:
-// Commented out average rank functionality due to API bottlenecks for now.
 
 async function getMatches(username: string, tagLine: string, region: string) {
   const res = await fetch(
@@ -86,8 +82,6 @@ export async function matchData(params: PlayerParams) {
         itemId4,
         itemId5,
         itemId6,
-        // avgRankEmblem,
-        // avgRankTitle,
         dangerPings,
         pathingPings,
         assistPings,
@@ -99,36 +93,6 @@ export async function matchData(params: PlayerParams) {
         redTeamPlayers,
         redTeamTags,
         redTeamChamps,
-        // bluePlayer1Name,
-        // bluePlayer1Tag,
-        // bluePlayer1Champ,
-        // bluePlayer2Name,
-        // bluePlayer2Tag,
-        // bluePlayer2Champ,
-        // bluePlayer3Name,
-        // bluePlayer3Tag,
-        // bluePlayer3Champ,
-        // bluePlayer4Name,
-        // bluePlayer4Tag,
-        // bluePlayer4Champ,
-        // bluePlayer5Name,
-        // bluePlayer5Tag,
-        // bluePlayer5Champ,
-        // redPlayer1Name,
-        // redPlayer1Tag,
-        // redPlayer1Champ,
-        // redPlayer2Name,
-        // redPlayer2Tag,
-        // redPlayer2Champ,
-        // redPlayer3Name,
-        // redPlayer3Tag,
-        // redPlayer3Champ,
-        // redPlayer4Name,
-        // redPlayer4Tag,
-        // redPlayer4Champ,
-        // redPlayer5Name,
-        // redPlayer5Tag,
-        // redPlayer5Champ,
       ] = await Promise.all([
         getMatchIdInfo(match),
         getPlayerInfo(match, params)?.[0],
@@ -160,8 +124,6 @@ export async function matchData(params: PlayerParams) {
         getItemInfo(match, params)?.[4],
         getItemInfo(match, params)?.[5],
         getItemInfo(match, params)?.[6],
-        // (await getAvgRankIcon(match))?.[0],
-        // (await getAvgRankIcon(match))?.[1],
         getPingingInfo(match, params)?.[0],
         getPingingInfo(match, params)?.[1],
         getPingingInfo(match, params)?.[2],
@@ -173,36 +135,6 @@ export async function matchData(params: PlayerParams) {
         getRedTeamInfo(match)?.[0],
         getRedTeamInfo(match)?.[1],
         getRedTeamInfo(match)?.[2],
-        // getBlueTeamInfo(match)?.[0][0],
-        // getBlueTeamInfo(match)?.[1][0],
-        // getBlueTeamInfo(match)?.[2][0],
-        // getBlueTeamInfo(match)?.[0][1],
-        // getBlueTeamInfo(match)?.[1][1],
-        // getBlueTeamInfo(match)?.[2][1],
-        // getBlueTeamInfo(match)?.[0][2],
-        // getBlueTeamInfo(match)?.[1][2],
-        // getBlueTeamInfo(match)?.[2][2],
-        // getBlueTeamInfo(match)?.[0][3],
-        // getBlueTeamInfo(match)?.[1][3],
-        // getBlueTeamInfo(match)?.[2][3],
-        // getBlueTeamInfo(match)?.[0][4],
-        // getBlueTeamInfo(match)?.[1][4],
-        // getBlueTeamInfo(match)?.[2][4],
-        // getRedTeamInfo(match)?.[0][0],
-        // getRedTeamInfo(match)?.[1][0],
-        // getRedTeamInfo(match)?.[2][0],
-        // getRedTeamInfo(match)?.[0][1],
-        // getRedTeamInfo(match)?.[1][1],
-        // getRedTeamInfo(match)?.[2][1],
-        // getRedTeamInfo(match)?.[0][2],
-        // getRedTeamInfo(match)?.[1][2],
-        // getRedTeamInfo(match)?.[2][2],
-        // getRedTeamInfo(match)?.[0][3],
-        // getRedTeamInfo(match)?.[1][3],
-        // getRedTeamInfo(match)?.[2][3],
-        // getRedTeamInfo(match)?.[0][4],
-        // getRedTeamInfo(match)?.[1][4],
-        // getRedTeamInfo(match)?.[2][4],
       ]);
 
       return {
@@ -236,8 +168,6 @@ export async function matchData(params: PlayerParams) {
         itemId4,
         itemId5,
         itemId6,
-        // avgRankEmblem,
-        // avgRankTitle,
         dangerPings,
         pathingPings,
         assistPings,
@@ -249,36 +179,6 @@ export async function matchData(params: PlayerParams) {
         redTeamPlayers,
         redTeamTags,
         redTeamChamps,
-        // bluePlayer1Name,
-        // bluePlayer1Tag,
-        // bluePlayer1Champ,
-        // bluePlayer2Name,
-        // bluePlayer2Tag,
-        // bluePlayer2Champ,
-        // bluePlayer3Name,
-        // bluePlayer3Tag,
-        // bluePlayer3Champ,
-        // bluePlayer4Name,
-        // bluePlayer4Tag,
-        // bluePlayer4Champ,
-        // bluePlayer5Name,
-        // bluePlayer5Tag,
-        // bluePlayer5Champ,
-        // redPlayer1Name,
-        // redPlayer1Tag,
-        // redPlayer1Champ,
-        // redPlayer2Name,
-        // redPlayer2Tag,
-        // redPlayer2Champ,
-        // redPlayer3Name,
-        // redPlayer3Tag,
-        // redPlayer3Champ,
-        // redPlayer4Name,
-        // redPlayer4Tag,
-        // redPlayer4Champ,
-        // redPlayer5Name,
-        // redPlayer5Tag,
-        // redPlayer5Champ,
       };
     })
   );
