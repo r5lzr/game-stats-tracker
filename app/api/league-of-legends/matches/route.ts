@@ -1,21 +1,27 @@
 import { RiotAPI, PlatformId } from "@fightmegg/riot-api";
+import { NextRequest } from "next/server";
 
 const RApi = new RiotAPI(process.env.RIOT_API_KEY as string, {
   cache: { cacheType: "local" },
 });
 
-export async function GET(request: { nextUrl: { searchParams: any } }) {
+export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
 
-  console.log(searchParams);
   const region = searchParams.get("region");
-  console.log(region);
-
   const username = searchParams.get("username");
   const tagLine = searchParams.get("tagLine");
 
-  if (!region)
+  const platformId =
+    region === "euw1"
+      ? PlatformId.EUROPE
+      : region === "na1"
+      ? PlatformId.AMERICAS
+      : undefined;
+
+  if (!platformId) {
     return Response.json({}, { status: 400, statusText: "No region provided" });
+  }
   if (!username)
     return Response.json(
       {},
@@ -28,17 +34,19 @@ export async function GET(request: { nextUrl: { searchParams: any } }) {
     );
 
   const riotAccount = await RApi.account.getByRiotId({
-    region,
+    region: platformId,
     gameName: username,
     tagLine,
   });
 
   const matches = [];
   for (const matchId of await RApi.matchV5.getIdsByPuuid({
-    cluster: region,
+    cluster: platformId,
     puuid: riotAccount.puuid,
   })) {
-    matches.push(await RApi.matchV5.getMatchById({ cluster: region, matchId }));
+    matches.push(
+      await RApi.matchV5.getMatchById({ cluster: platformId, matchId })
+    );
   }
 
   return Response.json(matches);

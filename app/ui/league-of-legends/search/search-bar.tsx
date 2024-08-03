@@ -18,9 +18,9 @@ export function SearchBar() {
     event.preventDefault();
 
     if (selected === "EUW") {
-      region = "europe";
+      region = "euw1";
     } else if (selected === "NA") {
-      region = "americas";
+      region = "na1";
     }
 
     const search = searchQuery.replace("#", "/");

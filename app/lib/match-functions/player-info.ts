@@ -4,7 +4,6 @@ export function getPlayerInfo(match: MatchInfo, params: PlayerParams) {
   const participant = match.info.participants.find(
     (player) => player.riotIdGameName === params.username
   );
-
   if (participant) {
     return [
       participant.riotIdGameName,
