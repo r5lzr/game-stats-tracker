@@ -1,6 +1,6 @@
 import { PlayerParams } from "./definitions";
 
-// Need to convert europe as EUW1 or americas as NA1
+// Need to convert "europe" URL query as EUW1 or americas as NA1 for ranked and summoner API endpoints
 export function getRegion(params: PlayerParams) {
   let region = params.region;
 
