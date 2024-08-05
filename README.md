@@ -10,12 +10,37 @@ More games intended to be added.
 
 Project is deployed using Vercel: https://metrics-ga.vercel.app/
 
+## Instructions
+
+Regions currently available to use: Europe West (EUW), North America (NA).
+
+You must type in your ingame name followed by your tagline with a "#" prefix in the correct region.
+
+### Example usernames
+EUW:
+- LavaSquid#Crab
+- blankor#demon
+- Bobby P Herman#EUW
+- FuNdAmEnTaLs#EUW
+- Simple55am#EUW
+- Musashi Eggymoto#EN16S
+- Wipe Those Tears#Duck
+
+NA:
+- blaberfish2#NA1
+- C9 Berserker#NA1
+- Chase#Shac
+- F9 Cudge#NA1
+- foggedftw2#NA1
+- Laceration#Zed
+- Pobelter#NA1
+
 ## Running project locally
 
 - NOTE: You must sign up with a RIOT account and wait to be approvated until you gain access to a RIOT API KEY.
 
 ### Prerequisites
-Install required packages:
+Update required packages:
 
 ```bash
 npm install npm@latest -g
@@ -23,18 +48,18 @@ npm install npm@latest -g
 pnpm install pnpm@latest -g
 ```
 ### Installation
-1. Get a free RIOT API Key at https://developer.riotgames.com/docs/portal
-2. Clone the repo
+1. Get a free RIOT API Key at: https://developer.riotgames.com/docs/portal
+2. Clone the repo:
    ```sh
    git clone https://github.com/r5lzr/game-stats-tracker.git
    ```
-3. Install packages
+3. Install packages:
    ```sh
    npm install
-   #or\
+   # or
    pnpm install
    ```
-4. Create a file called `.env.local` in your root directory and enter your API into the file as
+4. Create a file called `.env.local` in your root directory and enter your API into the file as:
    ```js
    RIOT_API_KEY='ENTER YOUR API KEY'
    ```
@@ -48,3 +73,11 @@ pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## License
+
+Distributed under the GPL-3.0 License. See `LICENSE` for more information.
+
+## Contact
+
+Email - rich.s.salazar@gmail.com
