@@ -60,12 +60,12 @@ export function RankedQueue({
             <div className={styles["winloss-container"]}>
               <div className={styles["win-title"]}>
                 {rankedWins}
-                <span style={{ color: "var(--blue-color1" }}>W</span>
+                <span style={{ color: "var(--blue-color1)" }}>W</span>
               </div>
               <span style={{ color: "white" }}>-</span>
               <div className={styles["loss-title"]}>
                 {rankedLosses}
-                <span style={{ color: "var(--red-color1" }}>L</span>
+                <span style={{ color: "var(--red-color1)" }}>L</span>
               </div>
               <div className={styles["ratio-title"]}>({rankedRatio}%)</div>
             </div>

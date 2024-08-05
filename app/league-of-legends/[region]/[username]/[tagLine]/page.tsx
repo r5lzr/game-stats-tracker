@@ -5,6 +5,7 @@ import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked-card";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { matchData } from "@/app/lib/match-data";
 import { MatchCard } from "@/app/ui/league-of-legends/match/match-card";
+import { getHistoryOutcomes } from "@/app/lib/match-outcomes";
 
 function getSummonerId(match: MatchStats) {
   const { summonerId } = match;
@@ -18,6 +19,7 @@ export default async function LeagueProfile({
 }) {
   const matchDataList = await matchData(params);
   const profileSummonerId = getSummonerId(matchDataList[0]);
+  const historyOutcomes = getHistoryOutcomes(matchDataList);
 
   return (
     <main className="body-container">
@@ -38,11 +40,31 @@ export default async function LeagueProfile({
           <div className={styles["primary-container"]}>
             <div className={styles["matchsum-container"]}>
               <div className={styles["recent-container"]}>
-                <span className={styles["recent-label"]}>Recent Matches</span>
+                <span className={styles["recent-label"]}>
+                  Recent Matches ({historyOutcomes[2]})
+                </span>
               </div>
-              <div className={styles["stats-container"]}></div>
+              <div className={styles["stats-container"]}>
+                <div className={styles["history-winloss"]}>
+                  <div className={styles["stats-win"]}>
+                    {historyOutcomes[0]}
+                    <span style={{ color: "var(--blue-color1)" }}>W</span>
+                  </div>
+                  <span className={styles["stats-dash"]}>-</span>
+                  <div className={styles["stats-loss"]}>
+                    {historyOutcomes[1]}
+                    <span style={{ color: "var(--red-color1)" }}>L</span>
+                  </div>
+                  <div className={styles["stats-ratio"]}>
+                    ({historyOutcomes[3]}%)
+                  </div>
+                </div>
+                <div className={styles["history-kda"]}>
+                  {historyOutcomes[4]} KDA
+                </div>
+              </div>
             </div>
-            <div className={styles["history-container"]}>
+            <div className={styles["match-history-container"]}>
               {matchDataList.map((match: MatchStats) => (
                 <MatchCard match={match} key={match.matchId} />
               ))}

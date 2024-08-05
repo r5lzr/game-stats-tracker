@@ -398,7 +398,44 @@
   outline: none;
 }
 
-.history-container {
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.history-winloss {
+  display: flex;
+}
+
+.stats-win {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.stats-dash {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.stats-loss {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.stats-ratio {
+  margin-left: 5px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.history-kda {
+  color: #FFAA46;
+  font-size: 1rem;
+}
+
+.match-history-container {
   display: flex;
   flex-direction: column;
   width: 100%;
