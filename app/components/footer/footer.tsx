@@ -16,7 +16,7 @@ export const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://github.com/your-github-username"
+                  href="https://github.com/r5lzr/game-stats-tracker"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
