@@ -1,16 +1,20 @@
 # METRICS.GA - game stats tracker project
 
-Currently focused on the multiplayer online battle arena, League of Legends. This project offers a way to search for a player's match history and past stats.
+METRICS.GA is a recreational project built in Next.js with TypeScript.
 
-More games intended to be added.
+## 📃 Description
 
-## Live Demo
+Currently focused on the multiplayer online battle arena, League of Legends. This project offers a way to search for a player's account level, current respective ranks, match history and corresponding past stats.
+
+(More games intended to be added in the future)
+
+## 🚀 Live Demo
 
 ![metrics_anim_short](https://github.com/user-attachments/assets/c7106a16-8391-4435-86e7-39e558219bae)
 
 Project is deployed using Vercel: https://metrics-ga.vercel.app/
 
-## Instructions
+## 📝 Instructions
 
 Regions currently available to use: Europe West (EUW), North America (NA).
 
@@ -35,9 +39,9 @@ NA:
 - Laceration#Zed
 - Pobelter#NA1
 
-## Running project locally
+## 🔧 Running project locally
 
-- NOTE: You must sign up with a RIOT account and wait to be approved until you gain access to a RIOT API KEY.
+- NOTE: You must sign up with a Riot Games account and wait to be approved until you gain access to a RIOT API KEY.
 
 ### Prerequisites
 Update required packages:
@@ -78,10 +82,10 @@ pnpm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## License
+## ⚖ License
 
 Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
-## Contact
+## 📱 Contact
 
 Email - rich.s.salazar@gmail.com
