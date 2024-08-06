@@ -37,7 +37,7 @@ NA:
 
 ## Running project locally
 
-- NOTE: You must sign up with a RIOT account and wait to be approvated until you gain access to a RIOT API KEY.
+- NOTE: You must sign up with a RIOT account and wait to be approved until you gain access to a RIOT API KEY.
 
 ### Prerequisites
 Update required packages:
@@ -62,6 +62,10 @@ pnpm install pnpm@latest -g
 4. Create a file called `.env.local` in your root directory and enter your API into the file as:
    ```js
    RIOT_API_KEY='ENTER YOUR API KEY'
+   ```
+5. Make sure another file called `.env` is in your root directory and is set to your chosen local server:
+   ```js
+   URL='http://localhost:3000'
    ```
    
 ### Run the server
