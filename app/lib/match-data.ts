@@ -31,7 +31,7 @@ async function getMatches(username: string, tagLine: string, region: string) {
   const res = await fetch(
     process.env.URL +
       `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}&region=${region}`,
-    { cache: "reload" }
+    { cache: "no-cache" }
   );
 
   if (!res.ok) throw new Error("Failed to fetch match data");

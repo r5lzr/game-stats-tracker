@@ -10,8 +10,7 @@ const getProfileIcon = (iconId: number) => {
 async function getSummoner(summonerId: string, region: string) {
   const res = await fetch(
     process.env.URL +
-      `/api/league-of-legends/summoner?summonerId=${summonerId}&region=${region}`,
-    { cache: "reload" }
+      `/api/league-of-legends/summoner?summonerId=${summonerId}&region=${region}`
   );
 
   if (!res.ok) throw new Error("Failed to fetch summoner data");
