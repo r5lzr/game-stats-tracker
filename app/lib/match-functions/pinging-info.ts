@@ -1,6 +1,8 @@
 import { MatchInfo, PlayerParams } from "../definitions";
 
 export function getPingingInfo(match: MatchInfo, params: PlayerParams) {
+  let visionPings;
+  let pushPings;
   let dangerPings;
   let pathingPings;
   let assistPings;
@@ -11,11 +13,20 @@ export function getPingingInfo(match: MatchInfo, params: PlayerParams) {
   );
 
   if (participant) {
+    visionPings = participant.enemyVisionPings;
+    pushPings = participant.pushPings;
     dangerPings = participant.dangerPings;
     pathingPings = participant.onMyWayPings;
     assistPings = participant.assistMePings;
     missingPings = participant.enemyMissingPings;
   }
 
-  return [dangerPings, pathingPings, assistPings, missingPings];
+  return [
+    visionPings,
+    pushPings,
+    dangerPings,
+    pathingPings,
+    assistPings,
+    missingPings,
+  ];
 }

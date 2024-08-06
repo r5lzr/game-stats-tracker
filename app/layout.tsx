@@ -6,8 +6,8 @@ import { Footer } from "./components/footer/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Metrics.gg",
-  description: "Tracker website for game stats",
+  title: "METRICS.GA",
+  description: "Search and track past player matches and game stats.",
 };
 
 export default function RootLayout({

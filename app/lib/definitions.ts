@@ -54,6 +54,9 @@ export interface MatchStats {
   itemId4: number;
   itemId5: number;
   itemId6: number;
+  visionPings: number;
+  enemyVisionPings: number;
+  pushPings: number;
   dangerPings: number;
   pathingPings: number;
   onMyWayPings: number;

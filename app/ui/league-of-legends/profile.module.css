@@ -551,6 +551,7 @@
   display: flex;
   width: 490px;
   height: 100%;
+  margin-right: 13px;
 }
 
 .icon-container1 {
@@ -652,7 +653,7 @@
 .kda-container {
   display: flex;
   flex-direction: column;
-  width: 110px;
+  width: 150px;
   height: 100%;
 }
 
@@ -719,7 +720,6 @@
   justify-content: center;
   width: 30%;
   height: 100%;
-  margin-right: 5px;
 }
 
 .matchrank-container {
@@ -755,17 +755,23 @@
 
 .pings-container{
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 6px;
 }
 
-.danger-ping, .pathing-ping, .assist-ping, .missing-ping {
+.ping-column {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 5px;
+}
+
+.vision-ping, .push-ping, .danger-ping, .pathing-ping, .assist-ping, .missing-ping {
+  display: flex;
+  font-size: 1rem;
   color: white;
+  gap: 2px;
 }
 
 .multikill-placeholder {
@@ -774,6 +780,7 @@
   justify-content: center;
   width: 100%;
   height: 40px;
+  padding-left: 3px;
 }
 
 .multikill-container {
