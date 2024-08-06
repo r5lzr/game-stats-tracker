@@ -6,7 +6,9 @@ METRICS.GA is a recreational project built in Next.js with TypeScript.
 
 Currently focused on the multiplayer online battle arena, League of Legends. This project offers a way to search for a player's account level, current respective ranks, match history and corresponding past stats.
 
-(More games intended to be added in the future)
+![image](https://github.com/user-attachments/assets/7c849824-1af8-44a7-9fd7-bd0698ff9ae5)
+
+(This project will continually be updated. More games are also intended to be added in the future).
 
 ## 🚀 Live Demo
 
