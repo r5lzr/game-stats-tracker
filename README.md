@@ -55,6 +55,7 @@ pnpm install pnpm@latest -g
 ```
 ### Installation
 1. Get a free RIOT API Key at: https://developer.riotgames.com/docs/portal
+
 2. Clone the repo:
    ```sh
    git clone https://github.com/r5lzr/game-stats-tracker.git
@@ -73,7 +74,6 @@ pnpm install pnpm@latest -g
    ```js
    URL='http://localhost:3000'
    ```
-   
 ### Run the server
 
 ```bash
