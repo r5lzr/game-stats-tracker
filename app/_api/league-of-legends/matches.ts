@@ -1,26 +1,19 @@
-import { RiotAPI, PlatformId } from "@fightmegg/riot-api";
+import { RiotAPI, PlatformId, regionToCluster } from "@fightmegg/riot-api";
 import { NextRequest } from "next/server";
 
 const RApi = new RiotAPI(process.env.RIOT_API_KEY as string, {
   cache: { cacheType: "local" },
 });
 
-export async function GET(request: NextRequest) {
-  const { searchParams } = request.nextUrl;
-
-  const region = searchParams.get("region");
-  const username = searchParams.get("username");
-  const tagLine = searchParams.get("tagLine");
-
-  const platformId =
-    region === "euw1"
-      ? PlatformId.EUROPE
-      : region === "na1"
-      ? PlatformId.AMERICAS
-      : undefined;
+export async function matches(
+  username: string,
+  tagLine: string,
+  region: string
+) {
+  const platformId = regionToCluster(region);
 
   if (!platformId) {
-    return Response.json({}, { status: 400, statusText: "No region provided" });
+    return null;
   }
   if (!username)
     return Response.json(

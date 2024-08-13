@@ -1,18 +1,7 @@
 import { RankedQueue } from "./ranked-queue";
 import styles from "../profile.module.css";
 import { RankedInfo } from "@/app/lib/definitions";
-
-async function getRankedInfo(summonerId: string, region: string) {
-  const res = await fetch(
-    process.env.URL +
-      `/api/league-of-legends/ranked?summonerId=${summonerId}&region=${region}`,
-    { cache: "no-cache" }
-  );
-
-  if (!res.ok) throw new Error("Failed to fetch ranked data");
-
-  return await res.json();
-}
+import { getRankedInfo } from "@/app/lib/riot-api";
 
 async function getRankedActivity(summonerId: string, region: string) {
   let rankedSoloActivity: any[] | boolean = [];
