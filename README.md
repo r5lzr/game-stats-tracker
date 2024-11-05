@@ -8,8 +8,6 @@ Currently focused on the multiplayer online battle arena, League of Legends. Thi
 
 ![image](https://github.com/user-attachments/assets/7c849824-1af8-44a7-9fd7-bd0698ff9ae5)
 
-(This project will continually be updated. More games are also intended to be added in the future).
-
 ## 🚀 Live Demo
 
 ![metrics_anim_short](https://github.com/user-attachments/assets/c7106a16-8391-4435-86e7-39e558219bae)
