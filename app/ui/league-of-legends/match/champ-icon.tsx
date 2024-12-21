@@ -7,7 +7,7 @@ function getChampion(champ: string) {
     champ = "Fiddlesticks";
   }
 
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.14.1/img/champion/${champ}.png`;
+  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/${champ}.png`;
 
   return champ !== undefined ? riotURL : "/images/empty.png";
 }

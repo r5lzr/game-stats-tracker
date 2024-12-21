@@ -26,21 +26,10 @@ import { getPingingInfo } from "./match-functions/pinging-info";
 import { getMultiKillInfo } from "./match-functions/multikill-info";
 import { getBlueTeamInfo, getRedTeamInfo } from "./match-functions/team-info";
 import { decodeNameTag } from "./decode-nametag";
-
-async function getMatches(username: string, tagLine: string, region: string) {
-  const res = await fetch(
-    process.env.URL +
-      `/api/league-of-legends/matches?username=${username}&tagLine=${tagLine}&region=${region}`,
-    { cache: "no-cache" }
-  );
-
-  if (!res.ok) throw new Error("Failed to fetch match data");
-
-  return await res.json();
-}
+import { getMatches } from "./riot-api";
 
 export async function matchData(params: PlayerParams) {
-  const matches: MatchInfo[] = await getMatches(
+  const matches = await getMatches(
     params.username,
     params.tagLine,
     params.region

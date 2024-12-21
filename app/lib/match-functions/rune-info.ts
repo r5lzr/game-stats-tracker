@@ -2,7 +2,7 @@ import { MatchInfo, PlayerParams, runeInfo } from "../definitions";
 
 export async function getRuneInfo() {
   const res = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/14.15.1/data/en_US/runesReforged.json"
+    "https://ddragon.leagueoflegends.com/cdn/14.24.1/data/en_US/runesReforged.json"
   );
 
   const data = await res.json();

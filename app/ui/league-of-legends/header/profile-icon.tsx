@@ -1,29 +1,20 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
+import { getSummoner } from "@/app/lib/riot-api";
+import { RiotAPITypes } from "@fightmegg/riot-api";
 
 const getProfileIcon = (iconId: number) => {
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/profileicon/${iconId}.png`;
+  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/profileicon/${iconId}.png`;
 
   return riotURL;
 };
-
-async function getSummoner(summonerId: string, region: string) {
-  const res = await fetch(
-    process.env.URL +
-      `/api/league-of-legends/summoner?summonerId=${summonerId}&region=${region}`
-  );
-
-  if (!res.ok) throw new Error("Failed to fetch summoner data");
-
-  return await res.json();
-}
 
 export async function ProfileIcon({
   summonerId,
   region,
 }: {
   summonerId: string;
-  region: string;
+  region: RiotAPITypes.LoLRegion;
 }) {
   const summoner = await getSummoner(summonerId, region);
   const profileIcon = getProfileIcon(summoner.profileIconId);
