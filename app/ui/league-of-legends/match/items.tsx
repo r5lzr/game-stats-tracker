@@ -3,7 +3,7 @@ import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
 function getItem(item: number) {
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.10.1/img/item/${item}.png`;
+  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/${item}.png`;
 
   return item !== 0 ? riotURL : "/images/empty.png";
 }

@@ -3,7 +3,7 @@ import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
 function getSpell(spell: string) {
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/spell/${spell}.png`;
+  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/${spell}.png`;
 
   return spell !== undefined ? riotURL : "/images/empty.png";
 }

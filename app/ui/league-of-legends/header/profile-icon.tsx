@@ -1,9 +1,10 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
 import { getSummoner } from "@/app/lib/riot-api";
+import { RiotAPITypes } from "@fightmegg/riot-api";
 
 const getProfileIcon = (iconId: number) => {
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/profileicon/${iconId}.png`;
+  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/profileicon/${iconId}.png`;
 
   return riotURL;
 };
@@ -13,7 +14,7 @@ export async function ProfileIcon({
   region,
 }: {
   summonerId: string;
-  region: string;
+  region: RiotAPITypes.LoLRegion;
 }) {
   const summoner = await getSummoner(summonerId, region);
   const profileIcon = getProfileIcon(summoner.profileIconId);

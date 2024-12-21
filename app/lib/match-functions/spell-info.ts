@@ -2,7 +2,7 @@ import { MatchInfo, PlayerParams } from "../definitions";
 
 export async function getSpellInfo(spellNumberId: number | undefined) {
   const res = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/14.15.1/data/en_US/summoner.json"
+    "https://ddragon.leagueoflegends.com/cdn/14.24.1/data/en_US/summoner.json"
   );
 
   const spells = await res.json();
