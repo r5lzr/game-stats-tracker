@@ -32,7 +32,10 @@ export async function getQueueInfo(queueId: number) {
     case 720:
       queueOutcome = "ARAM Clash";
       break;
-    case 1700 || 1710:
+    case 1700:
+      queueOutcome = "Arena";
+      break;
+    case 1710:
       queueOutcome = "Arena";
       break;
     case 1810:

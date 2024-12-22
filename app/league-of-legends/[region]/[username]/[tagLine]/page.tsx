@@ -17,7 +17,7 @@ export default async function LeagueProfile({
 }: {
   params: PlayerParams;
 }) {
-  const matchDataList = await matchData(params);
+  const matchDataList: any = await matchData(params);
   const profileSummonerId = getSummonerId(matchDataList[0]);
   const historyOutcomes = getHistoryOutcomes(matchDataList);
 

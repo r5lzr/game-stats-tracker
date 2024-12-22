@@ -1,7 +1,9 @@
+import { RiotAPITypes } from "@fightmegg/riot-api";
+
 export interface PlayerParams {
   username: string;
   tagLine: string;
-  region: string;
+  region: RiotAPITypes.LoLRegion;
 }
 
 export interface QueueInfo {

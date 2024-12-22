@@ -38,8 +38,8 @@ export async function matchData(params: PlayerParams) {
   params.username = decodeNameTag(params)?.[0];
   params.tagLine = decodeNameTag(params)?.[1];
 
-  const matchDataList: any = await Promise.all(
-    matches.map(async (match) => {
+  const matchDataList = await Promise.all(
+    matches.map(async (match: any) => {
       const [
         matchId,
         playerName,
