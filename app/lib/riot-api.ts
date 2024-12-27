@@ -35,14 +35,20 @@ export async function getMatches(
   return matches;
 }
 
-export async function getSummoner(summonerId: string, region: RiotAPITypes.LoLRegion) {
+export async function getSummoner(
+  summonerId: string,
+  region: RiotAPITypes.LoLRegion
+) {
   return await RApi.summoner.getBySummonerId({
     region: region,
     summonerId: summonerId,
   });
 }
 
-export async function getRankedInfo(summonerId: string, region: RiotAPITypes.LoLRegion) {
+export async function getRankedInfo(
+  summonerId: string,
+  region: RiotAPITypes.LoLRegion
+) {
   return await RApi.league.getEntriesBySummonerId({
     region: region,
     summonerId: summonerId,

@@ -3,9 +3,9 @@ import styles from "@/app/ui/league-of-legends/profile.module.css";
 import { ProfileIcon } from "@/app/ui/league-of-legends/header/profile-icon";
 import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked-card";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
-import { matchData } from "@/app/lib/match-data";
 import { MatchCard } from "@/app/ui/league-of-legends/match/match-card";
 import { getHistoryOutcomes } from "@/app/lib/match-outcomes";
+import { matchDb } from "@/app/lib/check-db";
 
 function getSummonerId(match: MatchStats) {
   const { summonerId } = match;
@@ -17,7 +17,14 @@ export default async function LeagueProfile({
 }: {
   params: PlayerParams;
 }) {
-  const matchDataList: any = await matchData(params);
+  // const user = await checkDb();
+  // const user = await returnDb();
+  const matchDataList: any = await matchDb(params);
+
+  // console.log(user);
+
+  // const matchDataList: any = await matchData(params);
+  // console.log(matchDataList);
   const profileSummonerId = getSummonerId(matchDataList[0]);
   const historyOutcomes = getHistoryOutcomes(matchDataList);
 

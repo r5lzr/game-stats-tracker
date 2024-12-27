@@ -13,6 +13,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id String @id @default(uuid())
+model Player {
+  id               String   @id @default(uuid())
+  summonerId       String
+  matchId          String
+  playerName       String
+  tagLine          String
+  regionInfo       String
+  queueInfo        String
+  relativeTime     String
+  gameDuration     String
+  outcome          String
+  champIcon        String
+  champLevel       Int
+  spellInfo1       String
+  spellInfo2       String
+  runeInfo1        String
+  runeInfo2        String
+  kills            Int
+  deaths           Int
+  assists          Int
+  kdaRatio         Int
+  kpRatio          Int?
+  gold             Int
+  creepScore       Int
+  creepScorePerMin Int
+  controlWards     Int
+  itemId0          Int
+  itemId1          Int
+  itemId2          Int
+  itemId3          Int
+  itemId4          Int
+  itemId5          Int
+  itemId6          Int
+  visionPings      Int
+  pushPings        Int
+  dangerPings      Int
+  pathingPings     Int
+  assistPings      Int
+  missingPings     Int
+  multiKill        String?
+  blueTeamPlayers  String[]
+  blueTeamTags     String[]
+  blueTeamChamps   String[]
+  redTeamPlayers   String[]
+  redTeamTags      String[]
+  redTeamChamps    String[]
 }
