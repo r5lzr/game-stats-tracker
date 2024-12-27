@@ -2,8 +2,12 @@ import { RankedQueue } from "./ranked-queue";
 import styles from "../profile.module.css";
 import { RankedInfo } from "@/app/lib/definitions";
 import { getRankedInfo } from "@/app/lib/riot-api";
+import { RiotAPITypes } from "@fightmegg/riot-api";
 
-async function getRankedActivity(summonerId: string, region: string) {
+async function getRankedActivity(
+  summonerId: string,
+  region: RiotAPITypes.LoLRegion
+) {
   let rankedSoloActivity: any[] | boolean = [];
   let rankedFlexActivity: any[] | boolean = [];
 
@@ -47,7 +51,7 @@ export async function Ranked({
   region,
 }: {
   summonerId: string;
-  region: string;
+  region: RiotAPITypes.LoLRegion;
 }) {
   const rankedActivity = await getRankedActivity(summonerId, region);
 

@@ -25,7 +25,6 @@ import { getItemInfo } from "./match-functions/item-info";
 import { getPingingInfo } from "./match-functions/pinging-info";
 import { getMultiKillInfo } from "./match-functions/multikill-info";
 import { getBlueTeamInfo, getRedTeamInfo } from "./match-functions/team-info";
-import { decodeNameTag } from "./decode-nametag";
 import { getMatches } from "./riot-api";
 
 export async function matchData(params: PlayerParams) {
@@ -35,11 +34,8 @@ export async function matchData(params: PlayerParams) {
     params.region
   );
 
-  params.username = decodeNameTag(params)?.[0];
-  params.tagLine = decodeNameTag(params)?.[1];
-
-  const matchDataList: any = await Promise.all(
-    matches.map(async (match) => {
+  const matchDataList = await Promise.all(
+    matches.map(async (match: any) => {
       const [
         matchId,
         playerName,
