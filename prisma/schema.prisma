@@ -14,6 +14,15 @@ datasource db {
 }
 
 model Player {
+  id         String  @id @default(uuid())
+  summonerId String  @unique
+  playerName String
+  tagLine    String
+  regionInfo String
+  matches    Match[]
+}
+
+model Match {
   id               String   @id @default(uuid())
   summonerId       String
   matchId          String
@@ -59,4 +68,7 @@ model Player {
   redTeamPlayers   String[]
   redTeamTags      String[]
   redTeamChamps    String[]
+  player           Player   @relation(fields: [summonerId], references: [summonerId])
+
+  @@unique([summonerId, matchId])
 }
