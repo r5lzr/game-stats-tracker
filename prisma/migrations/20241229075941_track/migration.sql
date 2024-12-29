@@ -12,6 +12,7 @@ CREATE TABLE "Player" (
 -- CreateTable
 CREATE TABLE "Match" (
     "id" TEXT NOT NULL,
+    "metaId" JSONB NOT NULL,
     "summonerId" TEXT NOT NULL,
     "matchId" TEXT NOT NULL,
     "playerName" TEXT NOT NULL,
@@ -62,6 +63,9 @@ CREATE TABLE "Match" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Player_summonerId_key" ON "Player"("summonerId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Match_metaId_key" ON "Match"("metaId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Match_summonerId_matchId_key" ON "Match"("summonerId", "matchId");

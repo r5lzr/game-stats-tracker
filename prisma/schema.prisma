@@ -24,6 +24,7 @@ model Player {
 
 model Match {
   id               String   @id @default(uuid())
+  metaId           Json     @unique
   summonerId       String
   matchId          String
   playerName       String
