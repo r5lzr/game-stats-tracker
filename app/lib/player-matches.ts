@@ -3,7 +3,22 @@ import { matchData } from "@/app/lib/match-data";
 import { PlayerParams } from "@/app/lib/definitions";
 import { decodeNameTag } from "./decode-nametag";
 
-export async function freshDb(params: PlayerParams) {
+export async function checkMatches(params: PlayerParams) {
+  const matches = await db.match.findMany({
+    where: {
+      playerName: params.username,
+      tagLine: params.tagLine,
+      regionInfo: params.region,
+    },
+    orderBy: {
+      matchId: "desc",
+    },
+  });
+
+  return matches;
+}
+
+export async function checkFreshMatches(params: PlayerParams) {
   console.log("checking for fresh matches...");
 
   const fetchMatchData: any = await matchData(params);
@@ -76,7 +91,7 @@ export async function freshDb(params: PlayerParams) {
               redTeamChamps: match.redTeamChamps,
             },
           });
-          console.log(`Added new match record: ${match.matchId}`);
+          console.log(`Added fresh match record: ${match.matchId}`);
           freshMatchLog = true;
         } else {
           // update relative time if match exists
@@ -91,7 +106,7 @@ export async function freshDb(params: PlayerParams) {
         }
       } catch (error) {
         console.warn(
-          `Error creating new match record: ${fetchMatchData[0].matchId}`,
+          `Error creating fresh match record: ${fetchMatchData[0].matchId}`,
           error
         );
       }
@@ -104,47 +119,28 @@ export async function freshDb(params: PlayerParams) {
 
   console.log("done\n");
 
-  const checkPlayerMatches = await db.match.findMany({
-    where: {
-      playerName: params.username,
-      tagLine: params.tagLine,
-      regionInfo: params.region,
-    },
-    orderBy: {
-      matchId: "desc",
-    },
-  });
+  // return fresh matches from database
+  const matches = await checkMatches(params);
 
-  return checkPlayerMatches;
+  return matches;
 }
 
-export async function matchDb(params: PlayerParams) {
+export async function getPlayerMatches(params: PlayerParams) {
   params.username = decodeNameTag(params)?.[0];
   params.tagLine = decodeNameTag(params)?.[1];
 
-  const checkPlayerMatches = await db.match.findMany({
-    where: {
-      playerName: params.username,
-      tagLine: params.tagLine,
-      regionInfo: params.region,
-    },
-    orderBy: {
-      matchId: "desc",
-    },
-  });
+  const matches = await checkMatches(params);
 
   // return match data from database if exists
-  if (checkPlayerMatches.length !== 0) {
-    console.log(params.username);
-    console.log(params.tagLine);
+  if (matches.length !== 0) {
+    console.log(params.username + "#" + params.tagLine);
     console.log("response from database");
 
-    return await freshDb(params);
+    return await checkFreshMatches(params);
   }
 
   // fetch matches if no matches on database exist
-  console.log(params.username);
-  console.log(params.tagLine);
+  console.log(params.username + "#" + params.tagLine);
   console.log("fetching...");
   const fetchMatchData: any = await matchData(params);
 
@@ -230,7 +226,10 @@ export async function matchDb(params: PlayerParams) {
           },
         });
       } catch (error) {
-        console.error(`Error creating match record: ${match.matchId}`, error);
+        console.error(
+          `Error creating initial match record: ${match.matchId}`,
+          error
+        );
       }
     })
   );
