@@ -2,6 +2,18 @@
 CREATE TABLE "Player" (
     "id" TEXT NOT NULL,
     "summonerId" TEXT NOT NULL,
+    "playerName" TEXT NOT NULL,
+    "tagLine" TEXT NOT NULL,
+    "regionInfo" TEXT NOT NULL,
+
+    CONSTRAINT "Player_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Match" (
+    "id" TEXT NOT NULL,
+    "metaId" JSONB NOT NULL,
+    "summonerId" TEXT NOT NULL,
     "matchId" TEXT NOT NULL,
     "playerName" TEXT NOT NULL,
     "tagLine" TEXT NOT NULL,
@@ -46,5 +58,17 @@ CREATE TABLE "Player" (
     "redTeamTags" TEXT[],
     "redTeamChamps" TEXT[],
 
-    CONSTRAINT "Player_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Match_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Player_summonerId_key" ON "Player"("summonerId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Match_metaId_key" ON "Match"("metaId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Match_summonerId_matchId_key" ON "Match"("summonerId", "matchId");
+
+-- AddForeignKey
+ALTER TABLE "Match" ADD CONSTRAINT "Match_summonerId_fkey" FOREIGN KEY ("summonerId") REFERENCES "Player"("summonerId") ON DELETE RESTRICT ON UPDATE CASCADE;

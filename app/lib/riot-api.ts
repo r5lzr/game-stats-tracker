@@ -1,9 +1,25 @@
 import { RiotAPI, RiotAPITypes, PlatformId } from "@fightmegg/riot-api";
 import { regionToCluster } from "@fightmegg/riot-api/dist/esm/utils";
 
-const RApi = new RiotAPI(process.env.RIOT_API_KEY as string, {
-  cache: { cacheType: "local" },
-});
+const config: RiotAPITypes.Config = {
+  cache: {
+    cacheType: "local",
+    ttls: {
+      byMethod: {
+        // matches
+        [RiotAPITypes.METHOD_KEY.ACCOUNT.GET_BY_RIOT_ID]: 60000,
+        [RiotAPITypes.METHOD_KEY.MATCH_V5.GET_IDS_BY_PUUID]: 60000,
+        [RiotAPITypes.METHOD_KEY.MATCH_V5.GET_MATCH_BY_ID]: 60000,
+        // summoner
+        [RiotAPITypes.METHOD_KEY.SUMMONER.GET_BY_SUMMONER_ID]: 60000,
+        // ranked
+        [RiotAPITypes.METHOD_KEY.LEAGUE.GET_ENTRIES_BY_SUMMONER]: 60000,
+      },
+    },
+  },
+};
+
+const RApi = new RiotAPI(process.env.RIOT_API_KEY as string, config);
 
 export async function getMatches(
   username: string,
