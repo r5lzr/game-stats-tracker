@@ -112,3 +112,27 @@
         } else {
 
         }
+
+
+
+
+// import { render, screen } from "@testing-library/react";
+// import "@testing-library/jest-dom";
+// import LeagueProfile from "@/app/league-of-legends/[region]/[username]/[tagLine]/page";
+// import { PlatformId } from "@fightmegg/riot-api";
+
+// it("should have docs text", async () => {
+//   render(
+//     <LeagueProfile
+//       params={{
+//         username: "test",
+//         tagLine: "777",
+//         region: PlatformId.EUW1,
+//       }}
+//     />
+//   );
+
+//   const myElem = screen.getByRole("Recent Matches");
+
+//   expect(myElem).toBeInTheDocument();
+// });

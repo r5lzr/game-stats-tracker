@@ -2,13 +2,17 @@ import Image from "next/image";
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
-function getRune(rune: string) {
+export function getRune(rune: string | undefined) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/img/${rune}`;
 
   return rune !== undefined ? riotURL : "/images/empty.png";
 }
 
-export async function SumRunes({ match }: { match: MatchStats }) {
+export function SumRunes({
+  match,
+}: {
+  match: Pick<MatchStats, "runeInfo1" | "runeInfo2">;
+}) {
   const { runeInfo1, runeInfo2 } = match;
 
   const champRune1 = getRune(runeInfo1);
@@ -19,7 +23,7 @@ export async function SumRunes({ match }: { match: MatchStats }) {
       <div className={styles["rune-container1"]}>
         <Image
           src={champRune1 || "/images/empty.png"}
-          fill
+          fill={true ? true : undefined}
           sizes="50px"
           alt="spell1"
           style={{ borderRadius: "5px" }}
