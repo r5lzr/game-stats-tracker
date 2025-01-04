@@ -2,7 +2,17 @@ import Image from "next/image";
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
-export function Pings({ match }: { match: MatchStats }) {
+type Pings = Pick<
+  MatchStats,
+  | "visionPings"
+  | "pushPings"
+  | "dangerPings"
+  | "pathingPings"
+  | "assistPings"
+  | "missingPings"
+>;
+
+export function Pings({ match }: { match: Pings }) {
   const {
     visionPings,
     pushPings,
@@ -15,7 +25,7 @@ export function Pings({ match }: { match: MatchStats }) {
   return (
     <>
       <div className={styles["ping-column"]}>
-        <div className={styles["vision-ping"]}>
+        <div className={styles["vision-ping"]} data-testid="vision-ping">
           <Image
             src={`/images/match/vision.png`}
             width={20}
@@ -24,7 +34,7 @@ export function Pings({ match }: { match: MatchStats }) {
           />
           {visionPings}
         </div>
-        <div className={styles["pathing-ping"]}>
+        <div className={styles["pathing-ping"]} data-testid="pathing-ping">
           <Image
             src={`/images/match/pathing.png`}
             width={20}
@@ -35,7 +45,7 @@ export function Pings({ match }: { match: MatchStats }) {
         </div>
       </div>
       <div className={styles["ping-column"]}>
-        <div className={styles["push-ping"]}>
+        <div className={styles["push-ping"]} data-testid="push-ping">
           <Image
             src={`/images/match/push.png`}
             width={20}
@@ -44,7 +54,7 @@ export function Pings({ match }: { match: MatchStats }) {
           />
           {pushPings}
         </div>
-        <div className={styles["assist-ping"]}>
+        <div className={styles["assist-ping"]} data-testid="assist-ping">
           <Image
             src={`/images/match/assist.png`}
             width={20}
@@ -55,7 +65,7 @@ export function Pings({ match }: { match: MatchStats }) {
         </div>
       </div>
       <div className={styles["ping-column"]}>
-        <div className={styles["danger-ping"]}>
+        <div className={styles["danger-ping"]} data-testid="danger-ping">
           <Image
             src={`/images/match/danger.png`}
             width={20}
@@ -64,7 +74,7 @@ export function Pings({ match }: { match: MatchStats }) {
           />
           {dangerPings}
         </div>
-        <div className={styles["missing-ping"]}>
+        <div className={styles["missing-ping"]} data-testid="missing-ping">
           <Image
             src={`/images/match/missing.png`}
             width={20}

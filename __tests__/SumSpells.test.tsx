@@ -28,7 +28,7 @@ describe("getSpell", () => {
 
 // Component rendering
 describe("SumSpells", () => {
-  it("renders both spells with correct sources", async () => {
+  it("renders both spells with correct sources", () => {
     const mockSpells = {
       spellInfo1: "SummonerTeleport",
       spellInfo2: "SummonerFlash",

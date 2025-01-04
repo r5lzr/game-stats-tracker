@@ -28,7 +28,7 @@ describe("getRune", () => {
 
 // Component rendering
 describe("SumRunes", () => {
-  it("renders both runes with correct sources", async () => {
+  it("renders both runes with correct sources", () => {
     const mockRunes = {
       runeInfo1: "perk-images/Styles/Sorcery/SummonAery/SummonAery.png",
       runeInfo2: "perk-images/Styles/7201_Precision.png",
