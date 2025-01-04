@@ -2,13 +2,17 @@ import Image from "next/image";
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
-function getSpell(spell: string) {
+export function getSpell(spell: string | undefined) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/${spell}.png`;
 
   return spell !== undefined ? riotURL : "/images/empty.png";
 }
 
-export async function SumSpells({ match }: { match: MatchStats }) {
+export function SumSpells({
+  match,
+}: {
+  match: Pick<MatchStats, "spellInfo1" | "spellInfo2">;
+}) {
   const { spellInfo1, spellInfo2 } = match;
 
   const champSpell1 = getSpell(spellInfo1);

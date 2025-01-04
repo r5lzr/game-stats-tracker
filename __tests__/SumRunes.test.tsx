@@ -2,13 +2,13 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { SumRunes } from "@/app/ui/league-of-legends/match/sum-runes";
 import { getRune } from "@/app/ui/league-of-legends/match/sum-runes";
-import { JSX, ClassAttributes, ImgHTMLAttributes } from "react";
 
 // Mock Next.js Image component
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ fill, ...props }: any) => {
-    return <img {...props} />;
+  default: ({ src, alt }: any) => {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={src} alt={alt} />;
   },
 }));
 

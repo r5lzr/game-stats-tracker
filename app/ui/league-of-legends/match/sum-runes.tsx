@@ -23,7 +23,7 @@ export function SumRunes({
       <div className={styles["rune-container1"]}>
         <Image
           src={champRune1 || "/images/empty.png"}
-          fill={true ? true : undefined}
+          fill
           sizes="50px"
           alt="spell1"
           style={{ borderRadius: "5px" }}
