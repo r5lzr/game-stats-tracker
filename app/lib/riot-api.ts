@@ -28,7 +28,7 @@ export async function getMatches(
 ) {
   const platformId = regionToCluster(region);
 
-  const riotAccount = await RApi.account.getByRiotId({
+  const riotAccount = RApi.account.getByRiotId({
     // @ts-ignore
     region: platformId,
     gameName: username,
@@ -40,7 +40,7 @@ export async function getMatches(
   if (platformId !== PlatformId.ESPORTS) {
     for (const matchId of await RApi.matchV5.getIdsByPuuid({
       cluster: platformId,
-      puuid: riotAccount.puuid,
+      puuid: (await riotAccount).puuid,
     })) {
       matches.push(
         await RApi.matchV5.getMatchById({ cluster: platformId, matchId })
@@ -55,7 +55,7 @@ export async function getSummoner(
   summonerId: string,
   region: RiotAPITypes.LoLRegion
 ) {
-  return await RApi.summoner.getBySummonerId({
+  return RApi.summoner.getBySummonerId({
     region: region,
     summonerId: summonerId,
   });
@@ -65,7 +65,7 @@ export async function getRankedInfo(
   summonerId: string,
   region: RiotAPITypes.LoLRegion
 ) {
-  return await RApi.league.getEntriesBySummonerId({
+  return RApi.league.getEntriesBySummonerId({
     region: region,
     summonerId: summonerId,
   });

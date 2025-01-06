@@ -26,27 +26,27 @@ describe("Pings", () => {
     render(<Pings match={mockPings} />);
 
     expect(
-      within(screen.getByTestId("vision-ping")).getByText(2)
+      within(screen.getByTestId("vision-ping")).getByText("2")
     ).toBeInTheDocument();
 
     expect(
-      within(screen.getByTestId("push-ping")).getByText(3)
+      within(screen.getByTestId("push-ping")).getByText("3")
     ).toBeInTheDocument();
 
     expect(
-      within(screen.getByTestId("danger-ping")).getByText(0)
+      within(screen.getByTestId("danger-ping")).getByText("0")
     ).toBeInTheDocument();
 
     expect(
-      within(screen.getByTestId("pathing-ping")).getByText(4)
+      within(screen.getByTestId("pathing-ping")).getByText("4")
     ).toBeInTheDocument();
 
     expect(
-      within(screen.getByTestId("assist-ping")).getByText(1)
+      within(screen.getByTestId("assist-ping")).getByText("1")
     ).toBeInTheDocument();
 
     expect(
-      within(screen.getByTestId("missing-ping")).getByText(1)
+      within(screen.getByTestId("missing-ping")).getByText("1")
     ).toBeInTheDocument();
   });
 
