@@ -66,7 +66,7 @@ export interface MatchStats {
   assistMePings: number;
   missingPings: number;
   enemyMissingPings: number;
-  multiKill: string;
+  multiKill: string | null;
   blueTeamPlayers: string[];
   blueTeamTags: string[];
   blueTeamChamps: string[];
