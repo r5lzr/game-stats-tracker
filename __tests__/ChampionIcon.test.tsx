@@ -21,7 +21,14 @@ describe("getChampion", () => {
     expect(getChampion(testChampIcon)).toBe(expected);
   });
 
-  it("returns fallback image when spell is undefined", () => {
+  it("should correct 'FiddleSticks' to 'Fiddlesticks'", () => {
+    const result = getChampion("FiddleSticks");
+    expect(result).toBe(
+      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Fiddlesticks.png"
+    );
+  });
+
+  it("returns fallback image when icon is undefined", () => {
     expect(getChampion(undefined)).toBe("/images/empty.png");
   });
 });

@@ -1,24 +1,25 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
+import { MatchStats } from "@/app/lib/definitions";
 
-function getChampion(champ: string) {
+export function getChampion(champ: string | undefined) {
   if (champ === "FiddleSticks") {
     champ = "Fiddlesticks";
   }
 
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/${champ}.png`;
 
-  return riotURL;
+  return champ !== undefined ? riotURL : "/images/empty.png";
 }
 
-function Team({
+export function Team({
   players,
   tags,
   champs,
 }: {
-  players: any;
-  tags: any;
-  champs: any;
+  players: string[];
+  tags: string[];
+  champs: string[];
 }) {
   const playerChamp1 = getChampion(champs[0]);
   const playerChamp2 = getChampion(champs[1]);
@@ -62,7 +63,17 @@ function Team({
   );
 }
 
-export function Teams({ match }: { match: any }) {
+type Teams = Pick<
+  MatchStats,
+  | "blueTeamPlayers"
+  | "blueTeamTags"
+  | "blueTeamChamps"
+  | "redTeamPlayers"
+  | "redTeamTags"
+  | "redTeamChamps"
+>;
+
+export function Teams({ match }: { match: Teams }) {
   const { blueTeamPlayers, blueTeamTags, blueTeamChamps } = match;
   const { redTeamPlayers, redTeamTags, redTeamChamps } = match;
 
