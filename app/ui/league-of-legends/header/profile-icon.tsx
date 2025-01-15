@@ -4,7 +4,7 @@ import { getSummoner } from "@/app/lib/riot-api";
 import { RiotAPITypes } from "@fightmegg/riot-api";
 
 const getProfileIcon = (iconId: number) => {
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/profileicon/${iconId}.png`;
+  const riotURL = `https://ddragon.leagueoflegends.com/cdn/15.1.1/img/profileicon/${iconId}.png`;
 
   return riotURL;
 };

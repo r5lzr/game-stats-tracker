@@ -27,7 +27,7 @@ describe("getSpell", () => {
   it("returns correct URL when spell is provided", () => {
     const testSpell = "SummonerTeleport";
     const expected =
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/SummonerTeleport.png";
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/spell/SummonerTeleport.png";
     expect(getSpell(testSpell)).toBe(expected);
   });
 
@@ -49,11 +49,11 @@ describe("SumSpells", () => {
 
     expect(images[0]).toHaveAttribute(
       "src",
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/SummonerTeleport.png"
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/spell/SummonerTeleport.png"
     );
     expect(images[1]).toHaveAttribute(
       "src",
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/SummonerFlash.png"
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/spell/SummonerFlash.png"
     );
   });
 

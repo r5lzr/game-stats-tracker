@@ -27,14 +27,14 @@ describe("getTeam", () => {
   it("returns correct URL when champion is provided", () => {
     const testChampIcon = "Viktor";
     const expected =
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Viktor.png";
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Viktor.png";
     expect(getChampion(testChampIcon)).toBe(expected);
   });
 
   it("should correct 'FiddleSticks' to 'Fiddlesticks'", () => {
     const result = getChampion("FiddleSticks");
     expect(result).toBe(
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Fiddlesticks.png"
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Fiddlesticks.png"
     );
   });
 
@@ -64,27 +64,27 @@ describe("Team", () => {
 
     expect(images[0]).toHaveAttribute(
       "src",
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Fiora.png"
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Fiora.png"
     );
 
     expect(images[1]).toHaveAttribute(
       "src",
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Sylas.png"
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Sylas.png"
     );
 
     expect(images[2]).toHaveAttribute(
       "src",
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Katarina.png"
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Katarina.png"
     );
 
     expect(images[3]).toHaveAttribute(
       "src",
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Jhin.png"
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Jhin.png"
     );
 
     expect(images[4]).toHaveAttribute(
       "src",
-      "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Zyra.png"
+      "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Zyra.png"
     );
   });
 
