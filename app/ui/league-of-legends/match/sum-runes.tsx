@@ -25,7 +25,7 @@ export function SumRunes({
           src={champRune1 || "/images/empty.png"}
           fill
           sizes="50px"
-          alt="spell1"
+          alt="rune1"
           style={{ borderRadius: "5px" }}
         />
       </div>

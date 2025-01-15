@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { getChampion } from "@/app/ui/league-of-legends/match/teams";
 import { Team } from "@/app/ui/league-of-legends/match/teams";
@@ -7,7 +7,7 @@ import { Teams } from "@/app/ui/league-of-legends/match/teams";
 // Mock Next.js Image component
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: function MockImage({ src, alt, width, height }: any) {
+  default: ({ src, alt, width, height }: any) => {
     // Include data-testid to make it easier to query the image properties
     return (
       // eslint-disable-next-line @next/next/no-img-element
@@ -15,8 +15,8 @@ jest.mock("next/image", () => ({
         data-testid="next-image"
         src={src}
         alt={alt}
-        data-width={width}
-        data-height={height}
+        width={width}
+        height={height}
       />
     );
   },
@@ -43,6 +43,7 @@ describe("getTeam", () => {
   });
 });
 
+// Match relative team
 describe("Team", () => {
   const mockPlayers = ["TNM", "pls nerf kat", "LadyGaga", "gaPsy31", "게윅스"];
   const mockTags = ["1991", "EUW", "MelMa", "EUW", "HLE"];
@@ -57,7 +58,7 @@ describe("Team", () => {
     });
   });
 
-  it("renders champ icon with correct sources", () => {
+  it("renders relative team champ icon with correct sources", () => {
     render(<Team players={mockPlayers} tags={mockTags} champs={mockChamps} />);
     const images = screen.getAllByRole("img");
 
@@ -87,18 +88,16 @@ describe("Team", () => {
     );
   });
 
-  it("renders correct width and height for champion icons", () => {
+  it("renders correct alt attribute for relative team champion icons", () => {
     render(<Team players={mockPlayers} tags={mockTags} champs={mockChamps} />);
-
-    const images = screen.getAllByTestId("next-image");
-
-    images.forEach((img) => {
-      expect(img).toHaveAttribute("data-width", "20");
-      expect(img).toHaveAttribute("data-height", "20");
-    });
+    expect(screen.getByAltText("Icon 1")).toHaveAttribute("alt", "Icon 1");
+    expect(screen.getByAltText("Icon 2")).toHaveAttribute("alt", "Icon 2");
+    expect(screen.getByAltText("Icon 3")).toHaveAttribute("alt", "Icon 3");
+    expect(screen.getByAltText("Icon 4")).toHaveAttribute("alt", "Icon 4");
+    expect(screen.getByAltText("Icon 5")).toHaveAttribute("alt", "Icon 5");
   });
 
-  it("renders alt when image doesn't render", () => {
+  it("renders alt when relative team champion icons doesn't render", () => {
     render(<Team players={mockPlayers} tags={mockTags} champs={mockChamps} />);
     expect(screen.getByAltText("Icon 1")).toBeInTheDocument();
     expect(screen.getByAltText("Icon 2")).toBeInTheDocument();
@@ -107,16 +106,19 @@ describe("Team", () => {
     expect(screen.getByAltText("Icon 5")).toBeInTheDocument();
   });
 
-  it("alt has correct attribute", () => {
+  it("renders correct width and height for relative team champion icons", () => {
     render(<Team players={mockPlayers} tags={mockTags} champs={mockChamps} />);
-    expect(screen.getByAltText("Icon 1")).toHaveAttribute("alt", "Icon 1");
-    expect(screen.getByAltText("Icon 2")).toHaveAttribute("alt", "Icon 2");
-    expect(screen.getByAltText("Icon 3")).toHaveAttribute("alt", "Icon 3");
-    expect(screen.getByAltText("Icon 4")).toHaveAttribute("alt", "Icon 4");
-    expect(screen.getByAltText("Icon 5")).toHaveAttribute("alt", "Icon 5");
+
+    const images = screen.getAllByTestId("next-image");
+
+    images.forEach((img) => {
+      expect(img).toHaveAttribute("width", "20");
+      expect(img).toHaveAttribute("height", "20");
+    });
   });
 });
 
+// Match blue and red team
 describe("Teams", () => {
   const mockMatch = {
     blueTeamPlayers: ["TNM", "pls nerf kat", "LadyGaga", "gaPsy31", "게윅스"],

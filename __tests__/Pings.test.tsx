@@ -5,13 +5,22 @@ import { Pings } from "@/app/ui/league-of-legends/match/pings";
 // Mock Next.js Image component
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ src, alt }: any) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt} />;
+  default: ({ src, alt, width, height }: any) => {
+    // Include data-testid to make it easier to query the image properties
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        data-testid="next-image"
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+      />
+    );
   },
 }));
 
-// Component rendering
+// Match pings
 describe("Pings", () => {
   const mockPings = {
     visionPings: 2,
@@ -60,5 +69,36 @@ describe("Pings", () => {
     expect(images[3]).toHaveAttribute("src", "/images/match/assist.png");
     expect(images[4]).toHaveAttribute("src", "/images/match/danger.png");
     expect(images[5]).toHaveAttribute("src", "/images/match/missing.png");
+  });
+
+  it("renders correct alt attribute for ping icons", () => {
+    render(<Pings match={mockPings} />);
+    expect(screen.getByAltText("vision")).toHaveAttribute("alt", "vision");
+    expect(screen.getByAltText("pathing")).toHaveAttribute("alt", "pathing");
+    expect(screen.getByAltText("push")).toHaveAttribute("alt", "push");
+    expect(screen.getByAltText("assist")).toHaveAttribute("alt", "assist");
+    expect(screen.getByAltText("danger")).toHaveAttribute("alt", "danger");
+    expect(screen.getByAltText("missing")).toHaveAttribute("alt", "missing");
+  });
+
+  it("renders alt when ping image doesn't render", () => {
+    render(<Pings match={mockPings} />);
+    expect(screen.getByAltText("vision")).toBeInTheDocument();
+    expect(screen.getByAltText("pathing")).toBeInTheDocument();
+    expect(screen.getByAltText("push")).toBeInTheDocument();
+    expect(screen.getByAltText("assist")).toBeInTheDocument();
+    expect(screen.getByAltText("danger")).toBeInTheDocument();
+    expect(screen.getByAltText("missing")).toBeInTheDocument();
+  });
+
+  it("renders correct width and height for ping icons", () => {
+    render(<Pings match={mockPings} />);
+
+    const images = screen.getAllByTestId("next-image");
+
+    images.forEach((img) => {
+      expect(img).toHaveAttribute("width", "20");
+      expect(img).toHaveAttribute("height", "20");
+    });
   });
 });
