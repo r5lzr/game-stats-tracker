@@ -8,8 +8,8 @@ export async function getQueueInfo(queueId: number) {
     case 440:
       queueOutcome = "Ranked Flex";
       break;
-    case 490:
-      queueOutcome = "Quick Play";
+    case 480:
+      queueOutcome = "Swift Play";
       break;
     case 400:
       queueOutcome = "Draft Pick";
