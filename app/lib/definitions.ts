@@ -47,6 +47,7 @@ export interface MatchStats {
   kpRatio: number;
   gold: number;
   creepScore: number;
+  neutralMinionsKilled: number;
   creepScorePerMin: number;
   controlWards: number;
   itemId0: number;

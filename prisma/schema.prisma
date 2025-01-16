@@ -43,11 +43,11 @@ model Match {
   kills            Int
   deaths           Int
   assists          Int
-  kdaRatio         Int
+  kdaRatio         Float
   kpRatio          Int?
   gold             Int
   creepScore       Int
-  creepScorePerMin Int
+  creepScorePerMin Float
   controlWards     Int
   itemId0          Int
   itemId1          Int

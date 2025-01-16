@@ -13,7 +13,8 @@ export function getGCCInfo(match: MatchInfo, params: PlayerParams) {
   if (participant) {
     gold = participant.goldEarned;
 
-    creepScore = participant.totalMinionsKilled;
+    creepScore =
+      participant.totalMinionsKilled + participant.neutralMinionsKilled;
     const minutes = Math.floor(match.info.gameDuration / 60);
     const seconds = match.info.gameDuration % 60;
     creepScorePerMin = parseFloat(
