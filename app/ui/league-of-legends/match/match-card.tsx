@@ -1,7 +1,7 @@
 import styles from "../profile.module.css";
 import { RiArrowDownDoubleLine } from "react-icons/ri";
 import { Teams } from "./teams";
-import { Kda } from "./kda";
+import { KDA } from "./kda";
 import { MultiKill } from "./multiKill";
 import { GCC } from "./gcc";
 import { SumRunes } from "./sum-runes";
@@ -67,7 +67,7 @@ export function MatchCard({ match }: { match: MatchStats }) {
               </div>
               <div className={styles["icon-container2"]}>
                 <div className={styles["matchstats-container"]}>
-                  <Kda match={match} />
+                  <KDA match={match} />
                   <GCC match={match} />
                 </div>
                 <Items match={match} />

@@ -43,14 +43,14 @@ describe("getChampion", () => {
   });
 });
 
-// Profile champ icon
+// Match champ icon
 describe("ChampIcon", () => {
   const mockChampIcon = {
     champIcon: "Viktor",
     champLevel: 15,
   };
 
-  it("renders profile champ level correctly", () => {
+  it("renders Match champ level correctly", () => {
     render(<ChampIcon match={mockChampIcon} />);
 
     expect(
@@ -58,7 +58,7 @@ describe("ChampIcon", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders profile champ icon with correct sources", () => {
+  it("renders Match champ icon with correct sources", () => {
     render(<ChampIcon match={mockChampIcon} />);
     const images = screen.getAllByRole("img");
 
@@ -68,19 +68,19 @@ describe("ChampIcon", () => {
     );
   });
 
-  it("renders correct alt attribute for profile champ icon", () => {
+  it("renders correct alt attribute for Match champ icon", () => {
     render(<ChampIcon match={mockChampIcon} />);
 
     expect(screen.getByAltText("Icon 1")).toHaveAttribute("alt", "Icon 1");
   });
 
-  it("renders alt when profile champ icon doesn't render", () => {
+  it("renders alt when Match champ icon doesn't render", () => {
     render(<ChampIcon match={mockChampIcon} />);
 
     expect(screen.getByAltText("Icon 1")).toBeInTheDocument();
   });
 
-  it("renders correct size attribute for profile champ icon", () => {
+  it("renders correct size attribute for Match champ icon", () => {
     render(<ChampIcon match={mockChampIcon} />);
 
     const images = screen.getAllByTestId("next-image");
@@ -88,7 +88,7 @@ describe("ChampIcon", () => {
     expect(images[0]).toHaveAttribute("sizes", "50px");
   });
 
-  it("renders correct style attribute for profile champ icon", () => {
+  it("renders correct style attribute for Match champ icon", () => {
     render(<ChampIcon match={mockChampIcon} />);
 
     const images = screen.getAllByTestId("next-image");
@@ -96,7 +96,7 @@ describe("ChampIcon", () => {
     expect(images[0]).toHaveStyle({ borderRadius: "5px" });
   });
 
-  it("renders correct fill attribute for profile champ icon", () => {
+  it("renders correct fill attribute for Match champ icon", () => {
     render(<ChampIcon match={mockChampIcon} />);
 
     const images = screen.getAllByTestId("next-image");

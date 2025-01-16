@@ -1,17 +1,30 @@
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
-export function Kda({ match }: { match: MatchStats }) {
+type KDA = Pick<
+  MatchStats,
+  "kills" | "deaths" | "assists" | "kdaRatio" | "kpRatio"
+>;
+
+export function KDA({ match }: { match: KDA }) {
   const { kills, deaths, assists, kdaRatio, kpRatio } = match;
 
   return (
     <div className={styles["kda-container"]}>
       <div className={styles["kda-num"]}>
-        {kills}
-        <span className={styles["kda-slash"]}> / </span>
-        <span className={styles["kda-death"]}>{deaths}</span>
-        <span className={styles["kda-slash"]}> / </span>
-        {assists}
+        <span data-testid="kda-kills">{kills}</span>
+        <span className={styles["kda-slash"]} data-testid="kda-slash1">
+          {" "}
+          /{" "}
+        </span>
+        <span className={styles["kda-death"]} data-testid="kda-death">
+          {deaths}
+        </span>
+        <span className={styles["kda-slash"]} data-testid="kda-slash2">
+          {" "}
+          /{" "}
+        </span>
+        <span data-testid="kda-assists">{assists}</span>
       </div>
       <div className={styles["kda-ratio"]}>{kdaRatio} KDA</div>
       <div className={styles["kp-ratio"]}>{kpRatio}% KP</div>
