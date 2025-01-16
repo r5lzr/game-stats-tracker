@@ -7,13 +7,13 @@ const config: RiotAPITypes.Config = {
     ttls: {
       byMethod: {
         // matches
-        [RiotAPITypes.METHOD_KEY.ACCOUNT.GET_BY_RIOT_ID]: 60000,
-        [RiotAPITypes.METHOD_KEY.MATCH_V5.GET_IDS_BY_PUUID]: 60000,
-        [RiotAPITypes.METHOD_KEY.MATCH_V5.GET_MATCH_BY_ID]: 60000,
+        [RiotAPITypes.METHOD_KEY.ACCOUNT.GET_BY_RIOT_ID]: 90000,
+        [RiotAPITypes.METHOD_KEY.MATCH_V5.GET_IDS_BY_PUUID]: 90000,
+        [RiotAPITypes.METHOD_KEY.MATCH_V5.GET_MATCH_BY_ID]: 90000,
         // summoner
-        [RiotAPITypes.METHOD_KEY.SUMMONER.GET_BY_SUMMONER_ID]: 60000,
+        [RiotAPITypes.METHOD_KEY.SUMMONER.GET_BY_SUMMONER_ID]: 90000,
         // ranked
-        [RiotAPITypes.METHOD_KEY.LEAGUE.GET_ENTRIES_BY_SUMMONER]: 60000,
+        [RiotAPITypes.METHOD_KEY.LEAGUE.GET_ENTRIES_BY_SUMMONER]: 90000,
       },
     },
   },
