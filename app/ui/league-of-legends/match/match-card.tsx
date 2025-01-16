@@ -10,6 +10,7 @@ import { ChampIcon } from "./champ-icon";
 import { Items } from "./items";
 import { MatchStats } from "@/app/lib/definitions";
 import { Pings } from "./pings";
+import { MatchInfo } from "./match-info";
 
 export function MatchCard({ match }: { match: MatchStats }) {
   const { outcome, queueInfo, relativeTime, gameDuration, summonerId } = match;
@@ -44,16 +45,12 @@ export function MatchCard({ match }: { match: MatchStats }) {
             }`}
           >
             <div className={styles["sum-container1"]}>
-              <div className={styles["gamemode-label"]}>{queueInfo}</div>
-              <div className={styles["days-label"]}>{relativeTime}</div>
-              <div className={styles["gametime-label"]}>{gameDuration}</div>
-              <div
-                className={`${styles["outcome-label"]} ${
-                  outcome === "VICTORY" ? styles["victory"] : styles["defeat"]
-                }`}
-              >
-                {outcome}
-              </div>
+              <MatchInfo
+                outcome={outcome}
+                queueInfo={queueInfo}
+                relativeTime={relativeTime}
+                gameDuration={gameDuration}
+              />
             </div>
             <div className={styles["match-divider"]}></div>
             <div className={styles["sum-container2"]}>

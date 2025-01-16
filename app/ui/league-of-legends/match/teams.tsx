@@ -12,15 +12,13 @@ export function getChampion(champ: string | undefined) {
   return champ !== undefined ? riotURL : "/images/empty.png";
 }
 
-export function Team({
-  players,
-  tags,
-  champs,
-}: {
+type Team = {
   players: string[];
   tags: string[];
   champs: string[];
-}) {
+};
+
+export function Team({ players, tags, champs }: Team) {
   const playerChamp1 = getChampion(champs[0]);
   const playerChamp2 = getChampion(champs[1]);
   const playerChamp3 = getChampion(champs[2]);
