@@ -2,13 +2,24 @@ import Image from "next/image";
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
 
-function getItem(item: number) {
+type Items = Pick<
+  MatchStats,
+  | "itemId0"
+  | "itemId1"
+  | "itemId2"
+  | "itemId3"
+  | "itemId4"
+  | "itemId5"
+  | "itemId6"
+>;
+
+export function getItem(item: number) {
   const riotURL = `https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/${item}.png`;
 
   return item !== 0 ? riotURL : "/images/empty.png";
 }
 
-export function Items({ match }: { match: MatchStats }) {
+export function Items({ match }: { match: Items }) {
   const { itemId0, itemId1, itemId2, itemId3, itemId4, itemId5, itemId6 } =
     match;
 

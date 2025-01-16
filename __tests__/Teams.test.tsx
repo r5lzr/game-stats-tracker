@@ -51,6 +51,7 @@ describe("Team", () => {
 
   it("renders correct player and tag names correctly", () => {
     render(<Team players={mockPlayers} tags={mockTags} champs={mockChamps} />);
+
     mockPlayers.forEach((player, index) => {
       expect(
         screen.getByText(`${player}#${mockTags[index]}`)
@@ -60,6 +61,7 @@ describe("Team", () => {
 
   it("renders relative team champ icon with correct sources", () => {
     render(<Team players={mockPlayers} tags={mockTags} champs={mockChamps} />);
+
     const images = screen.getAllByRole("img");
 
     expect(images[0]).toHaveAttribute(
@@ -90,6 +92,7 @@ describe("Team", () => {
 
   it("renders correct alt attribute for relative team champion icons", () => {
     render(<Team players={mockPlayers} tags={mockTags} champs={mockChamps} />);
+
     expect(screen.getByAltText("Icon 1")).toHaveAttribute("alt", "Icon 1");
     expect(screen.getByAltText("Icon 2")).toHaveAttribute("alt", "Icon 2");
     expect(screen.getByAltText("Icon 3")).toHaveAttribute("alt", "Icon 3");
@@ -99,6 +102,7 @@ describe("Team", () => {
 
   it("renders alt when relative team champion icons doesn't render", () => {
     render(<Team players={mockPlayers} tags={mockTags} champs={mockChamps} />);
+
     expect(screen.getByAltText("Icon 1")).toBeInTheDocument();
     expect(screen.getByAltText("Icon 2")).toBeInTheDocument();
     expect(screen.getByAltText("Icon 3")).toBeInTheDocument();

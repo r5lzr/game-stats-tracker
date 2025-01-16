@@ -25,7 +25,7 @@ describe("GCC", () => {
   const mockGCC = {
     gold: 14549,
     creepScore: 219,
-    creepScorePerMin: 6,
+    creepScorePerMin: 6.2,
     controlWards: 0,
   };
 
@@ -37,7 +37,7 @@ describe("GCC", () => {
     ).toBeInTheDocument();
 
     expect(
-      within(screen.getByTestId("creep-score")).getByText("219 (6)")
+      within(screen.getByTestId("creep-score")).getByText("219 (6.2)")
     ).toBeInTheDocument();
 
     expect(

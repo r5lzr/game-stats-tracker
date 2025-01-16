@@ -61,6 +61,7 @@ describe("Pings", () => {
 
   it("renders pings with correct sources", () => {
     render(<Pings match={mockPings} />);
+
     const images = screen.getAllByRole("img");
 
     expect(images[0]).toHaveAttribute("src", "/images/match/vision.png");
@@ -73,6 +74,7 @@ describe("Pings", () => {
 
   it("renders correct alt attribute for ping icons", () => {
     render(<Pings match={mockPings} />);
+
     expect(screen.getByAltText("vision")).toHaveAttribute("alt", "vision");
     expect(screen.getByAltText("pathing")).toHaveAttribute("alt", "pathing");
     expect(screen.getByAltText("push")).toHaveAttribute("alt", "push");
@@ -83,6 +85,7 @@ describe("Pings", () => {
 
   it("renders alt when ping image doesn't render", () => {
     render(<Pings match={mockPings} />);
+
     expect(screen.getByAltText("vision")).toBeInTheDocument();
     expect(screen.getByAltText("pathing")).toBeInTheDocument();
     expect(screen.getByAltText("push")).toBeInTheDocument();

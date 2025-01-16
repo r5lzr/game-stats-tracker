@@ -47,6 +47,7 @@ describe("SumRunes", () => {
 
   it("renders both runes with correct sources", () => {
     render(<SumRunes match={mockRunes} />);
+
     const images = screen.getAllByRole("img");
 
     expect(images[0]).toHaveAttribute(
@@ -61,12 +62,14 @@ describe("SumRunes", () => {
 
   it("renders correct alt attribute for rune icons", () => {
     render(<SumRunes match={mockRunes} />);
+
     expect(screen.getByAltText("rune1")).toHaveAttribute("alt", "rune1");
     expect(screen.getByAltText("rune2")).toHaveAttribute("alt", "rune2");
   });
 
   it("renders alt when rune image doesn't render", () => {
     render(<SumRunes match={mockRunes} />);
+
     expect(screen.getByAltText("rune1")).toBeInTheDocument();
     expect(screen.getByAltText("rune2")).toBeInTheDocument();
   });

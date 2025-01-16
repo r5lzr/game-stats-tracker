@@ -8,7 +8,7 @@ describe("KDA Component", () => {
     kills: 10,
     deaths: 2,
     assists: 8,
-    kdaRatio: 9,
+    kdaRatio: 9.2,
     kpRatio: 75,
   };
 
@@ -35,11 +35,12 @@ describe("KDA Component", () => {
   it("renders KDA ratio correctly", () => {
     render(<KDA match={mockKDA} />);
 
-    expect(screen.getByText("9 KDA")).toBeInTheDocument();
+    expect(screen.getByText("9.2 KDA")).toBeInTheDocument();
   });
 
   it("renders KP ratio correctly", () => {
     render(<KDA match={mockKDA} />);
+
     expect(screen.getByText("75% KP")).toBeInTheDocument();
   });
 });

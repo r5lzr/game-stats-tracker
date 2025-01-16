@@ -45,6 +45,7 @@ describe("SumSpells", () => {
 
   it("renders both spells with correct sources", () => {
     render(<SumSpells match={mockSpells} />);
+
     const images = screen.getAllByRole("img");
 
     expect(images[0]).toHaveAttribute(
@@ -59,12 +60,14 @@ describe("SumSpells", () => {
 
   it("renders correct alt attribute for spell icons", () => {
     render(<SumSpells match={mockSpells} />);
+
     expect(screen.getByAltText("spell1")).toHaveAttribute("alt", "spell1");
     expect(screen.getByAltText("spell2")).toHaveAttribute("alt", "spell2");
   });
 
   it("renders alt when spell image doesn't render", () => {
     render(<SumSpells match={mockSpells} />);
+
     expect(screen.getByAltText("spell1")).toBeInTheDocument();
     expect(screen.getByAltText("spell2")).toBeInTheDocument();
   });
