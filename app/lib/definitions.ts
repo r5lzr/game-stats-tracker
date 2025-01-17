@@ -160,4 +160,21 @@ export interface ChampIcon {
   };
 }
 
+export interface GCCUtil {
+  info: {
+    gameDuration: number;
+    participants: [
+      {
+        riotIdGameName: string;
+        goldEarned: number;
+        totalMinionsKilled: number;
+        neutralMinionsKilled: number;
+        challenges: {
+          controlWardsPlaced: number;
+        };
+      }
+    ];
+  };
+}
+
 export type Username = Pick<PlayerParams, "username">;

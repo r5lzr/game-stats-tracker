@@ -6,7 +6,7 @@ import { ChampIcon, Username } from "@/app/lib/definitions";
 
 describe("getChampIcon", () => {
   it("should return champion name if player found in participants", () => {
-    const match: ChampIcon = {
+    const mockMatch: ChampIcon = {
       info: {
         participants: [
           { riotIdGameName: "player1", championName: "Ahri", champLevel: 10 },
@@ -16,13 +16,13 @@ describe("getChampIcon", () => {
 
     const params: Username = { username: "player1" };
 
-    const result = getChampIcon(match, params);
+    const result = getChampIcon(mockMatch, params);
 
     expect(result).toBe("Ahri");
   });
 
   it("should return undefined if player not found in participants", () => {
-    const match: ChampIcon = {
+    const mockMatch: ChampIcon = {
       info: {
         participants: [
           { riotIdGameName: "player1", championName: "Ahri", champLevel: 10 },
@@ -30,9 +30,9 @@ describe("getChampIcon", () => {
       },
     };
 
-    const params: Username = { username: "nonexistentPlayer" };
+    const params: Username = { username: "NonExistentPlayer" };
 
-    const result = getChampIcon(match, params);
+    const result = getChampIcon(mockMatch, params);
 
     expect(result).toBeUndefined();
   });
@@ -40,7 +40,7 @@ describe("getChampIcon", () => {
 
 describe("getChampLevel", () => {
   it("should return champion level if player found in participants", () => {
-    const match: ChampIcon = {
+    const mockMatch: ChampIcon = {
       info: {
         participants: [
           { riotIdGameName: "player1", championName: "Ahri", champLevel: 10 },
@@ -50,13 +50,13 @@ describe("getChampLevel", () => {
 
     const params: Username = { username: "player1" };
 
-    const result = getChampLevel(match, params);
+    const result = getChampLevel(mockMatch, params);
 
     expect(result).toBe(10);
   });
 
   it("should return undefined if player not found in participants", () => {
-    const match: ChampIcon = {
+    const mockMatch: ChampIcon = {
       info: {
         participants: [
           { riotIdGameName: "player1", championName: "Ahri", champLevel: 10 },
@@ -64,9 +64,9 @@ describe("getChampLevel", () => {
       },
     };
 
-    const params: Username = { username: "nonexistentPlayer" };
+    const params: Username = { username: "NonExistentPlayer" };
 
-    const result = getChampLevel(match, params);
+    const result = getChampLevel(mockMatch, params);
 
     expect(result).toBeUndefined();
   });

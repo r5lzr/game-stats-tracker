@@ -1,6 +1,6 @@
-import { MatchInfo, PlayerParams } from "../definitions";
+import { GCCUtil, Username } from "../definitions";
 
-export function getGCCInfo(match: MatchInfo, params: PlayerParams) {
+export function getGCCInfo(match: GCCUtil, params: Username) {
   let gold = null;
   let creepScore = null;
   let creepScorePerMin = null;
