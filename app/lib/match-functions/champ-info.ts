@@ -1,6 +1,6 @@
-import { MatchInfo, PlayerParams } from "../definitions";
+import { ChampIcon, Username } from "../definitions";
 
-export function getChampIcon(match: MatchInfo, params: PlayerParams) {
+export function getChampIcon(match: ChampIcon, params: Username) {
   const participant = match.info.participants.find(
     (player) => player.riotIdGameName === params.username
   );
@@ -10,7 +10,7 @@ export function getChampIcon(match: MatchInfo, params: PlayerParams) {
   }
 }
 
-export function getChampLevel(match: MatchInfo, params: PlayerParams) {
+export function getChampLevel(match: ChampIcon, params: Username) {
   const participant = match.info.participants.find(
     (player) => player.riotIdGameName === params.username
   );

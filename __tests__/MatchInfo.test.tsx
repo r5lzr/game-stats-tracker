@@ -4,7 +4,7 @@ import { MatchInfo } from "@/app/ui/league-of-legends/match/match-info";
 import styles from "../profile.module.css";
 
 // Match info
-describe("MatchCard", () => {
+describe("MatchInfo", () => {
   const mockMatchVictory = {
     outcome: "VICTORY",
     queueInfo: "Ranked Solo",

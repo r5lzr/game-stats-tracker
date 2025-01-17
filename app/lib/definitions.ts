@@ -147,3 +147,17 @@ export interface RankedInfo {
   wins: number;
   losses: number;
 }
+
+export interface ChampIcon {
+  info: {
+    participants: [
+      {
+        riotIdGameName: string;
+        championName: string;
+        champLevel: number;
+      }
+    ];
+  };
+}
+
+export type Username = Pick<PlayerParams, "username">;
