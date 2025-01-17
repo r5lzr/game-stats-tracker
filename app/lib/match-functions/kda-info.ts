@@ -1,6 +1,6 @@
-import { MatchInfo, PlayerParams } from "../definitions";
+import { KDAUtil, Username } from "../definitions";
 
-export function getKDAInfo(match: MatchInfo, params: PlayerParams) {
+export function getKDAInfo(match: KDAUtil, params: Username) {
   let kills = null;
   let deaths = null;
   let assists = null;

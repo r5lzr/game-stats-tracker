@@ -194,4 +194,21 @@ export type ItemUtil = {
   };
 };
 
+export type KDAUtil = {
+  info: {
+    participants: [
+      {
+        riotIdGameName: string;
+        kills: number;
+        deaths: number;
+        assists: number;
+        challenges: {
+          kda: number;
+          killParticipation: number;
+        };
+      }
+    ];
+  };
+};
+
 export type Username = Pick<PlayerParams, "username">;
