@@ -148,7 +148,7 @@ export interface RankedInfo {
   losses: number;
 }
 
-export interface ChampIcon {
+export type ChampIconUtil = {
   info: {
     participants: [
       {
@@ -158,9 +158,9 @@ export interface ChampIcon {
       }
     ];
   };
-}
+};
 
-export interface GCCUtil {
+export type GCCUtil = {
   info: {
     gameDuration: number;
     participants: [
@@ -175,6 +175,23 @@ export interface GCCUtil {
       }
     ];
   };
-}
+};
+
+export type ItemUtil = {
+  info: {
+    participants: [
+      {
+        riotIdGameName: string;
+        item0: number;
+        item1: number;
+        item2: number;
+        item3: number;
+        item4: number;
+        item5: number;
+        item6: number;
+      }
+    ];
+  };
+};
 
 export type Username = Pick<PlayerParams, "username">;

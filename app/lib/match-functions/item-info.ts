@@ -1,6 +1,6 @@
-import { MatchInfo, PlayerParams } from "../definitions";
+import { ItemUtil, Username } from "../definitions";
 
-export function getItemInfo(match: MatchInfo, params: PlayerParams) {
+export function getItemInfo(match: ItemUtil, params: Username) {
   let item0 = null;
   let item1 = null;
   let item2 = null;

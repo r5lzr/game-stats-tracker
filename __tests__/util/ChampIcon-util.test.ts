@@ -2,11 +2,11 @@ import {
   getChampIcon,
   getChampLevel,
 } from "@/app/lib/match-functions/champ-info";
-import { ChampIcon, Username } from "@/app/lib/definitions";
+import { ChampIconUtil, Username } from "@/app/lib/definitions";
 
 describe("getChampIcon", () => {
   it("should return champion name if player found in participants", () => {
-    const mockMatch: ChampIcon = {
+    const mockMatch: ChampIconUtil = {
       info: {
         participants: [
           { riotIdGameName: "player1", championName: "Ahri", champLevel: 10 },
@@ -22,7 +22,7 @@ describe("getChampIcon", () => {
   });
 
   it("should return undefined if player not found in participants", () => {
-    const mockMatch: ChampIcon = {
+    const mockMatch: ChampIconUtil = {
       info: {
         participants: [
           { riotIdGameName: "player1", championName: "Ahri", champLevel: 10 },
@@ -40,7 +40,7 @@ describe("getChampIcon", () => {
 
 describe("getChampLevel", () => {
   it("should return champion level if player found in participants", () => {
-    const mockMatch: ChampIcon = {
+    const mockMatch: ChampIconUtil = {
       info: {
         participants: [
           { riotIdGameName: "player1", championName: "Ahri", champLevel: 10 },
@@ -56,7 +56,7 @@ describe("getChampLevel", () => {
   });
 
   it("should return undefined if player not found in participants", () => {
-    const mockMatch: ChampIcon = {
+    const mockMatch: ChampIconUtil = {
       info: {
         participants: [
           { riotIdGameName: "player1", championName: "Ahri", champLevel: 10 },
