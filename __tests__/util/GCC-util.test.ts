@@ -20,14 +20,12 @@ describe("getGCCInfo", () => {
   };
 
   it("should return correct stats for a player in the match", () => {
-    const params = { username: "player1" };
-    const result = getGCCInfo(mockMatch, params);
-    expect(result).toEqual([12000, 250, 10, 5]);
+    const playerParams = { username: "player1" };
+    expect(getGCCInfo(mockMatch, playerParams)).toEqual([12000, 250, 10, 5]);
   });
 
   it("should return undefined if player is not in the match", () => {
-    const params = { username: "NonExistentPlayer" };
-    const result = getGCCInfo(mockMatch, params);
-    expect(result).toBeUndefined();
+    const playerParams = { username: "NonExistentPlayer" };
+    expect(getGCCInfo(mockMatch, playerParams)).toBeUndefined();
   });
 });

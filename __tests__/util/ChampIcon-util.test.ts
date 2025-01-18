@@ -14,11 +14,8 @@ describe("getChampIcon", () => {
       },
     };
 
-    const params: Username = { username: "player1" };
-
-    const result = getChampIcon(mockMatch, params);
-
-    expect(result).toBe("Ahri");
+    const playerParams: Username = { username: "player1" };
+    expect(getChampIcon(mockMatch, playerParams)).toBe("Ahri");
   });
 
   it("should return undefined if player not found in participants", () => {
@@ -30,11 +27,8 @@ describe("getChampIcon", () => {
       },
     };
 
-    const params: Username = { username: "NonExistentPlayer" };
-
-    const result = getChampIcon(mockMatch, params);
-
-    expect(result).toBeUndefined();
+    const playerParams: Username = { username: "NonExistentPlayer" };
+    expect(getChampIcon(mockMatch, playerParams)).toBeUndefined();
   });
 });
 
@@ -48,11 +42,8 @@ describe("getChampLevel", () => {
       },
     };
 
-    const params: Username = { username: "player1" };
-
-    const result = getChampLevel(mockMatch, params);
-
-    expect(result).toBe(10);
+    const playerParams: Username = { username: "player1" };
+    expect(getChampLevel(mockMatch, playerParams)).toBe(10);
   });
 
   it("should return undefined if player not found in participants", () => {
@@ -64,10 +55,7 @@ describe("getChampLevel", () => {
       },
     };
 
-    const params: Username = { username: "NonExistentPlayer" };
-
-    const result = getChampLevel(mockMatch, params);
-
-    expect(result).toBeUndefined();
+    const playerParams: Username = { username: "NonExistentPlayer" };
+    expect(getChampLevel(mockMatch, playerParams)).toBeUndefined();
   });
 });

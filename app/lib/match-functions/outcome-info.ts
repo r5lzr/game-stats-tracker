@@ -1,6 +1,6 @@
-import { MatchInfo, PlayerParams } from "../definitions";
+import { OutcomeUtil, Username } from "../definitions";
 
-export function getOutcomeInfo(match: MatchInfo, params: PlayerParams) {
+export function getOutcomeInfo(match: OutcomeUtil, params: Username) {
   let gameOutcome;
 
   const participant = match.info.participants.find(

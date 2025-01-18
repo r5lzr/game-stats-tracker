@@ -22,13 +22,11 @@ describe("getKDAInfo", () => {
   const playerParams = { username: "player1" };
 
   it("should return correct KDA info for the player", () => {
-    const result = getKDAInfo(mockMatch, playerParams);
-    expect(result).toEqual([10, 2, 5, 7.5, 60]);
+    expect(getKDAInfo(mockMatch, playerParams)).toEqual([10, 2, 5, 7.5, 60]);
   });
 
   it("should return undefined if player is not found", () => {
     const missingPlayerParams = { username: "NonExistentPlayer" };
-    const result = getKDAInfo(mockMatch, missingPlayerParams);
-    expect(result).toBeUndefined();
+    expect(getKDAInfo(mockMatch, missingPlayerParams)).toBeUndefined();
   });
 });

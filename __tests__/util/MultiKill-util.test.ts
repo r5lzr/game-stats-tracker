@@ -17,8 +17,8 @@ describe("getMultiKillInfo", () => {
       },
     };
 
-    const params = { username: "player1" };
-    expect(getMultiKillInfo(mockMatch, params)).toBe("PENTAKILL");
+    const playerParams = { username: "player1" };
+    expect(getMultiKillInfo(mockMatch, playerParams)).toBe("PENTAKILL");
   });
 
   it("returns Quadra kill when player has a quadra kill", () => {
@@ -36,8 +36,8 @@ describe("getMultiKillInfo", () => {
       },
     };
 
-    const params = { username: "player1" };
-    expect(getMultiKillInfo(mockMatch, params)).toBe("Quadra kill");
+    const playerParams = { username: "player1" };
+    expect(getMultiKillInfo(mockMatch, playerParams)).toBe("Quadra kill");
   });
 
   it("returns Triple kill when player has a triple kill", () => {
@@ -55,8 +55,8 @@ describe("getMultiKillInfo", () => {
       },
     };
 
-    const params = { username: "player1" };
-    expect(getMultiKillInfo(mockMatch, params)).toBe("Triple kill");
+    const playerParams = { username: "player1" };
+    expect(getMultiKillInfo(mockMatch, playerParams)).toBe("Triple kill");
   });
 
   it("returns Double kill when player has a double kill", () => {
@@ -74,8 +74,8 @@ describe("getMultiKillInfo", () => {
       },
     };
 
-    const params = { username: "player1" };
-    expect(getMultiKillInfo(mockMatch, params)).toBe("Double kill");
+    const playerParams = { username: "player1" };
+    expect(getMultiKillInfo(mockMatch, playerParams)).toBe("Double kill");
   });
 
   it("returns null when player has no multi kills", () => {
@@ -93,8 +93,8 @@ describe("getMultiKillInfo", () => {
       },
     };
 
-    const params = { username: "player1" };
-    expect(getMultiKillInfo(mockMatch, params)).toBeNull();
+    const playerParams = { username: "player1" };
+    expect(getMultiKillInfo(mockMatch, playerParams)).toBeNull();
   });
 
   it("should return null if player is not found", () => {
@@ -112,7 +112,7 @@ describe("getMultiKillInfo", () => {
       },
     };
 
-    const params = { username: "NonExistentPlayer" };
-    expect(getMultiKillInfo(mockMatch, params)).toBeNull();
+    const playerParams = { username: "NonExistentPlayer" };
+    expect(getMultiKillInfo(mockMatch, playerParams)).toBeNull();
   });
 });

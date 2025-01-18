@@ -225,4 +225,16 @@ export type MultiKillUtil = {
   };
 };
 
+export type OutcomeUtil = {
+  info: {
+    participants: [
+      {
+        riotIdGameName: string;
+        win: boolean;
+        gameEndedInEarlySurrender: boolean;
+      }
+    ];
+  };
+};
+
 export type Username = Pick<PlayerParams, "username">;
