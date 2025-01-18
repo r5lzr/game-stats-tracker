@@ -211,4 +211,18 @@ export type KDAUtil = {
   };
 };
 
+export type MultiKillUtil = {
+  info: {
+    participants: [
+      {
+        riotIdGameName: string;
+        pentaKills: number;
+        quadraKills: number;
+        tripleKills: number;
+        doubleKills: number;
+      }
+    ];
+  };
+};
+
 export type Username = Pick<PlayerParams, "username">;

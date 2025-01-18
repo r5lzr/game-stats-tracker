@@ -6,7 +6,7 @@ describe("getItemInfo", () => {
     info: {
       participants: [
         {
-          riotIdGameName: "PlayerOne",
+          riotIdGameName: "player1",
           item0: 1001,
           item1: 1002,
           item2: 1003,
@@ -23,7 +23,7 @@ describe("getItemInfo", () => {
     info: {
       participants: [
         {
-          riotIdGameName: "PlayerOne",
+          riotIdGameName: "player1",
           item0: 0,
           item1: 2002,
           item2: 0,
@@ -37,13 +37,13 @@ describe("getItemInfo", () => {
   };
 
   it("should return the correct item array for an existing player", () => {
-    const params = { username: "PlayerOne" };
+    const params = { username: "player1" };
     const result = getItemInfo(mockMatch, params);
     expect(result).toEqual([1001, 1002, 1003, 1004, 1005, 1006, 1007]);
   });
 
   it("should handle players with empty item slots (item has value of 0)", () => {
-    const params = { username: "PlayerOne" };
+    const params = { username: "player1" };
     const result = getItemInfo(mockMatchZero, params);
     expect(result).toEqual([0, 2002, 0, 2004, 2005, 2006, 0]);
   });

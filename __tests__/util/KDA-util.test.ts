@@ -6,7 +6,7 @@ describe("getKDAInfo", () => {
     info: {
       participants: [
         {
-          riotIdGameName: "TestPlayer",
+          riotIdGameName: "player1",
           kills: 10,
           deaths: 2,
           assists: 5,
@@ -19,7 +19,7 @@ describe("getKDAInfo", () => {
     },
   };
 
-  const playerParams = { username: "TestPlayer" };
+  const playerParams = { username: "player1" };
 
   it("should return correct KDA info for the player", () => {
     const result = getKDAInfo(mockMatch, playerParams);

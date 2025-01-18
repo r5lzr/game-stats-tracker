@@ -1,6 +1,6 @@
-import { MatchInfo, PlayerParams } from "../definitions";
+import { MultiKillUtil, Username } from "../definitions";
 
-export function getMultiKillInfo(match: MatchInfo, params: PlayerParams) {
+export function getMultiKillInfo(match: MultiKillUtil, params: Username) {
   let multiKillType = null;
   let multiKill = null;
 
