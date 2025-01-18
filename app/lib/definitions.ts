@@ -264,4 +264,11 @@ export type TeamUtil = {
   };
 };
 
+export type TimeUtil = {
+  info: {
+    gameEndTimestamp: number;
+    gameDuration: number;
+  };
+};
+
 export type Username = Pick<PlayerParams, "username">;

@@ -1,6 +1,6 @@
-import { MatchInfo } from "../definitions";
+import { TimeUtil } from "../definitions";
 
-export function getRelativeTimeInfo(match: MatchInfo) {
+export function getRelativeTimeInfo(match: TimeUtil) {
   let endTime = match.info.gameEndTimestamp;
   let relativeTime = null;
 
@@ -25,7 +25,7 @@ export function getRelativeTimeInfo(match: MatchInfo) {
   return relativeTime;
 }
 
-export function getGameDurationInfo(match: MatchInfo) {
+export function getGameDurationInfo(match: TimeUtil) {
   let gameTime;
 
   const minutes = Math.floor(match.info.gameDuration / 60);
