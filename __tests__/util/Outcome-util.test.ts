@@ -53,7 +53,7 @@ describe("getOutcomeInfo", () => {
     expect(getOutcomeInfo(mockMatch, playerParams)).toBe("REMAKE");
   });
 
-  it("should return undefined when player is not in the match", () => {
+  it("should return undefined when player is not found", () => {
     const mockMatch: OutcomeUtil = {
       info: {
         participants: [

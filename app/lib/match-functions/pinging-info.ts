@@ -1,6 +1,6 @@
-import { MatchInfo, PlayerParams } from "../definitions";
+import { PingingUtil, Username } from "../definitions";
 
-export function getPingingInfo(match: MatchInfo, params: PlayerParams) {
+export function getPingingInfo(match: PingingUtil, params: Username) {
   let visionPings;
   let pushPings;
   let dangerPings;

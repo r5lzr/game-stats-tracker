@@ -237,4 +237,20 @@ export type OutcomeUtil = {
   };
 };
 
+export type PingingUtil = {
+  info: {
+    participants: [
+      {
+        riotIdGameName: string;
+        enemyVisionPings: number;
+        pushPings: number;
+        dangerPings: number;
+        onMyWayPings: number;
+        assistMePings: number;
+        enemyMissingPings: number;
+      }
+    ];
+  };
+};
+
 export type Username = Pick<PlayerParams, "username">;
