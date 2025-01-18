@@ -1,6 +1,6 @@
-import { MatchInfo } from "../definitions";
+import { TeamUtil } from "../definitions";
 
-export function getRedTeamInfo(match: MatchInfo) {
+export function getRedTeamInfo(match: TeamUtil) {
   const blueTeam = match.info.participants.filter(
     (participant) => participant.teamId === 200
   );
@@ -14,7 +14,7 @@ export function getRedTeamInfo(match: MatchInfo) {
   return [playerNames, playerTagLine, championNames];
 }
 
-export function getBlueTeamInfo(match: MatchInfo) {
+export function getBlueTeamInfo(match: TeamUtil) {
   const blueTeam = match.info.participants.filter(
     (participant) => participant.teamId === 100
   );

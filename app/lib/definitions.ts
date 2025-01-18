@@ -253,4 +253,15 @@ export type PingingUtil = {
   };
 };
 
+export type TeamUtil = {
+  info: {
+    participants: {
+      teamId: number;
+      riotIdGameName: string;
+      riotIdTagline: string;
+      championName: string;
+    }[];
+  };
+};
+
 export type Username = Pick<PlayerParams, "username">;
