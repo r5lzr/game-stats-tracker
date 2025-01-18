@@ -1,4 +1,4 @@
-export async function getQueueInfo(queueId: number) {
+export function getQueueInfo(queueId: number) {
   let queueOutcome;
 
   switch (queueId) {
