@@ -1,6 +1,6 @@
 import styles from "./footer.module.css";
 
-const emailAddress = "rich.s.salazar@gmail.com";
+const emailAddress = "";
 
 export const Footer = () => {
   return (
