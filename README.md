@@ -85,7 +85,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## ⚖ License
 
 Distributed under the GPL-3.0 License. See `LICENSE` for more information.
-
-## 📱 Contact
-
-Email - rich.s.salazar@gmail.com
