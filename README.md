@@ -12,8 +12,6 @@ Currently focused on the multiplayer online battle arena, League of Legends. Thi
 
 ![metrics_anim_short](https://github.com/user-attachments/assets/c7106a16-8391-4435-86e7-39e558219bae)
 
-Project is deployed using Vercel: https://metrics-ga.vercel.app/
-
 ## 📝 Instructions
 
 Regions currently available to use: Europe West (EUW), North America (NA).
