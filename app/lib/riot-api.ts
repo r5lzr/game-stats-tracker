@@ -41,6 +41,7 @@ export async function getMatches(
     for (const matchId of await RApi.matchV5.getIdsByPuuid({
       cluster: platformId,
       puuid: (await riotAccount).puuid,
+      params: {count: 25}
     })) {
       matches.push(
         await RApi.matchV5.getMatchById({ cluster: platformId, matchId })
@@ -51,22 +52,29 @@ export async function getMatches(
   return matches;
 }
 
-export async function getSummoner(
-  summonerId: string,
-  region: RiotAPITypes.LoLRegion
-) {
-  return RApi.summoner.getBySummonerId({
-    region: region,
-    summonerId: summonerId,
-  });
-}
+// export async function getSummoner(
+//   summonerId: string,
+//   region: RiotAPITypes.LoLRegion
+// ) {
+//   console.log(summonerId);
+//   console.log(region);
+//   console.log("123213213", await RApi.summoner.getBySummonerId({
+//     region: region,
+//     summonerId: summonerId,
+//   }));
 
-export async function getRankedInfo(
-  summonerId: string,
-  region: RiotAPITypes.LoLRegion
-) {
-  return RApi.league.getEntriesBySummonerId({
-    region: region,
-    summonerId: summonerId,
-  });
-}
+//   return RApi.summoner.getBySummonerId({
+//     region: region,
+//     summonerId: summonerId,
+//   });
+// }
+
+// export async function getRankedInfo(
+//   summonerId: string,
+//   region: RiotAPITypes.LoLRegion
+// ) {
+//   return RApi.league.getEntriesBySummonerId({
+//     region: region,
+//     summonerId: summonerId,
+//   });
+// }

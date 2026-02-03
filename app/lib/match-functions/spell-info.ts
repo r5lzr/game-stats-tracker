@@ -1,11 +1,8 @@
 import { MatchInfo, PlayerParams } from "../definitions";
+import { ddragon } from "../match-functions/ddragon";
 
 export async function getSpellInfo(spellNumberId: number | undefined) {
-  const res = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/15.1.1/data/en_US/summoner.json"
-  );
-
-  const spells = await res.json();
+  const spells = await ddragon.summonerSpells();
 
   for (const summonerSpell in spells.data) {
     const spellKey = parseInt(spells.data[summonerSpell].key);

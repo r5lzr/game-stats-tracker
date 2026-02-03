@@ -1,30 +1,31 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
+import { getLatestDDragonVersion } from "@/app/lib/match-functions/ddragon";
 
-export function getChampion(champ: string | undefined) {
-  if (champ === "FiddleSticks") {
-    champ = "Fiddlesticks";
-  }
+export async function getChampion(champ?: string) {
+  if (!champ) return "/images/empty.png";
 
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/${champ}.png`;
+  const championName = champ === "FiddleSticks" ? "Fiddlesticks" : champ;
 
-  return champ !== undefined ? riotURL : "/images/empty.png";
+  const version = await getLatestDDragonVersion();
+
+  return `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${championName}.png`;
 }
 
-export function ChampIcon({
+export async function ChampIcon({
   match,
 }: {
   match: Pick<MatchStats, "champIcon" | "champLevel">;
 }) {
   const { champIcon, champLevel } = match;
 
-  const champ = getChampion(champIcon);
+  const champ = await getChampion(champIcon);
 
   return (
     <div className={styles["champ-container"]}>
       <Image
-        src={champ || "/images/empty.png"}
+        src={champ}
         fill
         sizes="50px"
         alt="Icon 1"

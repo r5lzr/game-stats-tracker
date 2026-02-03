@@ -1,7 +1,7 @@
 import "@/app/ui/globals.css";
 import styles from "@/app/ui/league-of-legends/profile.module.css";
-import { ProfileIcon } from "@/app/ui/league-of-legends/header/profile-icon";
-import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked-card";
+// import { ProfileIcon } from "@/app/ui/league-of-legends/header/profile-icon";
+// import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked-card";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { MatchCard } from "@/app/ui/league-of-legends/match/match-card";
 import { getHistoryOutcomes } from "@/app/lib/match-outcomes";
@@ -32,7 +32,7 @@ export default async function LeagueProfile({
     <main className="body-container">
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
-          <ProfileIcon summonerId={profileSummonerId} region={params.region} />
+          {/* <ProfileIcon summonerId={profileSummonerId} region={params.region} /> */}
           <span className={styles["username-title"]}>
             {params.username}
             <span className={styles["tagline-title"]}>#{params.tagLine}</span>
@@ -41,7 +41,7 @@ export default async function LeagueProfile({
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
-              <Ranked summonerId={profileSummonerId} region={params.region} />
+              {/* <Ranked summonerId={profileSummonerId} region={params.region} /> */}
             </div>
           </div>
           <div className={styles["primary-container"]}>

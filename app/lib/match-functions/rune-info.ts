@@ -1,13 +1,9 @@
 import { MatchInfo, PlayerParams, runeInfo } from "../definitions";
+import { ddragon } from "../match-functions/ddragon";
 
 export async function getRuneInfo() {
-  const res = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/15.1.1/data/en_US/runesReforged.json"
-  );
-
-  const data = await res.json();
-
-  return data;
+  const runes = await ddragon.runesReforged();
+  return runes;
 }
 
 export async function getRunePrimaryInfo(runeId: number | undefined) {

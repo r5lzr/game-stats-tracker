@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
+import { getLatestDDragonVersion } from "@/app/lib/match-functions/ddragon";
 
 type Items = Pick<
   MatchStats,
@@ -13,23 +14,28 @@ type Items = Pick<
   | "itemId6"
 >;
 
-export function getItem(item: number) {
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/${item}.png`;
+export async function getItem(item?: number) {
+  if (item !== 0) {
+    const version = await getLatestDDragonVersion();
 
-  return item !== 0 ? riotURL : "/images/empty.png";
+    return `https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item}.png`
+  }
+  else {
+    return "/images/empty.png";
+  }
 }
 
-export function Items({ match }: { match: Items }) {
+export async function Items({ match }: { match: Items }) {
   const { itemId0, itemId1, itemId2, itemId3, itemId4, itemId5, itemId6 } =
     match;
 
-  const item0 = getItem(itemId0);
-  const item1 = getItem(itemId1);
-  const item2 = getItem(itemId2);
-  const item3 = getItem(itemId3);
-  const item4 = getItem(itemId4);
-  const item5 = getItem(itemId5);
-  const item6 = getItem(itemId6);
+  const item0 = await getItem(itemId0);
+  const item1 = await getItem(itemId1);
+  const item2 = await getItem(itemId2);
+  const item3 = await getItem(itemId3);
+  const item4 = await getItem(itemId4);
+  const item5 = await getItem(itemId5);
+  const item6 = await getItem(itemId6);
 
   return (
     <div className={styles["items-container"]}>

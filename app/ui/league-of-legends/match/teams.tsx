@@ -1,15 +1,16 @@
 import Image from "next/image";
 import styles from "../profile.module.css";
 import { MatchStats } from "@/app/lib/definitions";
+import { getLatestDDragonVersion } from "@/app/lib/match-functions/ddragon";
 
-export function getChampion(champ: string | undefined) {
-  if (champ === "FiddleSticks") {
-    champ = "Fiddlesticks";
-  }
+export async function getChampion(champ: string | undefined) {
+  if (!champ) return "/images/empty.png";
 
-  const riotURL = `https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/${champ}.png`;
+  const championName = champ === "FiddleSticks" ? "Fiddlesticks" : champ;
 
-  return champ !== undefined ? riotURL : "/images/empty.png";
+  const version = await getLatestDDragonVersion();
+
+  return `https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${championName}.png`;
 }
 
 type Team = {
@@ -18,12 +19,12 @@ type Team = {
   champs: string[];
 };
 
-export function Team({ players, tags, champs }: Team) {
-  const playerChamp1 = getChampion(champs[0]);
-  const playerChamp2 = getChampion(champs[1]);
-  const playerChamp3 = getChampion(champs[2]);
-  const playerChamp4 = getChampion(champs[3]);
-  const playerChamp5 = getChampion(champs[4]);
+export async function Team({ players, tags, champs }: Team) {
+  const playerChamp1 = await getChampion(champs[0]);
+  const playerChamp2 = await getChampion(champs[1]);
+  const playerChamp3 = await getChampion(champs[2]);
+  const playerChamp4 = await getChampion(champs[3]);
+  const playerChamp5 = await getChampion(champs[4]);
 
   return (
     <div className={styles["team-container"]}>
