@@ -1,7 +1,15 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "plugin:testing-library/react",
     "plugin:jest-dom/recommended"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.{test,spec}.{js,jsx,ts,tsx}",
+        "**/__tests__/**/*.{js,jsx,ts,tsx}"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
   ]
 }
