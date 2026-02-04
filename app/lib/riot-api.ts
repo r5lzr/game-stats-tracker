@@ -84,12 +84,12 @@ export async function getSummoner(
   });
 }
 
-// export async function getRankedInfo(
-//   puuid: string,
-//   region: RiotAPITypes.LoLRegion
-// ) {
-//   return RApi.league.getEntriesByPUUID({
-//     region: region,
-//     puuid: puuid,
-//   });
-// }
+export async function getRankedInfo(
+  puuid: string,
+  region: RiotAPITypes.LoLRegion
+) {
+  return RApi.league.getEntriesByPUUID({
+    region: region,
+    puuid: puuid,
+  });
+}

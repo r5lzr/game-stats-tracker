@@ -1,17 +1,12 @@
 import "@/app/ui/globals.css";
 import styles from "@/app/ui/league-of-legends/profile.module.css";
 import { ProfileIcon } from "@/app/ui/league-of-legends/header/profile-icon";
-// import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked-card";
+import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked-card";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { MatchCard } from "@/app/ui/league-of-legends/match/match-card";
 import { getHistoryOutcomes } from "@/app/lib/match-outcomes";
 import { getPlayerMatches } from "@/app/lib/player-matches";
 import { getPUUID } from "@/app/lib/riot-api";
-
-// function getSummonerId(match: MatchStats) {
-//   const { summonerId } = match;
-//   return summonerId;
-// }
 
 export default async function LeagueProfile({
   params,
@@ -42,7 +37,7 @@ export default async function LeagueProfile({
         <div className={styles["main-container"]}>
           <div className={styles["side-container"]}>
             <div className={styles["ranked-container"]}>
-              {/* <Ranked summonerId={profileSummonerId} region={params.region} /> */}
+              <Ranked puuid={puuid} region={params.region} />
             </div>
           </div>
           <div className={styles["primary-container"]}>
