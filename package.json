@@ -37,10 +37,5 @@
     "jest-environment-jsdom": "^29.7.0",
     "prisma": "^6.15.0",
     "ts-jest": "^29.2.5"
-  },
-  "pnpm": {
-    "overrides": {
-      "@fightmegg/riot-rate-limiter": "0.0.23"
-    }
   }
 }

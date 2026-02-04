@@ -1,5 +1,6 @@
 import styles from "@/app/ui/league-of-legends/profile.module.css";
 import { SearchBar } from "@/app/ui/league-of-legends/search/search-bar";
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,6 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <SearchBar />
       </div>
       {children}
+      <Analytics />
     </div>
   );
 }

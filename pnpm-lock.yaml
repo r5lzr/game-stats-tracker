@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@fightmegg/riot-rate-limiter': 0.0.23
-
 importers:
 
   .:
