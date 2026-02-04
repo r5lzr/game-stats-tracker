@@ -13,7 +13,7 @@ const config: RiotAPITypes.Config = {
         // summoner
         [RiotAPITypes.METHOD_KEY.SUMMONER.GET_BY_SUMMONER_ID]: 90000,
         // ranked
-        [RiotAPITypes.METHOD_KEY.LEAGUE.GET_ENTRIES_BY_SUMMONER]: 90000,
+        [RiotAPITypes.METHOD_KEY.LEAGUE.GET_ENTRIES_BY_PUUID]: 90000,
       },
     },
   },
@@ -36,7 +36,7 @@ export async function getMatches(
   });
 
   const matches = [];
-
+  
   if (platformId !== PlatformId.ESPORTS) {
     for (const matchId of await RApi.matchV5.getIdsByPuuid({
       cluster: platformId,
@@ -52,29 +52,44 @@ export async function getMatches(
   return matches;
 }
 
-// export async function getSummoner(
-//   summonerId: string,
-//   region: RiotAPITypes.LoLRegion
-// ) {
-//   console.log(summonerId);
-//   console.log(region);
-//   console.log("123213213", await RApi.summoner.getBySummonerId({
-//     region: region,
-//     summonerId: summonerId,
-//   }));
+type Cluster =
+  | PlatformId.EUROPE
+  | PlatformId.AMERICAS
+  | PlatformId.ASIA
+  | PlatformId.ESPORTS;
 
-//   return RApi.summoner.getBySummonerId({
-//     region: region,
-//     summonerId: summonerId,
-//   });
-// }
+export async function getPUUID(
+  region: RiotAPITypes.LoLRegion,
+  gameName: string,
+  tagLine: string
+) {
+  const cluster = regionToCluster(region) as Cluster;
+
+  const account = await RApi.account.getByRiotId({
+    region: cluster,
+    gameName,
+    tagLine,
+  });
+
+  return account.puuid;
+};
+
+export async function getSummoner(
+  puuid: string,
+  region: RiotAPITypes.LoLRegion
+) {
+  return RApi.summoner.getByPUUID({
+    region: region,
+    puuid: puuid,
+  });
+}
 
 // export async function getRankedInfo(
-//   summonerId: string,
+//   puuid: string,
 //   region: RiotAPITypes.LoLRegion
 // ) {
-//   return RApi.league.getEntriesBySummonerId({
+//   return RApi.league.getEntriesByPUUID({
 //     region: region,
-//     summonerId: summonerId,
+//     puuid: puuid,
 //   });
 // }

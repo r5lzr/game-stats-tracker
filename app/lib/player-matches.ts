@@ -23,25 +23,6 @@ export async function checkFreshMatches(params: PlayerParams) {
 
   const fetchMatchData: any = await matchData(params);
 
-  // try {
-  //   await db.player.upsert({
-  //     where: { summonerId: fetchMatchData[0].summonerId },
-  //     update: {
-  //       playerName: fetchMatchData[0].playerName,
-  //       tagLine: fetchMatchData[0].tagLine,
-  //       regionInfo: params.region,
-  //     },
-  //     create: {
-  //       summonerId: fetchMatchData[0].summonerId,
-  //       playerName: fetchMatchData[0].playerName,
-  //       tagLine: fetchMatchData[0].tagLine,
-  //       regionInfo: params.region,
-  //     },
-  //   });
-  // } catch (error) {
-  //   console.error("Error upserting player in checkFreshMatches", error);
-  // }
-
   let freshMatchLog = false;
 
   await Promise.all(

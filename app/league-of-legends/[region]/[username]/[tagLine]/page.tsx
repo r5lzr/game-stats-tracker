@@ -1,16 +1,17 @@
 import "@/app/ui/globals.css";
 import styles from "@/app/ui/league-of-legends/profile.module.css";
-// import { ProfileIcon } from "@/app/ui/league-of-legends/header/profile-icon";
+import { ProfileIcon } from "@/app/ui/league-of-legends/header/profile-icon";
 // import { Ranked } from "@/app/ui/league-of-legends/ranked/ranked-card";
 import { MatchStats, PlayerParams } from "@/app/lib/definitions";
 import { MatchCard } from "@/app/ui/league-of-legends/match/match-card";
 import { getHistoryOutcomes } from "@/app/lib/match-outcomes";
 import { getPlayerMatches } from "@/app/lib/player-matches";
+import { getPUUID } from "@/app/lib/riot-api";
 
-function getSummonerId(match: MatchStats) {
-  const { summonerId } = match;
-  return summonerId;
-}
+// function getSummonerId(match: MatchStats) {
+//   const { summonerId } = match;
+//   return summonerId;
+// }
 
 export default async function LeagueProfile({
   params,
@@ -25,14 +26,14 @@ export default async function LeagueProfile({
 
   // const matchDataList: any = await matchData(params);
   // console.log(matchDataList);
-  const profileSummonerId = getSummonerId(matchDataList[0]);
+  const puuid = await getPUUID(params.region, params.username, params.tagLine);
   const historyOutcomes = getHistoryOutcomes(matchDataList);
 
   return (
     <main className="body-container">
       <div className={styles["inside-background"]}>
         <div className={styles["username-container"]}>
-          {/* <ProfileIcon summonerId={profileSummonerId} region={params.region} /> */}
+          <ProfileIcon puuid={puuid} region={params.region} />
           <span className={styles["username-title"]}>
             {params.username}
             <span className={styles["tagline-title"]}>#{params.tagLine}</span>
